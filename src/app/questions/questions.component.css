@@ -1,0 +1,108 @@
+.main {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #1a1f24;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.question-container {
+    background-color: white;
+    border-radius: 15px;
+    padding: 30px;
+    width: 75%;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.question-title {
+    font-size: 24px;
+    color: #1a1a1a; /* Dark text color */
+    margin-bottom: 20px;
+}
+
+.answer-box {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+textarea {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    resize: none;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.voice-controls {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+.voice-btn {
+    background-color: #7367f0; /* Button color similar to arrow button */
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 10px 20px;
+    margin: 0 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 16px;
+}
+
+.voice-btn:hover {
+    background-color: #5b54db; /* Darker shade on hover */
+}
+
+.submit-btn {
+    background-color: #7367f0; /* Submit button color */
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 15px 40px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.3s ease;
+}
+
+.submit-btn:hover {
+    background-color: #5b54db; /* Darker shade on hover */
+}
+
+
+.go-back-container {
+    position: fixed;
+    top: 11%; /* Aligns the button vertically near the top */
+    left: 92%; /* Positions the button on the right side */
+    transform: translateX(-50%); /* Ensures the button stays centered horizontally */
+}
+.go-back-btn {
+    display: flex;
+    align-items: center; /* Aligns icon and text horizontally */
+    padding: 5px 10px; /* Reduced padding */
+    font-size: 14px; /* Smaller font size */
+    background-color: transparent;
+    color: white;
+    border: 1px solid white;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.go-back-btn svg {
+    margin-right: 6px; /* Spacing between icon and text */
+    width: 18px; /* Reduced icon size */
+    height: 18px;
+    stroke: white;
+}
+
+.go-back-btn:hover {
+    background-color: #3eb0ac;
+    color: white;
+}

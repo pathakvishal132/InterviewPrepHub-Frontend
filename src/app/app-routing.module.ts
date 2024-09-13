@@ -1,7 +1,59 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { InterviewDashboardComponent } from './interview-dashboard/interview-dashboard.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { UserReviewComponent } from './user-review/user-review.component';
+import { HeaderComponent } from './header/header.component';
+import { FooterComponent } from './footer/footer.component';
+import { AboutComponent } from './about/about.component';
+import { DomainDashboardComponent } from './domain-dashboard/domain-dashboard.component';
+import { ComputerScienceComponent } from './computer-science/computer-science.component';
+import { ElectronicsCommunicationComponent } from './electronics-communication/electronics-communication.component';
+import { ElectricalComponent } from './electrical/electrical.component';
+import { MechanicalComponent } from './mechanical/mechanical.component';
+import { CivilComponent } from './civil/civil.component';
+// import { QuestionsComponent } from './questions/questions.component';
+// import { ContactComponent } from './contact/contact.component';
+import { LoginComponent } from './login/login.component';
+const routes: Routes = [
+  { path: 'interview-dashboard', component: InterviewDashboardComponent },
+  {
+    path: '', component: DashboardComponent, pathMatch: 'full'
+  },
+  { path: 'about', component: AboutComponent },
+  { path: 'user-review', component: UserReviewComponent },
+  { path: 'header', component: HeaderComponent },
+  { path: 'domain-dashboard', component: DomainDashboardComponent, },
+  { path: 'footer', component: FooterComponent },
+  {
+    path: 'computer-science', component: ComputerScienceComponent
+  },
+  {
+    path: 'electrical', component: ElectricalComponent
+  },
 
-const routes: Routes = [];
+  {
+    path: 'electronics-communication', component: ElectronicsCommunicationComponent
+  },
+
+  {
+    path: 'mechanical', component: MechanicalComponent
+  },
+
+  {
+    path: 'civil', component: CivilComponent
+  },
+  {
+    path: 'questions',
+    loadChildren: () => import('./questions/questions.module').then(m => m.QuestionsModule)
+  },
+  {
+    path: 'contact', loadChildren: () => import('./contact/contact.module').then(m => m.ContactModule)
+  },
+  { path: 'domain-dashboard', loadChildren: () => import('./domain/domain.module').then(m => m.DomainModule) },
+  { path: 'login', component: LoginComponent }
+
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
