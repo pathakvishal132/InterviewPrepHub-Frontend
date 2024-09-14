@@ -119,10 +119,10 @@ export class VoiceRecognitionService {
       console.log('Speech recognition stopped');
     }
   }
-  showAnswer(): void {
-    const answerSection = document.getElementById('answerSection');
-    if (answerSection) {
-      answerSection.style.display = 'block';
-    }
-  }
+  // showAnswer(): void {
+  //   const answerSection = document.getElementById('answerSection');
+  //   if (answerSection) {
+  //     answerSection.style.display = 'block';
+  //   }
+  // }
 }
