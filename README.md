@@ -1,5 +1,5 @@
 # Frontend
-![Alt text](https://drive.google.com/file/d/1rTj-wTXiFYPryWqMKdlzn_A3QsJZWptD/view?usp=sharing)
+![Alt text](https://ibb.co/34FDnnN)
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.2.3.
 
 ## Development server
