@@ -1,5 +1,5 @@
 # Frontend
-![Alt text](https://ibb.co/34FDnnN)
+![Alt text](https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png)
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.2.3.
 
 ## Development server
