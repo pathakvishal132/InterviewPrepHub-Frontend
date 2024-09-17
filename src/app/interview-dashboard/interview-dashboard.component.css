@@ -106,3 +106,16 @@
     background-color: #3eb0ac;
     color: white;
 }
+
+.company{
+    margin-top: 35px;
+   
+}
+.company , .domain{
+    padding: 10px;
+    margin: 10px;
+    border: 1px solid;
+    border-color: #f0f0e9;
+    border-radius: 10px;
+    border-width: medium;
+}

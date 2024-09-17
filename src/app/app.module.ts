@@ -22,6 +22,10 @@ import { TestComponent } from './test/test.component';
 // import { ContactComponent } from './contact/contact.component';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './login/login.component';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { DialogComponentComponent } from './dialog-component/dialog-component.component';
+import { DialogComponent } from './dialog/dialog.component';
+// import { CompanyComponent } from './company/company.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +46,9 @@ import { LoginComponent } from './login/login.component';
     TestComponent,
     // ContactComponent,
     LoginComponent,
+    DialogComponentComponent,
+    DialogComponent,
+    // CompanyComponent,
 
 
   ],
@@ -55,6 +62,7 @@ import { LoginComponent } from './login/login.component';
   providers: [
     provideClientHydration(),
     QuestionsService,
+    provideAnimationsAsync(),
   ],
   bootstrap: [AppComponent]
 })

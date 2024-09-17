@@ -121,6 +121,8 @@ import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { VoiceRecognitionService } from '../services/voice-recognition.service';
 import { ChangeDetectorRef } from '@angular/core';
+import * as marked from 'marked';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-questions',
@@ -138,13 +140,17 @@ export class QuestionsComponent implements OnInit {
   domain: string = '';
   subdomain: string = '';
   actualAnswer: string = '';
+  feedbackStatus: boolean = false;
+  actualAnswerStatus: boolean = false;
+  aa: any;
 
   constructor(
     private questionService: QuestionsService,
     private location: Location,
     private route: ActivatedRoute,
-    private voiceService: VoiceRecognitionService, // Inject the voice service
-    private cdr: ChangeDetectorRef // Inject ChangeDetectorRef
+    private voiceService: VoiceRecognitionService,
+    private cdr: ChangeDetectorRef,
+    // private sanitizer: DomSanitizer
   ) { }
 
   ngOnInit(): void {
@@ -186,6 +192,8 @@ export class QuestionsComponent implements OnInit {
           this.questions = data.result.result;
           this.currentQuestion = this.questions[`q${this.currentIndex + 1}`];
           this.loading = false;
+          this.actualAnswerStatus = false;
+          this.feedbackStatus = false;
         },
         (error) => {
           console.error('Error fetching questions:', error);
@@ -200,6 +208,8 @@ export class QuestionsComponent implements OnInit {
       this.feedback = '';
       this.actualAnswer = '';
       this.userAnswer = '';
+      this.actualAnswerStatus = false;
+      this.feedbackStatus = false;
       this.currentIndex++;
       this.currentQuestion = this.questions[`q${this.currentIndex + 1}`];
     }
@@ -211,6 +221,8 @@ export class QuestionsComponent implements OnInit {
       this.feedback = '';
       this.actualAnswer = '';
       this.userAnswer = '';
+      this.actualAnswerStatus = false;
+      this.feedbackStatus = false;
       this.currentIndex--;
       this.currentQuestion = this.questions[`q${this.currentIndex + 1}`];
     }
@@ -233,6 +245,14 @@ export class QuestionsComponent implements OnInit {
           }
         );
     }
+  }
+  getFeedback() {
+    this.feedbackStatus = true;
+    this.actualAnswerStatus = false;
+  }
+  getActualAnswer() {
+    this.actualAnswerStatus = true;
+    this.feedbackStatus = false;
   }
 
   // Navigate back to the previous page

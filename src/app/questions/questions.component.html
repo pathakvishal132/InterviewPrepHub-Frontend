@@ -16,10 +16,19 @@
                     <button class="voice-btn" (click)="nextQuestion()">Next Question</button>
                     <button class="voice-btn" (click)="previousQuestion()">Previous Question</button>
                 </div>
+               
+                
             </div>
+               <div class="answer-actions">
+
+                    <button class="feedback-btn" *ngIf="feedback.length" (click)="getFeedback()">Feedback</button>
+                    <button class="actual-answer-btn" *ngIf="actualAnswer.length" (click)="getActualAnswer()">Actual Answer</button>
+                </div>
             <button id="submit-btn" (click)="submitAnswer()" class="submit-btn">Submit Answer</button>
             <p *ngIf="loadingAnswers">Loading Feedback and Actual Answer</p>
-            <p>{{feedback}}</p>
+
+            <p *ngIf="feedbackStatus">{{feedback}}</p>
+            <p *ngIf="actualAnswerStatus">{{actualAnswer}}</p>
         </ng-template>
     </div>
 <div class="go-back-container">

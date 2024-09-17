@@ -15,6 +15,7 @@ import { CivilComponent } from './civil/civil.component';
 // import { QuestionsComponent } from './questions/questions.component';
 // import { ContactComponent } from './contact/contact.component';
 import { LoginComponent } from './login/login.component';
+// import { CompanyComponent } from './company/company.component';
 const routes: Routes = [
   { path: 'interview-dashboard', component: InterviewDashboardComponent },
   {
@@ -51,7 +52,11 @@ const routes: Routes = [
     path: 'contact', loadChildren: () => import('./contact/contact.module').then(m => m.ContactModule)
   },
   { path: 'domain-dashboard', loadChildren: () => import('./domain/domain.module').then(m => m.DomainModule) },
-  { path: 'login', component: LoginComponent }
+  { path: 'login', component: LoginComponent },
+  {
+    path: 'company',
+    loadChildren: () => import('./company/company.module').then(m => m.CompanyModule)
+  },
 
 ];
 
