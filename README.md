@@ -1,27 +1,20 @@
-# Frontend
-![Alt text](https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png)
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.2.3.
+## Interview Prep Hub
+## Overview
+Interview Prep Hub is a comprehensive web application designed to assist students and professionals in preparing for interviews across various engineering domains. The platform offers a wide range of features including domain-specific questions, soft skill training, and company-specific interview preparation, all aimed at enhancing users' chances of success in job interviews.
 
-## Development server
+## Features
+Domain Selection: Users can choose from a variety of engineering domains such as Computer Science, Electronics, Mechanical, Civil, and more. Each domain contains curated questions tailored to the industry standards.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Question Bank: The application hosts an extensive database of interview questions, which users can browse through. Questions are categorized by level of difficulty, allowing users to select based on their preparation needs.
 
-## Code scaffolding
+## Interactive Learning: Users can answer questions directly within the application and receive instant feedback, including detailed explanations and sample answers.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Soft Skills Preparation: In addition to technical questions, the platform includes modules for practicing soft skills, which are essential for interviews.
 
-## Build
+Company-Specific Questions: Users can prepare for interviews at specific companies by accessing questions that have been frequently asked in past interviews.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Progress Tracking: The platform provides tools for users to track their progress, helping them to identify strengths and weaknesses in their preparation.
 
-## Running unit tests
+Technologies Used
+Frontend: Built with Angular, utilizing components and services to create a dynamic user interface that provides a seamless user experience.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
