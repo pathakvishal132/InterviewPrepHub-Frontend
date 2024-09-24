@@ -1,8 +1,11 @@
 <div class="main">
     <div class="question-container">
         <!-- Display a loading message while waiting for data -->
-        <ng-container *ngIf="loading; else content">
+        <!-- <ng-container *ngIf="loading; else content">
             <body>Loading</body>
+        </ng-container> -->
+        <ng-container *ngIf="loading; else content">
+        <div class="loading-spinner"></div>
         </ng-container>
 
         <ng-template #content>
@@ -25,7 +28,10 @@
                     <button class="actual-answer-btn" *ngIf="actualAnswer.length" (click)="getActualAnswer()">Actual Answer</button>
                 </div>
             <button id="submit-btn" (click)="submitAnswer()" class="submit-btn">Submit Answer</button>
-            <p *ngIf="loadingAnswers">Loading Feedback and Actual Answer</p>
+            <ng-container *ngIf="loadingAnswers">
+                <div class="loading-spinner"></div>
+            </ng-container>
+
 
             <p *ngIf="feedbackStatus">{{feedback}}</p>
             <p *ngIf="actualAnswerStatus">{{actualAnswer}}</p>

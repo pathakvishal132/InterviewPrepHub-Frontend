@@ -1,7 +1,124 @@
 .main {
     margin: 0;
-    padding: 0;
     font-family: Arial, sans-serif;
-    background-color: #1a1f24;
-    color: #333;
+    background-color: #1a1f24; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    background-color: #2a2f36; 
+    border-radius: 15px;
+    padding: 30px;
+    width: 85%;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); 
+}
+
+.table-title {
+    font-size: 50px;
+    color: #ffffff; 
+    text-align: start;
+    margin-bottom: 20px;
+}
+
+.search-box {
+    text-align: right;
+    margin-bottom: 20px;
+}
+
+.search-box input {
+    padding: 10px;
+    border: 1px solid #555; /* Darker border for input */
+    background-color: #3a3f46; /* Dark input background */
+    color: #ffffff; /* Light text for input */
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+.company-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.company-table th,
+.company-table td {
+    padding: 15px;
+    border: 1px solid #444; /* Darker border for the table */
+    text-align: center;
+    color: #ffffff; /* Light text color */
+}
+
+.company-table th {
+    background-color: #3a3f46; /* Dark background for table headers */
+}
+
+.company-table tr:nth-child(even) {
+    background-color: #2f343b; /* Alternating row background for better readability */
+}
+
+.company-table tr:nth-child(odd) {
+    background-color: #25292e; /* Dark background for odd rows */
+}
+
+.pagination {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.pagination button {
+    background-color: #7367f0; /* Bright button color */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 50px;
+    cursor: pointer;
+    margin: 0 5px;
+    transition: background-color 0.3s ease;
+}
+
+.pagination button:disabled {
+    background-color: #444; /* Disabled button with darker color */
+    cursor: not-allowed;
+}
+
+.pagination span {
+    font-size: 16px;
+    color: #ffffff; /* Light text for page number display */
+}
+
+.pagination button:hover {
+    background-color: #5b54db; /* Slight hover effect for buttons */
+}
+
+.go-back-container {
+    position: fixed;
+    top: 11%; /* Aligns the button vertically near the top */
+    left: 92%; /* Positions the button on the right side */
+    transform: translateX(-50%); /* Ensures the button stays centered horizontally */
+}
+.go-back-btn {
+    display: flex;
+    align-items: center; /* Aligns icon and text horizontally */
+    padding: 5px 10px; /* Reduced padding */
+    font-size: 14px; /* Smaller font size */
+    background-color: transparent;
+    color: white;
+    border: 1px solid white;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.go-back-btn svg {
+    margin-right: 6px; 
+    width: 18px;
+    height: 18px;
+    stroke: white;
+}
+
+.go-back-btn:hover {
+    background-color: #3eb0ac;
+    color: white;
 }

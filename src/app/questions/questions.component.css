@@ -142,7 +142,23 @@ textarea {
 
 
 .feedback-btn, .actual-answer-btn:hover{
-  background-color: #5b54db; 
   opacity: 0.9;
 }
 
+/* Add this to your component's CSS file or global styles */
+
+.loading-spinner {
+  border: 8px solid #f3f3f3; /* Light grey background */
+  border-top: 8px solid #3498db; /* Blue spinner color */
+  border-radius: 50%;
+  width: 50px; /* Size of the spinner */
+  height: 50px; /* Size of the spinner */
+  animation: spin 1s linear infinite; /* Animation */
+  margin: 0 auto; /* Center the spinner horizontally */
+}
+
+/* Spinner animation */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
