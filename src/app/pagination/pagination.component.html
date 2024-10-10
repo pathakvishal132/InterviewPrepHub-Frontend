@@ -1,0 +1,38 @@
+<div class="table_row pagination" *ngIf="pager.pages && pager.pages.length">
+  <div class="table_cell" [class.disabled]="pager.currentPage === 1">
+    <a (click)="setPage(pager.currentPage - 1)">
+      <svg width="24" height="24" class="_vam pagination-arrowleft"  viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="#101828" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        
+      
+      <!-- <span class="btwc">Previous</span> -->
+    </a>
+  </div>
+  <div class="table_cell" *ngIf="type === 'default'">
+    <div class="table_row">
+      <div class="table_cell" *ngFor="let page of pager.pages" [class.active-page]="pager.currentPage === page">
+        <a class="fw7" (click)="setPage(page)">{{ page }}</a>
+      </div>
+    </div>
+  </div>
+  <div class="table_cell" *ngIf="type === 'default'">
+    <a>
+      <input class="page-jumper" type="text" [(ngModel)]="switchedPage" value="{{ switchedPage }}"
+        (change)="gotoPage(switchedPage)" />
+    </a>
+  </div>
+  <div class="table_cell" [class.disabled]="pager.currentPage === pager.totalPages">
+    <a class="fw7" (click)="setPage(pager.currentPage + 1)">
+      <!-- <span class="btwc">Next</span> -->
+      <svg width="24" height="24" viewBox="0 0 24 24"   class="_vam pagination-arrowright" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="#101828" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    
+    </a>
+  </div>
+
+  <div style="min-width: 150px" class="table_cell">showing {{ itemViewd(pager) }} of
+    {{ itemViewd(pager) > 0 ? itemsLength : 0 }}</div>
+</div>
+

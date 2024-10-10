@@ -12,10 +12,12 @@ import { ElectronicsCommunicationComponent } from './electronics-communication/e
 import { ElectricalComponent } from './electrical/electrical.component';
 import { MechanicalComponent } from './mechanical/mechanical.component';
 import { CivilComponent } from './civil/civil.component';
+// import { CompanyDetailsComponent } from './company-details/company-details.component';
 // import { QuestionsComponent } from './questions/questions.component';
 // import { ContactComponent } from './contact/contact.component';
 import { LoginComponent } from './login/login.component';
 // import { CompanyComponent } from './company/company.component';
+import { UserStepsComponent } from './user-steps/user-steps.component';
 const routes: Routes = [
   { path: 'interview-dashboard', component: InterviewDashboardComponent },
   {
@@ -45,6 +47,9 @@ const routes: Routes = [
     path: 'civil', component: CivilComponent
   },
   {
+    path: 'user-steps', component: UserStepsComponent
+  },
+  {
     path: 'questions',
     loadChildren: () => import('./questions/questions.module').then(m => m.QuestionsModule)
   },
@@ -57,6 +62,7 @@ const routes: Routes = [
     path: 'company',
     loadChildren: () => import('./company/company.module').then(m => m.CompanyModule)
   },
+
 
 ];
 

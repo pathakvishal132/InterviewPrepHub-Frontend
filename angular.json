@@ -31,7 +31,7 @@
             ],
             "tsConfig": "tsconfig.app.json",
             "assets": [
-              "src/assets/dashboard/logo.jpg",
+              "dashboard/logo.jpg",
               "src/assets"
             ],
             "styles": [

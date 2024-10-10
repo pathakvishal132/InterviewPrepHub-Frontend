@@ -1,36 +1,41 @@
+
 <div class="main">
     <div class="container">
-        <div class="table-title">
-            <h2 >Companies</h2>
+         <div class="table-title">
+            <h2 >Problems</h2>
         </div>
 
         <!-- Search Box -->
         <div class="search-box">
-            <input type="text" [(ngModel)]="searchText" placeholder="Search company...">
+            <input type="text" [(ngModel)]="searchText" placeholder="Search Questions...">
         </div>
 
         <!-- Company Table -->
-      
         <table class="company-table">
             <thead>
                 <tr>
-                    <th>Company Name</th>
+                    <th>Status</th>
                     <th>Title</th>
-                    <th>Details View</th>
-                    <th>Interview Level</th>
+                    <th>Solution</th>
+                    <th>Difficulty</th>
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let company of companies">
-                    <td style="text-transform: capitalize;">{{ company.name }}</td>
-                    <td>title</td>
-                    <td><a [routerLink]="['/company/details', company.id]">View Details</a></td>
-
-                    <td>{{ company.interviewLevel }}</td>
+                <tr *ngFor="let question of questions">
+                    <td>{{ question.status }}</td>
+                    <td>{{ question.title }}</td>
+                    <td>
+                    <a [href]="question.solutionUrl" target="_blank" class="solution-link">
+                        View Solution
+                    </a>
+                    </td>
+                    <td>{{ question.difficulty }}</td>
                 </tr>
 
             </tbody>
         </table>
+
+        <!-- Pagination -->
         <div class="pagination">
             <button (click)="prevPage()" >Previous</button>
             <span>Page {{ currentPage }} of {{ totalPages }}</span>

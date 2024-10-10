@@ -1,0 +1,41 @@
+.table_row {
+        display: flex;
+      }
+      .pagination {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 70%;
+        margin: auto;
+        height: 100%;
+        cursor: initial;
+        color: #b7b7b7;
+      }
+      .pagination .table_cell {
+        text-align: center;
+        display: flex;
+        padding: 0 5px;
+      }
+      .table_cell.active-page {
+        color: #d02030;
+        a { color : #d02030 !important; }
+      }
+      .disabled {
+        color: #000;
+        cursor: not-allowed;
+      }
+      .disabled a {
+        pointer-events: none !important;
+      }
+      input.page-jumper {
+        width: 33px;
+        border-radius: 3px;
+        border: 1px solid #b7b7b7;
+        padding: 2px 2px;
+        color: #b7b7b7;
+        text-align: center;
+      }
+      input.page-jumper:focus {
+        outline: none !important;
+        box-shadow: none !important;
+      }

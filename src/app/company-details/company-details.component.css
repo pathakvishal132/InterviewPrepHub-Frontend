@@ -35,7 +35,6 @@
     margin-left: 20px;
 }
 
-
 .search-box {
     text-align: right;
     margin-bottom: 20px;
@@ -52,11 +51,11 @@
 
 .company-table {
     width: 100%;
-    border-collapse: separate; 
+    border-collapse: separate; /* Use separate borders to apply border-radius */
     margin-bottom: 20px;
-    border-spacing: 0; 
-    border-radius: 10px; 
-    overflow: hidden; 
+    border-spacing: 0; /* Remove spacing between cells */
+    border-radius: 10px; /* Rounded corners for the whole table */
+    overflow: hidden; /* Ensures the border-radius cuts off any overflowing content */
 }
 
 .company-table th,

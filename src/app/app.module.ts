@@ -25,6 +25,9 @@ import { LoginComponent } from './login/login.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { DialogComponentComponent } from './dialog-component/dialog-component.component';
 import { DialogComponent } from './dialog/dialog.component';
+import { PaginationComponent } from './pagination/pagination.component';
+import { UserStepsComponent } from './user-steps/user-steps.component';
+// import { CompanyDetailsComponent } from './company-details/company-details.component';
 // import { CompanyComponent } from './company/company.component';
 
 @NgModule({
@@ -48,6 +51,9 @@ import { DialogComponent } from './dialog/dialog.component';
     LoginComponent,
     DialogComponentComponent,
     DialogComponent,
+    PaginationComponent,
+    UserStepsComponent,
+    // CompanyDetailsComponent,
     // CompanyComponent,
 
 
