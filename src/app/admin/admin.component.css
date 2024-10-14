@@ -1,0 +1,88 @@
+/* General styles for the form */
+form {
+    max-width: 600px; /* Set a max width for the form */
+    margin: 0 auto; /* Center the form */
+    padding: 20px;
+    background-color: #393e46; /* Dark background for the form */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Shadow for depth */
+}
+
+/* Style for labels */
+label {
+    display: block; /* Make labels block elements */
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: #eeeeee; /* Light text color */
+}
+
+/* Styles for input fields and text areas */
+input[type="text"],
+input[type="number"],
+select {
+    width: 100%; /* Full width */
+    padding: 10px;
+    border: 1px solid #5b6471; /* Border color */
+    border-radius: 4px; /* Rounded corners */
+    background-color: #222831; /* Dark input background */
+    color: #ffffff; /* Text color */
+    font-size: 16px; /* Font size */
+    margin-bottom: 15px; /* Space between fields */
+}
+
+/* Styles for text areas specifically */
+textarea {
+    width: 100%; /* Full width */
+    padding: 15px; /* Increased padding for more space */
+    border: 1px solid #5b6471; /* Border color */
+    border-radius: 4px; /* Rounded corners */
+    background-color: #222831; /* Dark input background */
+    color: #ffffff; /* Text color */
+    font-size: 16px; /* Font size */
+    margin-bottom: 15px; /* Space between fields */
+    height: 120px; /* Increased height for text areas */
+    resize: vertical; /* Allow vertical resizing */
+}
+
+/* Styles for input focus state */
+input:focus,
+textarea:focus,
+select:focus {
+    border-color: #00adb5; /* Highlight border on focus */
+    outline: none; /* Remove default outline */
+}
+
+/* Styles for the submit button */
+button[type="submit"] {
+    width: 100%; /* Full width button */
+    padding: 12px;
+    background-color: #00adb5; /* Button background color */
+    border: none; /* Remove border */
+    color: #ffffff; /* Button text color */
+    border-radius: 4px; /* Rounded corners */
+    font-size: 16px; /* Font size */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s; /* Smooth transition */
+}
+
+/* Button hover effect */
+button[type="submit"]:hover {
+    background-color: #007a7d; /* Darken button color on hover */
+}
+
+/* Placeholder styling */
+input::placeholder,
+textarea::placeholder {
+    color: #b0b0b0; /* Placeholder text color */
+}
+
+/* Responsive styles */
+@media (max-width: 600px) {
+    form {
+        padding: 15px; /* Reduce padding on smaller screens */
+    }
+
+    button[type="submit"] {
+        font-size: 14px; /* Slightly smaller font size */
+    }
+}

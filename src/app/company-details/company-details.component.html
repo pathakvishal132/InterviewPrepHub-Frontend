@@ -14,33 +14,38 @@
         <table class="company-table">
             <thead>
                 <tr>
-                    <th>Status</th>
-                    <th>Title</th>
-                    <th>Solution</th>
-                    <th>Difficulty</th>
+                    <th>Question</th>
+                    <th>Answer</th>
+                    <!-- <th>Solution</th>
+                    <th>Difficulty</th> -->
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let question of questions">
-                    <td>{{ question.status }}</td>
-                    <td>{{ question.title }}</td>
-                    <td>
+                    <td>{{ question.question }}</td>
+                    <td>{{ question.answer }}</td>
+                    <!-- <td>
                     <a [href]="question.solutionUrl" target="_blank" class="solution-link">
                         View Solution
                     </a>
                     </td>
-                    <td>{{ question.difficulty }}</td>
+                    <td>{{ question.difficulty }}</td> -->
                 </tr>
 
             </tbody>
         </table>
 
         <!-- Pagination -->
-        <div class="pagination">
-            <button (click)="prevPage()" >Previous</button>
-            <span>Page {{ currentPage }} of {{ totalPages }}</span>
-            <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
-        </div>
+        <div>
+  <!-- Your data list display here -->
+  
+         <app-pagination
+            [currentPage]="currentPage"
+            [totalPages]="totalPages"
+            (pageChanged)="onPageChanged($event)">
+        </app-pagination>
+       
+        
     </div>
     <div class="go-back-container">
     <button (click)="goBack()" class="go-back-btn">

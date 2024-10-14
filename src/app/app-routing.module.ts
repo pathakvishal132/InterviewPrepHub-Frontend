@@ -18,6 +18,7 @@ import { CivilComponent } from './civil/civil.component';
 import { LoginComponent } from './login/login.component';
 // import { CompanyComponent } from './company/company.component';
 import { UserStepsComponent } from './user-steps/user-steps.component';
+import { AdminComponent } from './admin/admin.component';
 const routes: Routes = [
   { path: 'interview-dashboard', component: InterviewDashboardComponent },
   {
@@ -61,6 +62,10 @@ const routes: Routes = [
   {
     path: 'company',
     loadChildren: () => import('./company/company.module').then(m => m.CompanyModule)
+  },
+
+  {
+    path: 'admin', component: AdminComponent
   },
 
 

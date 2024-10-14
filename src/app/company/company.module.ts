@@ -5,6 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CompanyDetailsComponent } from '../company-details/company-details.component';
 
+import { PaginationModule } from '../pagination/pagination.module';
 const routes: Routes = [
     {
         path: '',
@@ -24,7 +25,8 @@ const routes: Routes = [
     imports: [
         CommonModule,
         FormsModule,
-        RouterModule.forChild(routes)
+        RouterModule.forChild(routes),
+        PaginationModule
     ]
 })
 export class CompanyModule { }

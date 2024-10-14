@@ -25,10 +25,14 @@ import { LoginComponent } from './login/login.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { DialogComponentComponent } from './dialog-component/dialog-component.component';
 import { DialogComponent } from './dialog/dialog.component';
-import { PaginationComponent } from './pagination/pagination.component';
+// import { PaginationComponent } from './pagination/pagination.component';
 import { UserStepsComponent } from './user-steps/user-steps.component';
+import { AdminComponent } from './admin/admin.component';
+import { InterviewDiscussionComponent } from './interview-discussion/interview-discussion.component';
 // import { CompanyDetailsComponent } from './company-details/company-details.component';
 // import { CompanyComponent } from './company/company.component';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { PaginationModule } from './pagination/pagination.module';
 
 @NgModule({
   declarations: [
@@ -51,8 +55,10 @@ import { UserStepsComponent } from './user-steps/user-steps.component';
     LoginComponent,
     DialogComponentComponent,
     DialogComponent,
-    PaginationComponent,
+    // PaginationComponent,
     UserStepsComponent,
+    AdminComponent,
+    InterviewDiscussionComponent,
     // CompanyDetailsComponent,
     // CompanyComponent,
 
@@ -64,12 +70,14 @@ import { UserStepsComponent } from './user-steps/user-steps.component';
     RouterModule,
     HttpClientModule,
     FormsModule,
+    PaginationModule
   ],
   providers: [
     provideClientHydration(),
     QuestionsService,
     provideAnimationsAsync(),
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppModule { }

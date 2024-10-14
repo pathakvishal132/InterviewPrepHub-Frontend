@@ -11,9 +11,13 @@ export class CompanyService {
 
   constructor(private http: HttpClient) { }
 
-  getCompany(): Observable<any> {
+  getCompany(page: number): Observable<any> {
     // const payload = { question, answer };
     // console.log(payload);
-    return this.http.get<any>(`${this.apiUrl}/get_company/`);
+    return this.http.get<any>(`${this.apiUrl}/get_company/?page=${page}`);
+  }
+
+  getCompanyQuestion(companyId: any, page: number) {
+    return this.http.get<any>(`${this.apiUrl}/company/${companyId}/questions?page=${page}`);
   }
 }

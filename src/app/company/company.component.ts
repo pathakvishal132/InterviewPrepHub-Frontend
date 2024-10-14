@@ -10,9 +10,9 @@ import { Location } from '@angular/common';
 })
 export class CompanyComponent implements OnInit {
   companies: any;
-  totalPages: any;
-  currentPage: any;
   searchText: any;
+  currentPage: number = 1;
+  totalPages: number = 1;
 
   constructor(public dialog: MatDialog,
     private cs: CompanyService,
@@ -20,12 +20,13 @@ export class CompanyComponent implements OnInit {
 
   ) { }
   ngOnInit(): void {
-    this.getCompany();
+    this.getCompany(this.currentPage);
+
   }
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogComponent, {
       width: '250px',
-      data: { message: 'Hello from MainComponent' } // Pass data if needed
+      data: { message: 'Hello from MainComponent' }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -33,19 +34,21 @@ export class CompanyComponent implements OnInit {
     });
   }
 
-  getCompany() {
-    this.cs.getCompany().subscribe(
+  getCompany(page: number): void {
+    this.cs.getCompany(page).subscribe(
       (data) => {
-        this.companies = data.companies;  // Correctly assign the company data
+        this.companies = data.companies;
+        this.totalPages = data.total_pages;
       },
       (error) => {
-        console.error('Error fetching companies:', error);  // Update error message to refer to companies
+        console.error('Error fetching companies:', error);
       }
     );
   }
-  viewDetails() { }
-  prevPage() { }
-  nextPage() { }
+  onPageChanged(page: number): void {
+    this.currentPage = page;
+    this.getCompany(this.currentPage);
+  }
 
   goBack(): void {
     this.location.back();
