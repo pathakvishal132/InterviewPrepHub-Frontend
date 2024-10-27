@@ -4,12 +4,14 @@
             <h2 >Companies</h2>
         </div>
 
-        <!-- Search Box -->
         <div class="search-box">
-            <input type="text" [(ngModel)]="searchText" placeholder="Search company...">
+            <input 
+                type="text" 
+                placeholder="Search company..." 
+                [(ngModel)]="searchTerm" 
+                (keyup.enter)="onSearch()" 
+            />
         </div>
-
-        <!-- Company Table -->
       
         <table class="company-table">
             <thead>

@@ -20,4 +20,12 @@ export class CompanyService {
   getCompanyQuestion(companyId: any, page: number) {
     return this.http.get<any>(`${this.apiUrl}/company/${companyId}/questions?page=${page}`);
   }
+
+  search_company(word: string, page: number) {
+    return this.http.get<any>(`${this.apiUrl}/search_company/?word=${word}&page=${page}`);
+  }
+
+  search_question(id: number, word: string, page: number) {
+    return this.http.get<any>(`${this.apiUrl}/search_question/?word=${word}&page=${page}`);
+  }
 }

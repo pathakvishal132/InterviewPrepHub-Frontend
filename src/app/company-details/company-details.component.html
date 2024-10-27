@@ -5,38 +5,26 @@
             <h2 >Problems</h2>
         </div>
 
-        <!-- Search Box -->
         <div class="search-box">
-            <input type="text" [(ngModel)]="searchText" placeholder="Search Questions...">
+            <input 
+                type="text" 
+                placeholder="Search Questions..."
+                [(ngModel)]="searchTerm" 
+                (keyup.enter)="onSearch()" 
+            />
         </div>
 
         <!-- Company Table -->
-        <table class="company-table">
-            <thead>
-                <tr>
-                    <th>Question</th>
-                    <th>Answer</th>
-                    <!-- <th>Solution</th>
-                    <th>Difficulty</th> -->
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let question of questions">
-                    <td>{{ question.question }}</td>
-                    <td>{{ question.answer }}</td>
-                    <!-- <td>
-                    <a [href]="question.solutionUrl" target="_blank" class="solution-link">
-                        View Solution
-                    </a>
-                    </td>
-                    <td>{{ question.difficulty }}</td> -->
-                </tr>
-
-            </tbody>
-        </table>
-
-        <!-- Pagination -->
-        <div>
+            <div *ngFor="let question of questions" class="question-answer-container">
+                <div class="question-box">
+                    <h3>Question</h3>
+                    <div [innerHTML]="question.question"></div>  <!-- Safely render HTML content from the backend -->
+                </div>
+                <div class="answer-box">
+                    <h3>Answer</h3>
+                    <div [innerHTML]="question.answer"></div>  <!-- Safely render HTML content from the backend -->
+                </div>
+                </div>
   <!-- Your data list display here -->
   
          <app-pagination

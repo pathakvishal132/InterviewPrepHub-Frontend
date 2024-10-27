@@ -29,4 +29,6 @@ export class QuestionsService {
     return this.http.post<any>(`${this.apiUrl}/get_feedback/`, payload);
   }
 
+  
+
 }
