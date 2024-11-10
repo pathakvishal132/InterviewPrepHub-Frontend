@@ -126,3 +126,9 @@ textarea {
 .footer-links a:hover {
   color: #32b97b;
 }
+
+.success-message {
+  color: green; /* You can adjust the color as needed */
+  font-weight: bold;
+  margin-top: 10px;
+}

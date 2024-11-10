@@ -1,4 +1,11 @@
 /* General styles for the form */
+.main{
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #1a1f24; 
+    justify-content: center;
+    align-items: center;
+}
 form {
     max-width: 600px; /* Set a max width for the form */
     margin: 0 auto; /* Center the form */
@@ -85,4 +92,64 @@ textarea::placeholder {
     button[type="submit"] {
         font-size: 14px; /* Slightly smaller font size */
     }
+}
+
+.message-container {
+    max-width: 800px; /* Set a maximum width for the container */
+    margin: 20px auto; /* Center the container with top and bottom margins */
+    padding: 20px; /* Add padding inside the container */
+    background-color: #f9f9f9; /* Light background for contrast */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+h2 {
+    font-size: 24px; /* Font size for the heading */
+    color: #333; /* Dark color for the heading */
+    margin-bottom: 20px; /* Space below the heading */
+    text-align: center; /* Center the heading */
+}
+
+.no-messages {
+    text-align: center; /* Center the no messages text */
+    color: #888; /* Gray color for no messages text */
+    font-size: 18px; /* Slightly larger font size for emphasis */
+}
+
+.message-card {
+    background-color: #fff; /* White background for each message card */
+    padding: 15px; /* Padding inside the card */
+    margin: 10px 0; /* Margin above and below each card */
+    border: 1px solid #ddd; /* Light border around the card */
+    border-radius: 5px; /* Rounded corners */
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1); /* Slight shadow for card effect */
+    transition: transform 0.2s; /* Smooth scaling on hover */
+}
+
+.message-card:hover {
+    transform: scale(1.02); /* Slightly enlarge the card on hover */
+}
+
+.message-card p {
+    margin: 5px 0; /* Margin for paragraphs inside the card */
+    color: #555; /* Darker gray for message text */
+}
+
+.delete-button {
+    background-color: #ff4d4d; /* Red background for delete button */
+    color: white; /* White text for contrast */
+    border: none; /* No border */
+    padding: 10px 15px; /* Padding inside the button */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    font-size: 16px; /* Font size for the button */
+    transition: background-color 0.3s; /* Smooth transition for background color */
+}
+
+.delete-button:hover {
+    background-color: #ff1a1a; /* Darker red on hover */
+}
+
+.s{
+    background: #5b6471;
 }

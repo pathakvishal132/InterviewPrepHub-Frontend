@@ -1,4 +1,5 @@
-<form (ngSubmit)="submitQuestion()" #companyForm="ngForm">
+<div class="main">
+  <form (ngSubmit)="submitQuestion()" #companyForm="ngForm">
   <div>
     <label for="level">Level:</label>
     <select id="level" [(ngModel)]="level" name="level" required>
@@ -40,3 +41,31 @@
 
   <button type="submit">Submit</button>
 </form>
+<div>
+  <button (click)="close()">close</button>
+</div>
+<div class="message-container">
+  <h2>Messages</h2>
+  <div *ngIf="messages.length === 0" class="no-messages">
+    <p>No messages found.</p>
+  </div>
+  <div *ngFor="let message of messages" class="message-card">
+    <p><strong>Name:</strong> {{ message.name }}</p>
+    <p><strong>Email:</strong> {{ message.email }}</p>
+    <p><strong>Message:</strong> {{ message.message }}</p>
+    <button (click)="deleteMessage(message.id)" class="delete-button">Delete</button>
+  </div>
+  <div class="s">
+     <app-pagination
+            [currentPage]="currentPage"
+            [totalPages]="totalPages"
+            (pageChanged)="onPageChanged($event)">
+    </app-pagination>
+  </div>
+</div>
+
+
+
+
+
+</div>

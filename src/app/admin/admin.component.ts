@@ -17,16 +17,18 @@ export class AdminComponent implements OnInit {
   role: string = '';
   experience: number = 0;
   company: string = ''; // Input from admin
+  messages: any[] = [];
+  currentPage: number = 1;
+  totalPages: number = 1;
 
   constructor(private adminService: AdminService, private router: Router) { }
 
   ngOnInit(): void {
+    this.loadMessages(this.currentPage);
   }
 
   submitQuestion(): void {
-    // Split the company input by comma and map to the desired object format
     this.companies = this.company.split(',').map(name => ({ name: name.trim() })).filter(name => name.name !== '');
-
     const payload = {
       companies: this.companies,
       level: this.level,
@@ -39,11 +41,9 @@ export class AdminComponent implements OnInit {
 
     this.adminService.submitCompanyData(payload).subscribe(
       (response) => {
-        // Check if the response status is 200
-        if (response.status === 201) {
-          console.log('Response from API:', response);
-          this.resetForm();
-        }
+        console.log('Response from API:', response);
+        this.resetForm();
+
       },
       (error) => {
         console.error('Error sending data to API:', error);
@@ -59,5 +59,41 @@ export class AdminComponent implements OnInit {
     this.role = '';
     this.experience = 0;
     this.company = '';
+  }
+  loadMessages(page: number) {
+    this.adminService.getUserMessage(page).subscribe(
+      (response) => {
+        this.messages = response.results;
+        this.totalPages = response.total_pages;
+      },
+      (error) => {
+        console.error('Error loading messages:', error);
+      }
+    );
+  }
+  deleteMessage(id: number) {
+    if (confirm('Are you sure you want to delete this message?')) {
+      this.adminService.deleteMessage(id).subscribe(
+        () => {
+          this.messages = this.messages.filter(message => message.id !== id);
+          alert('Message deleted successfully.');
+        },
+        (error) => {
+          console.error('Error deleting message:', error);
+          alert('Failed to delete the message. Please try again.');
+        }
+      );
+    }
+  }
+
+  onPageChanged(page: number): void {
+    this.currentPage = page
+    this.loadMessages(this.currentPage)
+  }
+  close() {
+    localStorage.removeItem("hi");
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate([this.router.url]);
+    });
   }
 }
