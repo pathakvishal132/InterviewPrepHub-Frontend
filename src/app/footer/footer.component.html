@@ -4,13 +4,16 @@
             <h2>FAQs</h2>
             <p>Find answers to common questions about our services.</p>
             <ul class="faq-list">
-                <li>How do I start?</li>
-                <li>Can I track my progress?</li>
-                <li>Are the questions updated?</li>
-                <li>Is there a free trial?</li>
-                <li>How do I contact support?</li>
+                <li *ngFor="let faq of faqs">
+                    <div (click)="toggleAnswer(faq)">
+                        <h4>{{ faq.question }}</h4>
+                    </div>
+                    <p *ngIf="faq.showAnswer">{{ faq.answer }}</p>
+                </li>
             </ul>
         </div>
+
+
         <div class="help-section">
             <h2>Need more help?</h2>
             <p>Reach out to our support team for assistance.</p>
@@ -37,13 +40,21 @@
                 </ul>
             </div>
             <div class="contact">
-                <h3 >Contact</h3>
-                <ul>
-                    <li>Email</li>
-                    <li>Support</li>
-                    <li>LinkedIn</li>
-                </ul>
+            <h3>Contact</h3>
+            <ul>
+                <li>
+                    <a href="mailto:pathakvishal132@gmail.com" target="_blank">Gmail</a>
+                </li>
+
+                <li>
+                     <a routerLink="/contact" >Support</a>
+                </li>
+                <li>
+                    <a href="https://www.linkedin.com/in/himanshu-pathak-997720201/" target="_blank">LinkedIn</a>
+                </li>
+            </ul>
             </div>
+
         </div>
     </div>
 </footer>

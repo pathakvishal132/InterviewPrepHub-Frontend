@@ -45,6 +45,12 @@ body {
     padding: 10px 0;
 }
 
+.faq-list p {
+    padding-left: 10px;
+    font-size: 16px;
+    color:  #00ccff;
+}
+
 .help-section {
     text-align: center;
     margin-bottom: 50px;
