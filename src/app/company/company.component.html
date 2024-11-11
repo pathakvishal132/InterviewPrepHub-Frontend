@@ -17,18 +17,26 @@
             <thead>
                 <tr>
                     <th>Company Name</th>
-                    <th>Title</th>
-                    <th>Details View</th>
-                    <th>Interview Level</th>
+                    <!-- <th>Title</th> -->
+                    <th>Asked Questions</th>
+                    <!-- <th>Interview Level</th> -->
+                     <th  *ngIf="receivedMessage.length">Delete Company</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let company of companies">
                     <td style="text-transform: capitalize;">{{ company.name }}</td>
-                    <td>title</td>
-                    <td><a [routerLink]="['/company/details', company.id]">View Details</a></td>
+                    <!-- <td>title</td> -->
+                    <td><a [routerLink]="['/company/details', company.id]">See all Questions</a></td>
 
-                    <td>{{ company.interviewLevel }}</td>
+                    <!-- <td>{{ company.interviewLevel }}</td> -->
+                     <th  *ngIf="receivedMessage.length">
+                        <button (click)="deleteQuestion()" class="go-back-btn">
+                            <svg viewBox="0 0 24 24" stroke-linejoin="round" >
+                            </svg>
+                            <span>Delete</span>
+                        </button>
+                     </th>
                 </tr>
 
             </tbody>

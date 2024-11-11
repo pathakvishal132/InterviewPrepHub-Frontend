@@ -15,12 +15,25 @@ export class CompanyComponent implements OnInit {
   totalPages: number = 1;
   searchTerm: string = '';
   searchPerformed: boolean = false;
-
+  receivedMessage: string = '';
   constructor(
     public dialog: MatDialog,
     private cs: CompanyService,
     private location: Location
-  ) { }
+  ) {
+    if (typeof window !== 'undefined' && localStorage) {
+      const storedData = localStorage.getItem('hi');
+
+      if (storedData === 'hello') {
+        this.receivedMessage = storedData;
+      } else if (storedData === 'close' || !storedData) {
+        this.receivedMessage = '';
+      }
+    } else {
+      this.receivedMessage = '';
+      console.warn('localStorage is not available.');
+    }
+  }
 
   ngOnInit(): void {
     this.getCompany(this.currentPage);
@@ -50,7 +63,7 @@ export class CompanyComponent implements OnInit {
   }
 
   onSearch(): void {
-    this.currentPage = 1; 
+    this.currentPage = 1;
     this.search_company(this.searchTerm, this.currentPage);
   }
 
@@ -60,7 +73,7 @@ export class CompanyComponent implements OnInit {
         this.companies = data.companies;
         this.totalPages = data.total_pages;
         this.currentPage = data.current_page;
-        this.searchPerformed = true; 
+        this.searchPerformed = true;
       },
       (error) => {
         console.error("Error fetching companies:", error);
@@ -72,7 +85,7 @@ export class CompanyComponent implements OnInit {
   onPageChanged(page: number): void {
     this.currentPage = page;
     if (this.searchPerformed) {
-      this.search_company(this.searchTerm, this.currentPage); 
+      this.search_company(this.searchTerm, this.currentPage);
     } else {
       this.getCompany(this.currentPage);
     }
@@ -80,5 +93,9 @@ export class CompanyComponent implements OnInit {
 
   goBack(): void {
     this.location.back();
+  }
+
+  deleteQuestion() {
+
   }
 }

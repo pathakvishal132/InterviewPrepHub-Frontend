@@ -91,9 +91,10 @@ export class AdminComponent implements OnInit {
     this.loadMessages(this.currentPage)
   }
   close() {
-    localStorage.removeItem("hi");
-    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-      this.router.navigate([this.router.url]);
-    });
+    localStorage.setItem("hi", "close");
+    // this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+    //   this.router.navigate([this.router.url]);
+    // });
+    window.location.reload();
   }
 }

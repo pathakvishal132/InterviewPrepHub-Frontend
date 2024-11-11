@@ -71,3 +71,34 @@ p {
     margin-top: 5px;
     font-size: 1rem;
 }
+
+.go-back-container {
+    position: absolute;
+    top: 11%; 
+    left: 92%; 
+    transform: translateX(-50%); 
+}
+.go-back-btn {
+    display: flex;
+    align-items: center; 
+    padding: 5px 10px; 
+    font-size: 14px; 
+    background-color: transparent;
+    color: white;
+    border: 1px solid white;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.go-back-btn svg {
+    margin-right: 6px; 
+    width: 18px;
+    height: 18px;
+    stroke: white;
+}
+
+.go-back-btn:hover {
+    background-color: #3eb0ac;
+    color: white;
+}
