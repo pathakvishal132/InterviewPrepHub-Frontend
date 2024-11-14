@@ -34,7 +34,7 @@
 
 
             <p *ngIf="feedbackStatus">{{feedback}}</p>
-            <p *ngIf="actualAnswerStatus">{{actualAnswer}}</p>
+            <p *ngIf="actualAnswerStatus" [innerHTML]="actualAnswer"></p>
         </ng-template>
     </div>
 <div class="go-back-container">

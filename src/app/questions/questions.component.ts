@@ -125,6 +125,7 @@ import * as marked from 'marked';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 
+
 @Component({
   selector: 'app-questions',
   templateUrl: './questions.component.html',
@@ -143,6 +144,7 @@ export class QuestionsComponent implements OnInit {
   actualAnswer: string = '';
   feedbackStatus: boolean = false;
   actualAnswerStatus: boolean = false;
+  temp: string = "";
   aa: any;
 
   constructor(
@@ -152,24 +154,27 @@ export class QuestionsComponent implements OnInit {
     private voiceService: VoiceRecognitionService,
     private cdr: ChangeDetectorRef,
     // private sanitizer: DomSanitizer
-  ) { }
 
-  ngOnInit(): void {
-    this.start();
+  ) {
     this.route.queryParams.subscribe(params => {
       this.domain = params['domain'];
       this.subdomain = params['subdomain'];
+      this.start();
     });
   }
 
-  // Start voice recognition
+  ngOnInit(): void {
+
+  }
   startListening(): void {
     this.voiceService.start();
     this.voiceService.speechRecognition.addEventListener('result', (event: any) => {
       const transcript = event.results[event.results.length - 1][0].transcript;
       this.userAnswer = transcript;
-      this.cdr.detectChanges(); // Manually trigger change detection to update the UI
+      this.cdr.detectChanges();
+
     });
+    // this.temp += this.userAnswer;
   }
 
   // Stop voice recognition
@@ -187,10 +192,11 @@ export class QuestionsComponent implements OnInit {
   // Fetch questions from the service
   loadQuestions(): void {
     this.loading = true;
-    this.questionService.getQuestions('computer science', 'web-development')
+    this.questionService.getQuestions(this.domain, this.subdomain)
       .subscribe(
         (data) => {
-          this.questions = data.result.result;
+          this.questions = data.result;
+          console.log("jdjjjdjd", this.questions);
           this.currentQuestion = this.questions[`q${this.currentIndex + 1}`];
           this.loading = false;
           this.actualAnswerStatus = false;
