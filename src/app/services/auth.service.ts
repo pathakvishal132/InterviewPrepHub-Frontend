@@ -7,18 +7,18 @@ import { catchError } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class AuthService {
-  private baseUrl = 'http://localhost:8000/api'; // Your backend API URL
-
+  // private apiUrl = 'http://127.0.0.1:8000/api';
+  private apiUrl = 'https://interview-prep-hub-backend-three.vercel.app/api';
   constructor(private http: HttpClient) { }
 
   signup(username: string, email: string, password: string): Observable<any> {
-    const url = `${this.baseUrl}/auth/register/`;
+    const url = `${this.apiUrl}/auth/register/`;
     const body = { username, email, password };
     return this.http.post(url, body).pipe(catchError(this.handleError));
   }
 
   login(username: string, password: string): Observable<any> {
-    const url = `${this.baseUrl}/auth/login/`;
+    const url = `${this.apiUrl}/auth/login/`;
     const body = { username, password };
     return this.http.post(url, body).pipe(catchError(this.handleError));
   }
