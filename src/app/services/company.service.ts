@@ -6,8 +6,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class CompanyService {
-  // private apiUrl = 'http://127.0.0.1:8000/api';
-  private apiUrl = 'https://interview-prep-hub-backend-three.vercel.app/api';
+  private apiUrl = 'http://127.0.0.1:8000/api';
+  // private apiUrl = 'https://interview-prep-hub-backend-three.vercel.app/api';
   private token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI2NTcyNzczLCJpYXQiOjE3MjY1NjA3NzMsImp0aSI6ImM1NzJlNmYzZGY1NzQyMjQ4MzcyMzRmYjIyNTM2MjNjIiwidXNlcl9pZCI6Nn0.utWE1D4yZnK9sHg1IiezZhR2xukpKaxSBeCbJPLKrC8';
 
   constructor(private http: HttpClient) { }
@@ -17,9 +17,14 @@ export class CompanyService {
     // console.log(payload);
     return this.http.get<any>(`${this.apiUrl}/get_company/?page=${page}`);
   }
-
+  deleteCompany(id: number): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}/companies/${id}/`);
+  }
   getCompanyQuestion(companyId: any, page: number) {
     return this.http.get<any>(`${this.apiUrl}/company/${companyId}/questions?page=${page}`);
+  }
+  deleteCompanyQuestion(companyId: any) {
+    return this.http.delete<any>(`${this.apiUrl}/company/${companyId}/`);
   }
 
   search_company(word: string, page: number) {

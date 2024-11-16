@@ -95,7 +95,15 @@ export class CompanyComponent implements OnInit {
     this.location.back();
   }
 
-  deleteQuestion() {
-
+  deleteCompany(questionId: number) {
+    this.cs.deleteCompany(questionId).subscribe(
+      response => {
+        this.getCompany(this.currentPage);
+      },
+      error => {
+        // Handle error response
+        console.error('Error deleting question:', error);
+      }
+    );
   }
 }

@@ -1,8 +1,7 @@
-
 <div class="main">
     <div class="container">
          <div class="table-title">
-            <h2 >Problems</h2>
+            <h2>Problems</h2>
         </div>
 
         <div class="search-box">
@@ -13,36 +12,44 @@
                 (keyup.enter)="onSearch()" 
             />
         </div>
-
-        <!-- Company Table -->
-            <div *ngFor="let question of questions" class="question-answer-container">
+         <div class="question-answer-container">
+            <div class="side-nav">
+                <div class="side-nav-content">
+                    <h3>Question Details:</h3>
+                    <p><strong>Experience range:</strong> 
+                        {{ selectedExperience > 0 ? '0 - ' + selectedExperience : '0' }}
+                     </p>
+                    <p><strong>Role:</strong> {{selectedRole}}</p>
+                    <p><strong>Level:</strong> {{selectedLevel}}</p>
+                </div>
+            </div>
+            <div *ngFor="let question of questions" >
                 <div class="question-box">
                     <h3>Question</h3>
-                    <div [innerHTML]="question.question"></div>  <!-- Safely render HTML content from the backend -->
+                    <div [innerHTML]="question.question"></div>  
                 </div>
                 <div class="answer-box">
                     <h3>Answer</h3>
-                    <div [innerHTML]="question.answer"></div>  <!-- Safely render HTML content from the backend -->
+                    <div [innerHTML]="question.answer"></div>  
                 </div>
-                </div>
-  <!-- Your data list display here -->
-  
-         <app-pagination
+                <button *ngIf="receivedMessage.length" class="delQ" (click)="deleteCompanyQuestion(question.id)">Delete</button>
+            </div>
+        </div>
+
+        <app-pagination
             [currentPage]="currentPage"
             [totalPages]="totalPages"
             (pageChanged)="onPageChanged($event)">
         </app-pagination>
-       
-        
     </div>
+
     <div class="go-back-container">
-    <button (click)="goBack()" class="go-back-btn">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left">
-            <line x1="19" y1="12" x2="5" y2="12"></line>
-            <polyline points="12 19 5 12 12 5"></polyline>
-        </svg>
-        <span>Go Back</span>
-    </button>
+        <button (click)="goBack()" class="go-back-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+            <span>Go Back</span>
+        </button>
     </div>
 </div>
-
