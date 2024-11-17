@@ -7,42 +7,46 @@
         <div class="search-box">
             <input 
                 type="text" 
-                placeholder="Search Questions..."
+                placeholder="Search Questions, Role, Description ,Level "
                 [(ngModel)]="searchTerm" 
                 (keyup.enter)="onSearch()" 
             />
         </div>
-         <div class="question-answer-container">
-            <div class="side-nav">
-                <div class="side-nav-content">
-                    <h3>Question Details:</h3>
-                    <p><strong>Experience range:</strong> 
-                        {{ selectedExperience > 0 ? '0 - ' + selectedExperience : '0' }}
-                     </p>
-                    <p><strong>Role:</strong> {{selectedRole}}</p>
-                    <p><strong>Level:</strong> {{selectedLevel}}</p>
-                    <p><strong>Description:</strong> {{description}}</p>
-                </div>
-            </div>
-            <div *ngFor="let question of questions" >
-                <div class="question-box">
-                    <h3>Question</h3>
-                    <div [innerHTML]="question.question"></div>  
-                </div>
-                <div class="answer-box">
-                    <h3>Answer</h3>
-                    <div [innerHTML]="question.answer"></div>  
-                </div>
-                <button *ngIf="receivedMessage.length" class="delQ" (click)="deleteCompanyQuestion(question.id)">Delete</button>
-            </div>
+         <div *ngIf="questions.length" class="question-answer-container">
+    <div class="side-nav">
+        <div class="side-nav-content">
+            <h3>Question Details:</h3>
+            <p><strong>Experience range:</strong> 
+                {{ selectedExperience > 0 ? '0 - ' + selectedExperience : '0' }}
+            </p>
+            <p><strong>Role:</strong> {{ selectedRole }}</p>
+            <p><strong>Level:</strong> {{ selectedLevel }}</p>
+            <p><strong>Description:</strong> {{ description || 'N/A' }}</p>
         </div>
-
-        <app-pagination
-            [currentPage]="currentPage"
-            [totalPages]="totalPages"
-            (pageChanged)="onPageChanged($event)">
-        </app-pagination>
     </div>
+    <div class="question-content">
+        <div *ngFor="let question of questions" class="question-answer-box">
+            <div class="question-box">
+                <h3>Question</h3>
+                <div [innerHTML]="question.question"></div>
+            </div>
+            <div class="answer-box">
+                <h3>Answer</h3>
+                <div [innerHTML]="question.answer"></div>
+            </div>
+            <button *ngIf="receivedMessage.length" class="delQ" (click)="deleteCompanyQuestion(question.id)">Delete</button>
+        </div>
+    </div>
+</div>
+<div *ngIf="!questions.length" class="no-questions">
+    <h1>No records found</h1>
+</div>
+<app-pagination
+    [currentPage]="currentPage"
+    [totalPages]="totalPages"
+    (pageChanged)="onPageChanged($event)">
+</app-pagination>
+
 
     <div class="go-back-container">
         <button (click)="goBack()" class="go-back-btn">

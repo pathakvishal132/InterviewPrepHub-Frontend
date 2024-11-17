@@ -49,49 +49,23 @@ export class CompanyDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.companyId = this.route.snapshot.paramMap.get('id');
-    this.fetchQuestions(this.companyId, this.currentPage);  // Fetch initial set of questions
+    this.fetchQuestions(this.companyId, this.currentPage);
   }
 
-  // fetchQuestions(id: any, page: number): void {
-  //   this.cs.getCompanyQuestion(id, page).subscribe(
-  //     (response: any) => {
-  //       // this.questions = response.questions;
-  //       this.totalPages = response.total_pages;
-  //         this.questions = response.questions.map((question: any) => {
-  //           this.selectedExperience = question.experience;
-  //             this.selectedRole = question.role;
-  //             this.selectedLevel = question.level;
-  //         return {
-  //           ...question,
-
-  //           question: question.question.split('.').join('.<br/>') // Format the question text
-  //         };
-  //       });
-  //     },
-  //     (error) => {
-  //       console.error('Error fetching questions:', error);
-  //     }
-  //   );
-  // }
   fetchQuestions(id: any, page: number): void {
     this.cs.getCompanyQuestion(id, page).subscribe(
       (response: any) => {
-        // Set the total pages from the response
         this.totalPages = response.total_pages;
-
-        // Assuming you want to get the first question's experience, role, and level
         if (response.questions.length > 0) {
           this.selectedExperience = response.questions[0].experience;
           this.selectedRole = response.questions[0].role;
           this.selectedLevel = response.questions[0].level;
           this.description = response.questions[0].description;
         }
-
-        // Process the question data
         this.questions = response.questions.map((question: any) => {
           return {
             ...question,
-            question: question.question.split('.').join('.<br/>') // Format the question text with line breaks
+            question: question.question.split('.').join('.<br/>')
           };
         });
       },
@@ -102,43 +76,50 @@ export class CompanyDetailsComponent implements OnInit {
   }
 
   searchQuestions(id: any, word: string, page: number): void {
-    if (word.length > 0 && id) {  // Ensure 'word' and 'id' are valid
+    if (word.length > 0 && id) {
       this.cs.search_question(id, word, page).subscribe(
         (response: any) => {
-          this.questions = response.questions;  // Update with the searched questions
-          this.totalPages = response.total_pages;  // Update total pages
-          this.searchPerformed = true;  // Mark that a search has been made
+          this.questions = response.questions;
+          this.totalPages = response.total_pages;
+          this.searchPerformed = true;
+          this.selectedExperience = response.questions[0].experience;
+          this.selectedRole = response.questions[0].role;
+          this.selectedLevel = response.questions[0].level;
+          this.description = response.questions[0].description;
         },
         (error) => {
           console.error("Error searching questions:", error);
-          this.questions = [];  // Clear the questions in case of error
-          this.totalPages = 0;  // Reset total pages to 0
-          this.searchPerformed = false;  // Mark that no search is being performed
+          this.questions = [];
+          this.totalPages = 0;
+          this.searchPerformed = false;
+          this.selectedExperience = 0;
+          this.selectedRole = ""
+          this.selectedLevel = "";
+          this.description = "";
         }
       );
     } else {
       console.log("Search term or company ID is invalid.");
-      this.questions = [];  // Clear questions if invalid search term or id
-      this.totalPages = 0;
-      this.searchPerformed = false;  // Mark that no search is being performed
+      // this.questions = [];
+      // this.totalPages = 0;
+      // this.searchPerformed = false;
     }
   }
 
-
-  // Search action triggered by user input
   onSearch(): void {
-    this.currentPage = 1;  // Reset to the first page on every new search
+    this.currentPage = 1;
     this.searchQuestions(this.companyId, this.searchTerm, this.currentPage);
   }
 
   onPageChanged(page: number): void {
     this.currentPage = page;
     if (this.searchPerformed) {
-      this.searchQuestions(this.companyId, this.searchTerm, this.currentPage);  // Fetch searched questions
+      this.searchQuestions(this.companyId, this.searchTerm, this.currentPage);
     } else {
-      this.fetchQuestions(this.companyId, this.currentPage);  // Fetch normal questions
+      this.fetchQuestions(this.companyId, this.currentPage);
     }
   }
+
   deleteCompanyQuestion(id: number) {
     this.cs.deleteCompanyQuestion(id).subscribe(
       (res) => {
