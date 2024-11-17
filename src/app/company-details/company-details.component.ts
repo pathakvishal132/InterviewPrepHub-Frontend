@@ -68,10 +68,10 @@ export class CompanyDetailsComponent implements OnInit {
           this.selectedRole = response.questions[0].role;
           this.selectedLevel = response.questions[0].level;
           this.description = response.questions[0].description;
-          this.selectedDropLevel = response.questions[0].level;
-          this.selectedDropRole = response.questions[0].role;
-          this.selectedDropExperience = response.questions[0].experience;
-          this.selectedDropDescription = response.questions[0].description;
+          // this.selectedDropLevel = response.questions[0].level;
+          // this.selectedDropRole = response.questions[0].role;
+          // this.selectedDropExperience = response.questions[0].experience;
+          // this.selectedDropDescription = response.questions[0].description;
         }
         this.questions = response.questions.map((question: any) => {
           return {
@@ -110,10 +110,10 @@ export class CompanyDetailsComponent implements OnInit {
           this.selectedRole = response.questions[0].role;
           this.selectedLevel = response.questions[0].level;
           this.description = response.questions[0].description;
-          this.selectedDropLevel = response.questions[0].level;
-          this.selectedDropRole = response.questions[0].role;
-          this.selectedDropExperience = response.questions[0].experience;
-          this.selectedDropDescription = response.questions[0].description;
+          // this.selectedDropLevel = response.questions[0].level;
+          // this.selectedDropRole = response.questions[0].role;
+          // this.selectedDropExperience = response.questions[0].experience;
+          // this.selectedDropDescription = response.questions[0].description;
         },
         (error) => {
           console.error("Error searching questions:", error);
