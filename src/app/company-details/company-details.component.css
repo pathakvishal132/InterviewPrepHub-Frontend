@@ -247,3 +247,43 @@ button:hover {
     font-size: 20px;
     color: #f5eeee;
 }
+
+.dropdown-container {
+display: flex;
+    flex-wrap: nowrap;
+    gap: 20px;
+    padding: 2px;
+    background-color: #f8f9fa;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    max-width: 814px;
+    margin: 0px;
+    margin-bottom: -62px;
+}
+
+.dropdown {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+}
+
+label {
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+  font-size: 14px;
+  color: #333;
+}
+
+select:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}

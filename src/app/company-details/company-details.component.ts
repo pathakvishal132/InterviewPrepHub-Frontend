@@ -24,8 +24,14 @@ export class CompanyDetailsComponent implements OnInit {
   selectedRole: string = "";
   selectedLevel: string = "";
   description: string = ""
-
-
+  levels: string[] = [];
+  roles: string[] = [];
+  experiences: number[] = [];
+  descriptions: string[] = [];
+  selectedDropLevel: string = "";
+  selectedDropRole: string = "";
+  selectedDropExperience: number | null = null;
+  selectedDropDescription: string = "";
   constructor(
     private http: HttpClient,
     private cs: CompanyService,
@@ -50,6 +56,7 @@ export class CompanyDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.companyId = this.route.snapshot.paramMap.get('id');
     this.fetchQuestions(this.companyId, this.currentPage);
+    this.getFilterValue();
   }
 
   fetchQuestions(id: any, page: number): void {
@@ -61,6 +68,10 @@ export class CompanyDetailsComponent implements OnInit {
           this.selectedRole = response.questions[0].role;
           this.selectedLevel = response.questions[0].level;
           this.description = response.questions[0].description;
+          this.selectedDropLevel = response.questions[0].level;
+          this.selectedDropRole = response.questions[0].role;
+          this.selectedDropExperience = response.questions[0].experience;
+          this.selectedDropDescription = response.questions[0].description;
         }
         this.questions = response.questions.map((question: any) => {
           return {
@@ -74,6 +85,19 @@ export class CompanyDetailsComponent implements OnInit {
       }
     );
   }
+  getFilterValue() {
+    this.cs.getOtherDetails(this.companyId).subscribe(
+      (response: any) => {
+        this.levels = response.levels || [];
+        this.roles = response.roles || [];
+        this.experiences = response.experiences || [];
+        this.descriptions = response.descriptions || [];
+      },
+      (error) => {
+        console.error('Error fetching company details:', error);
+      }
+    )
+  }
 
   searchQuestions(id: any, word: string, page: number): void {
     if (word.length > 0 && id) {
@@ -86,6 +110,10 @@ export class CompanyDetailsComponent implements OnInit {
           this.selectedRole = response.questions[0].role;
           this.selectedLevel = response.questions[0].level;
           this.description = response.questions[0].description;
+          this.selectedDropLevel = response.questions[0].level;
+          this.selectedDropRole = response.questions[0].role;
+          this.selectedDropExperience = response.questions[0].experience;
+          this.selectedDropDescription = response.questions[0].description;
         },
         (error) => {
           console.error("Error searching questions:", error);
@@ -96,6 +124,7 @@ export class CompanyDetailsComponent implements OnInit {
           this.selectedRole = ""
           this.selectedLevel = "";
           this.description = "";
+
         }
       );
     } else {
@@ -128,6 +157,52 @@ export class CompanyDetailsComponent implements OnInit {
       }
     )
   }
+  getFilteredQuestions(page: number = this.currentPage): void {
+    const filters = {
+      level: this.selectedDropLevel,
+      role: this.selectedDropRole,
+      experience: this.selectedDropExperience,
+      description: this.selectedDropDescription,
+    };
+
+    this.cs.filterCompanyQuestions(filters, page).subscribe(
+      (response) => {
+        this.questions = response.questions;
+        this.totalPages = response.total_pages;
+        this.currentPage = response.current_page;
+        this.selectedExperience = response.questions[0].experience;
+        this.selectedRole = response.questions[0].role;
+        this.selectedLevel = response.questions[0].level;
+        this.description = response.questions[0].description;
+      },
+      (error) => {
+        console.error('Error fetching filtered questions', error);
+      }
+    );
+  }
+
+  // Triggered when any dropdown value changes
+  onDropdownChange(): void {
+    // Collect selected filters from the dropdowns
+    const selectedFilters = {
+      level: this.selectedDropLevel,
+      role: this.selectedDropRole,
+      experience: this.selectedDropExperience,
+      description: this.selectedDropDescription,
+    };
+
+    // Log the selected filters for debugging purposes (optional)
+    console.log('Selected Filters:', selectedFilters);
+
+    // Fetch filtered questions based on the selected filters
+    this.getFilteredQuestions();
+  }
+
+  // Method to handle pagination (optional)
+  onPageChange(page: number): void {
+    this.getFilteredQuestions(page);
+  }
+
 
   goBack(): void {
     this.location.back();

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
-
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
@@ -18,6 +18,10 @@ export class CompanyService {
   deleteCompany(id: number): Observable<any> {
     return this.http.delete<any>(`${this.apiUrl}/companies/${id}/`);
   }
+  getOtherDetails(companyId: string): Observable<any> {
+    const url = `${this.apiUrl}/get_other_details/?company_id=${companyId}`;
+    return this.http.get<any>(url);
+  }
   getCompanyQuestion(companyId: any, page: number) {
     return this.http.get<any>(`${this.apiUrl}/company/${companyId}/questions?page=${page}`);
   }
@@ -32,4 +36,18 @@ export class CompanyService {
   search_question(id: number, word: string, page: number) {
     return this.http.get<any>(`${this.apiUrl}/search_question/?word=${word}&page=${page}`);
   }
+
+  filterCompanyQuestions(filters: any, page: number = 1): Observable<any> {
+    const url = `${this.apiUrl}/filter_company_questions/`;
+
+    // Create HttpParams to send filters as query parameters
+    let params = new HttpParams().set('page', page.toString());
+    if (filters.level) params = params.set('level', filters.level);
+    if (filters.role) params = params.set('role', filters.role);
+    if (filters.experience) params = params.set('experience', filters.experience);
+    if (filters.description) params = params.set('description', filters.description);
+
+    return this.http.post<any>(url, filters, { params });
+  }
+
 }
