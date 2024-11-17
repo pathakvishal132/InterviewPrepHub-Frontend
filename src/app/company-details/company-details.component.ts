@@ -23,6 +23,7 @@ export class CompanyDetailsComponent implements OnInit {
   selectedExperience: number = 0;
   selectedRole: string = "";
   selectedLevel: string = "";
+  description: string = ""
 
 
   constructor(
@@ -83,6 +84,7 @@ export class CompanyDetailsComponent implements OnInit {
           this.selectedExperience = response.questions[0].experience;
           this.selectedRole = response.questions[0].role;
           this.selectedLevel = response.questions[0].level;
+          this.description = response.questions[0].description;
         }
 
         // Process the question data
