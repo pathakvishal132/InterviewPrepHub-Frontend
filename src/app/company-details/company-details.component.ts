@@ -19,7 +19,6 @@ export class CompanyDetailsComponent implements OnInit {
   searchTerm: string = '';
   searchPerformed: boolean = false;
   receivedMessage: string = '';
-  z: string = "";
   selectedExperience: number = 0;
   selectedRole: string = "";
   selectedLevel: string = "";
@@ -51,7 +50,6 @@ export class CompanyDetailsComponent implements OnInit {
       console.warn('localStorage is not available.');
     }
   }
-
 
   ngOnInit(): void {
     this.companyId = this.route.snapshot.paramMap.get('id');
