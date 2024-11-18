@@ -53,8 +53,8 @@ export class CompanyDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.companyId = this.route.snapshot.paramMap.get('id');
-    this.fetchQuestions(this.companyId, this.currentPage);
-    this.getFilterValue();
+    // this.fetchQuestions(this.companyId, this.currentPage);
+    // this.getFilterValue();
   }
 
   fetchQuestions(id: any, page: number): void {
