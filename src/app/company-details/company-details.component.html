@@ -49,6 +49,10 @@
       <input type="text" placeholder="Search Questions, Role, Description ,Level " [(ngModel)]="searchTerm"
         (keyup.enter)="onSearch()" />
     </div>
+    <div *ngIf="loading" class="loading-container">
+      <div class="loading-spinner"></div>
+      <p>Loading...</p>
+    </div>
 
     <div class="question-answer-container">
       <div *ngFor="let question of questions" class="question-answer-box">
@@ -83,7 +87,7 @@
           </div>
         </div>
       </div>
-      <div *ngIf="!questions.length" class="no-questions">
+      <div *ngIf="!loading && !questions.length" class="no-questions">
         <h1>No records found</h1>
       </div>
     </div>

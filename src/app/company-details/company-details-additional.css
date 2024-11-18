@@ -163,3 +163,32 @@ select:focus {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Reduce shadow on active */
   transform: scale(1); /* Reset zoom on active */
 }
+
+.loading-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+.loading-spinner {
+  border: 8px solid #f3f3f3; /* Light gray background */
+  border-top: 8px solid #3498db; /* Blue color for spinner */
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-container p {
+  margin-top: 10px;
+  color: #3498db;
+  font-size: 1.2rem;
+}

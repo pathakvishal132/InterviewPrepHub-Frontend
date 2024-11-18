@@ -16,6 +16,7 @@ export class CompanyComponent implements OnInit {
   searchTerm: string = '';
   searchPerformed: boolean = false;
   receivedMessage: string = '';
+  loading: boolean = true;
   constructor(
     public dialog: MatDialog,
     private cs: CompanyService,
@@ -51,13 +52,16 @@ export class CompanyComponent implements OnInit {
   }
 
   getCompany(page: number): void {
+    this.loading = true; // Set loading to true before the API call
     this.cs.getCompany(page).subscribe(
       (data) => {
         this.companies = data.companies;
         this.totalPages = data.total_pages;
+        this.loading = false; // Set loading to false after data is received
       },
       (error) => {
         console.error('Error fetching companies:', error);
+        this.loading = false; // Set loading to false in case of error
       }
     );
   }

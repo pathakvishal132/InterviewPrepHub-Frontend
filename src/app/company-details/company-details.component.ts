@@ -31,6 +31,7 @@ export class CompanyDetailsComponent implements OnInit {
   selectedDropRole: string = "";
   selectedDropExperience: number | null = null;
   selectedDropDescription: string = "";
+  loading: boolean = true;
   constructor(
     private http: HttpClient,
     private cs: CompanyService,
@@ -58,6 +59,7 @@ export class CompanyDetailsComponent implements OnInit {
   }
 
   fetchQuestions(id: any, page: number): void {
+    this.loading = true;
     this.cs.getCompanyQuestion(id, page).subscribe(
       (response: any) => {
         this.totalPages = response.total_pages;
@@ -70,6 +72,7 @@ export class CompanyDetailsComponent implements OnInit {
           // this.selectedDropRole = response.questions[0].role;
           // this.selectedDropExperience = response.questions[0].experience;
           // this.selectedDropDescription = response.questions[0].description;
+          this.loading = false;
         }
         this.questions = response.questions.map((question: any) => {
           return {
@@ -80,6 +83,7 @@ export class CompanyDetailsComponent implements OnInit {
       },
       (error) => {
         console.error('Error fetching questions:', error);
+        this.loading = false;
       }
     );
   }
@@ -137,6 +141,8 @@ export class CompanyDetailsComponent implements OnInit {
     this.selectedDropRole = "";
     this.selectedDropExperience = null;
     this.selectedDropDescription = "";
+    this.fetchQuestions(this.companyId, 1);
+    this.getFilterValue();
   }
 
   onSearch(): void {
@@ -168,7 +174,6 @@ export class CompanyDetailsComponent implements OnInit {
       experience: this.selectedDropExperience,
       description: this.selectedDropDescription,
     };
-
     this.cs.filterCompanyQuestions(filters, page).subscribe(
       (response) => {
         this.questions = response.questions;
