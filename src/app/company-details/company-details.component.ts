@@ -8,7 +8,7 @@ import { PipeTransform, Pipe } from '@angular/core';
 @Component({
   selector: 'app-company-details',
   templateUrl: './company-details.component.html',
-  styleUrls: ['./company-details.component.css']
+  styleUrls: ['./company-details.component.css', './company-details-additional.css']
 })
 export class CompanyDetailsComponent implements OnInit {
   questions: any[] = [];

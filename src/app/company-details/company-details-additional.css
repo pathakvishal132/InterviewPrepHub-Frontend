@@ -1,0 +1,165 @@
+
+.question-box h3,
+.answer-box h3 {
+  font-size: 18px;
+  color: #333;
+}
+.question-box h3,
+.answer-box h3 {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #333;
+}
+.question-box div,
+.answer-box div {
+  overflow-wrap: break-word;
+}
+
+/* Optional: Custom Scrollbar */
+.question-box::-webkit-scrollbar,
+.answer-box::-webkit-scrollbar {
+  width: 8px;
+}
+.question-box {
+  border-right: 1px solid #ddd;
+}
+.question-box::-webkit-scrollbar-thumb,
+.answer-box::-webkit-scrollbar-thumb {
+  background-color: #aaa;
+  border-radius: 10px;
+}
+
+.question-box::-webkit-scrollbar-thumb:hover,
+.answer-box::-webkit-scrollbar-thumb:hover {
+  background-color: #777;
+}
+h3 {
+  margin-top: 0;
+}
+.flex-container {
+  margin-top: 4px;
+  display: flex; 
+  gap: 20px; /* Space between side-nav and main content */
+}
+
+.delQ{
+    position: absolute; 
+    top: 30%; 
+    right: 8%; 
+    z-index: 10; 
+    background-color: #3eb0ac;
+    color: white;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+button:hover {
+    background-color: darkred;
+}
+
+.side-nav {
+  width: 25%; 
+  background-color: #2c3e50;
+  color: #fff;
+  padding: 20px;
+  height: auto; 
+  border-radius: 10px;
+  overflow-y: auto;
+  box-sizing: border-box;
+  flex-shrink: 0; 
+}
+
+.side-nav-content {
+    margin-top: 0px;
+}
+
+.side-nav h3 {
+    font-size: 1.4em;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #fff;
+}
+
+.side-nav p {
+    font-size: 1em;
+    margin: 10px 0;
+    color: #ecf0f1;
+}
+
+.side-nav p strong {
+    font-weight: bold;
+    color: #fff;
+}
+
+.no-questions {
+    text-align: center;
+    padding: 20px;
+    font-size: 20px;
+    color: #0f0f0f;
+}
+
+.dropdown-container {
+display: flex;
+    flex-wrap: nowrap;
+    gap: 20px;
+    padding: 2px;
+    background-color: #f8f9fa;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    max-width: 814px;
+    margin: 0px;
+    margin-bottom: -62px;
+}
+
+.dropdown {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+}
+
+label {
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+  font-size: 14px;
+  color: #333;
+}
+
+select:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+.clear-filter-btn {
+  background: linear-gradient(135deg, #2c3e50, #2c3e50); 
+  color: #ffffff; 
+  /* padding: 10px 20px; Comfortable padding */
+  border: none; /* Remove default border */
+  border-radius: 8px; /* Rounded corners for a modern look */
+  font-size: 16px; /* Slightly larger font size */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: all 0.3s ease-in-out; /* Smooth transition for hover effects */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.clear-filter-btn:hover {
+  background: linear-gradient(135deg, #2c3e50, #3eb0ac); /* Reverse the gradient on hover */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Increased shadow on hover for emphasis */
+  transform: scale(1.05); /* Slight zoom effect on hover */
+}
+
+.clear-filter-btn:active {
+  background: #1f2f3a; /* Darker background on click for a pressed effect */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Reduce shadow on active */
+  transform: scale(1); /* Reset zoom on active */
+}
