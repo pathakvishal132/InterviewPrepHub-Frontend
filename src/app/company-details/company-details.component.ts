@@ -37,18 +37,18 @@ export class CompanyDetailsComponent implements OnInit {
     private route: ActivatedRoute,
     private location: Location
   ) {
-    if (typeof window !== 'undefined' && localStorage) {
-      const storedData = localStorage.getItem('hi');
+    // if (typeof window !== 'undefined' && localStorage) {
+    //   const storedData = localStorage.getItem('hi');
 
-      if (storedData === 'hello') {
-        this.receivedMessage = storedData;
-      } else if (storedData === 'close' || !storedData) {
-        this.receivedMessage = '';
-      }
-    } else {
-      this.receivedMessage = '';
-      console.warn('localStorage is not available.');
-    }
+    //   if (storedData === 'hello') {
+    //     this.receivedMessage = storedData;
+    //   } else if (storedData === 'close' || !storedData) {
+    //     this.receivedMessage = '';
+    //   }
+    // } else {
+    //   this.receivedMessage = '';
+    //   console.warn('localStorage is not available.');
+    // }
   }
 
   ngOnInit(): void {
