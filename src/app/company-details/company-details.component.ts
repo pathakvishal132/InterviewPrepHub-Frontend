@@ -134,6 +134,12 @@ export class CompanyDetailsComponent implements OnInit {
       // this.searchPerformed = false;
     }
   }
+  clearFilter(): void {
+    this.selectedDropLevel = "";
+    this.selectedDropRole = "";
+    this.selectedDropExperience = null;
+    this.selectedDropDescription = "";
+  }
 
   onSearch(): void {
     this.currentPage = 1;

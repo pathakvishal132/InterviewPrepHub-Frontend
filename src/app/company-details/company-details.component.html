@@ -40,41 +40,52 @@
           </option>
         </select>
       </div>
+      <div>
+        <button class="clear-filter-btn" (click)="clearFilter()">Clear Filter</button>
+      </div>
     </div>
 
     <div class="search-box">
       <input type="text" placeholder="Search Questions, Role, Description ,Level " [(ngModel)]="searchTerm"
         (keyup.enter)="onSearch()" />
     </div>
-    <div *ngIf="questions.length" class="question-answer-container">
-      <div class="side-nav">
-        <div class="side-nav-content">
-          <h3>Question Details:</h3>
-          <p><strong>Experience range:</strong>
-            {{ selectedExperience > 0 ? '0 - ' + selectedExperience : '0' }}
-          </p>
-          <p><strong>Role:</strong> {{ selectedRole }}</p>
-          <p><strong>Level:</strong> {{ selectedLevel }}</p>
-          <p><strong>Description:</strong> {{ description || 'N/A' }}</p>
+
+    <div class="question-answer-container">
+      <div *ngFor="let question of questions" class="question-answer-box">
+        <div class="main-box-1">
+          <div class="flex-container">
+            <!-- Side Navigation -->
+            <div class="side-nav">
+              <div class="side-nav-content">
+                <h3>Question Details:</h3>
+                <p><strong>Experience range:</strong>
+                  {{ question.experience > 0 ? '0 - ' + question.experience : '0' }}
+                </p>
+                <p><strong>Role:</strong> {{ question.role || 'N/A' }}</p>
+                <p><strong>Level:</strong> {{ question.level || 'N/A' }}</p>
+                <p><strong>Description:</strong> {{ question.description || 'N/A' }}</p>
+              </div>
+            </div>
+
+            <!-- Main Question and Answer Content -->
+            <div class="main-box">
+              <div class="question-box">
+                <h3>Question</h3>
+                <div [innerHTML]="question.question"></div>
+              </div>
+              <div class="answer-box">
+                <h3>Answer</h3>
+                <div [innerHTML]="question.answer"></div>
+              </div>
+              <button *ngIf="receivedMessage.length" class="delQ"
+                (click)="deleteCompanyQuestion(question.id)">Delete</button>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="question-content">
-        <div *ngFor="let question of questions" class="question-answer-box">
-          <div class="question-box">
-            <h3>Question</h3>
-            <div [innerHTML]="question.question"></div>
-          </div>
-          <div class="answer-box">
-            <h3>Answer</h3>
-            <div [innerHTML]="question.answer"></div>
-          </div>
-          <button *ngIf="receivedMessage.length" class="delQ"
-            (click)="deleteCompanyQuestion(question.id)">Delete</button>
-        </div>
+      <div *ngIf="!questions.length" class="no-questions">
+        <h1>No records found</h1>
       </div>
-    </div>
-    <div *ngIf="!questions.length" class="no-questions">
-      <h1>No records found</h1>
     </div>
     <app-pagination [currentPage]="currentPage" [totalPages]="totalPages" (pageChanged)="onPageChanged($event)">
     </app-pagination>
