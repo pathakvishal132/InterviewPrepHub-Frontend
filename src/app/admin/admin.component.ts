@@ -15,8 +15,9 @@ export class AdminComponent implements OnInit {
   answer: string = '';
   description: string = '';
   role: string = '';
-  experience: number = 0;
-  company: string = ''; // Input from admin
+  min_experience: number = 0;
+  max_experience: number | null = null;
+  company: string = '';
   messages: any[] = [];
   currentPage: number = 1;
   totalPages: number = 1;
@@ -36,7 +37,8 @@ export class AdminComponent implements OnInit {
       answer: this.answer,
       description: this.description,
       role: this.role,
-      experience: this.experience
+      min_experience: this.min_experience,
+      max_experience: this.max_experience
     };
 
     this.adminService.submitCompanyData(payload).subscribe(
@@ -57,7 +59,8 @@ export class AdminComponent implements OnInit {
     this.answer = '';
     this.description = '';
     this.role = '';
-    this.experience = 0;
+    this.min_experience = 0;
+    this.max_experience = null;
     this.company = '';
   }
   loadMessages(page: number) {

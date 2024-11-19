@@ -19,19 +19,23 @@ export class CompanyDetailsComponent implements OnInit {
   searchTerm: string = '';
   searchPerformed: boolean = false;
   receivedMessage: string = '';
-  selectedExperience: number = 0;
+  selectedMinExperience: number = 0;
+  selectedMaxExperience: number | null = null;
   selectedRole: string = "";
   selectedLevel: string = "";
   description: string = ""
   levels: string[] = [];
   roles: string[] = [];
-  experiences: number[] = [];
+  minExperiences: number[] = [];
+  maxExperiences: number[] = [];
   descriptions: string[] = [];
   selectedDropLevel: string = "";
   selectedDropRole: string = "";
-  selectedDropExperience: number | null = null;
+  selectedDropMinExperience: number | null = null;
+  selectedDropMaxExperience: number | null = null;
   selectedDropDescription: string = "";
   loading: boolean = true;
+  maxExperienceRange: number[] = [];
   constructor(
     private http: HttpClient,
     private cs: CompanyService,
@@ -56,6 +60,7 @@ export class CompanyDetailsComponent implements OnInit {
     this.companyId = this.route.snapshot.paramMap.get('id');
     this.fetchQuestions(this.companyId, this.currentPage);
     this.getFilterValue();
+
   }
 
   fetchQuestions(id: any, page: number): void {
@@ -64,15 +69,13 @@ export class CompanyDetailsComponent implements OnInit {
       (response: any) => {
         this.totalPages = response.total_pages;
         if (response.questions.length > 0) {
-          this.selectedExperience = response.questions[0].experience;
+          this.selectedMinExperience = response.questions[0].min_experience;
+          this.selectedMaxExperience = response.questions[0].max_experience;
           this.selectedRole = response.questions[0].role;
           this.selectedLevel = response.questions[0].level;
           this.description = response.questions[0].description;
-          // this.selectedDropLevel = response.questions[0].level;
-          // this.selectedDropRole = response.questions[0].role;
-          // this.selectedDropExperience = response.questions[0].experience;
-          // this.selectedDropDescription = response.questions[0].description;
           this.loading = false;
+
         }
         this.questions = response.questions.map((question: any) => {
           return {
@@ -92,8 +95,11 @@ export class CompanyDetailsComponent implements OnInit {
       (response: any) => {
         this.levels = response.levels || [];
         this.roles = response.roles || [];
-        this.experiences = response.experiences || [];
+        this.minExperiences = response.min_experiences || [];
+        this.maxExperiences = response.max_experiences || [];
         this.descriptions = response.descriptions || [];
+        const maxExperience = Math.max(...this.maxExperiences);
+        this.maxExperienceRange = Array.from({ length: maxExperience }, (_, i) => i + 1);
       },
       (error) => {
         console.error('Error fetching company details:', error);
@@ -108,39 +114,35 @@ export class CompanyDetailsComponent implements OnInit {
           this.questions = response.questions;
           this.totalPages = response.total_pages;
           this.searchPerformed = true;
-          this.selectedExperience = response.questions[0].experience;
+          this.selectedMinExperience = response.questions[0].min_experience;
+          this.selectedMaxExperience = response.questions[0].max_experience;
           this.selectedRole = response.questions[0].role;
           this.selectedLevel = response.questions[0].level;
           this.description = response.questions[0].description;
-          // this.selectedDropLevel = response.questions[0].level;
-          // this.selectedDropRole = response.questions[0].role;
-          // this.selectedDropExperience = response.questions[0].experience;
-          // this.selectedDropDescription = response.questions[0].description;
         },
         (error) => {
           console.error("Error searching questions:", error);
           this.questions = [];
           this.totalPages = 0;
           this.searchPerformed = false;
-          this.selectedExperience = 0;
+          this.selectedMinExperience = 0;
           this.selectedRole = ""
           this.selectedLevel = "";
           this.description = "";
-
         }
       );
     } else {
       console.log("Search term or company ID is invalid.");
-      // this.questions = [];
-      // this.totalPages = 0;
-      // this.searchPerformed = false;
     }
   }
   clearFilter(): void {
     this.selectedDropLevel = "";
     this.selectedDropRole = "";
-    this.selectedDropExperience = null;
+    this.selectedDropMinExperience = null;
+    this.selectedDropMaxExperience = null;
     this.selectedDropDescription = "";
+    const maxExperience = Math.max(...this.maxExperiences);
+    this.maxExperienceRange = Array.from({ length: maxExperience }, (_, i) => i + 1);
     this.fetchQuestions(this.companyId, 1);
     this.getFilterValue();
   }
@@ -158,61 +160,81 @@ export class CompanyDetailsComponent implements OnInit {
       this.fetchQuestions(this.companyId, this.currentPage);
     }
   }
-
-  deleteCompanyQuestion(id: number) {
+  deleteCompanyQuestion(id: number): void {
     this.cs.deleteCompanyQuestion(id).subscribe(
       (res) => {
+        console.log('Question deleted successfully:', res);
+        if (this.hasActiveFilters()) {
+          this.getFilteredQuestions(this.currentPage);
+        } else {
+          this.fetchQuestions(this.companyId, this.currentPage);
+        }
+        if (this.questions.length === 0 && this.currentPage > 1) {
+          this.currentPage--;
+          if (this.hasActiveFilters()) {
+            this.getFilteredQuestions(this.currentPage);
+          } else {
+            this.fetchQuestions(this.companyId, this.currentPage);
+          }
+        }
 
-        this.fetchQuestions(this.companyId, this.currentPage);
+        this.getFilterValue();
+      },
+      (error) => {
+        console.error('Error deleting question:', error);
       }
-    )
+    );
+  }
+
+  hasActiveFilters(): boolean {
+    return (
+      !!this.selectedDropLevel ||
+      !!this.selectedDropRole ||
+      this.selectedDropMinExperience !== null ||
+      this.selectedDropMaxExperience !== null ||
+      !!this.selectedDropDescription
+    );
   }
   getFilteredQuestions(page: number = this.currentPage): void {
     const filters = {
       level: this.selectedDropLevel,
       role: this.selectedDropRole,
-      experience: this.selectedDropExperience,
+      min_experience: this.selectedDropMinExperience,
+      max_experience: this.selectedDropMaxExperience,
       description: this.selectedDropDescription,
     };
+
     this.cs.filterCompanyQuestions(filters, page).subscribe(
       (response) => {
         this.questions = response.questions;
         this.totalPages = response.total_pages;
-        this.currentPage = response.current_page;
-        this.selectedExperience = response.questions[0].experience;
-        this.selectedRole = response.questions[0].role;
-        this.selectedLevel = response.questions[0].level;
-        this.description = response.questions[0].description;
+        this.currentPage = response.current_page; // Ensure current page is updated
+        const maxExperience = Math.max(...this.maxExperiences);
+        this.maxExperienceRange = Array.from({ length: maxExperience }, (_, i) => i + 1);
       },
       (error) => {
-        console.error('Error fetching filtered questions', error);
+        console.error('Error fetching filtered questions:', error);
       }
     );
   }
 
-  // Triggered when any dropdown value changes
+
   onDropdownChange(): void {
     // Collect selected filters from the dropdowns
     const selectedFilters = {
-      level: this.selectedDropLevel,
-      role: this.selectedDropRole,
-      experience: this.selectedDropExperience,
-      description: this.selectedDropDescription,
+      level: this.selectedDropLevel || null,
+      role: this.selectedDropRole || null,
+      min_experience: this.selectedDropMinExperience || null,
+      max_experience: this.selectedDropMaxExperience || null,
+      description: this.selectedDropDescription || null,
     };
-
-    // Log the selected filters for debugging purposes (optional)
-    console.log('Selected Filters:', selectedFilters);
-
-    // Fetch filtered questions based on the selected filters
     this.getFilteredQuestions();
   }
 
-  // Method to handle pagination (optional)
+
   onPageChange(page: number): void {
     this.getFilteredQuestions(page);
   }
-
-
   goBack(): void {
     this.location.back();
   }

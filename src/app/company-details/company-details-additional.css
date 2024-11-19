@@ -44,9 +44,9 @@ h3 {
 }
 
 .delQ{
-    position: absolute; 
-    top: 30%; 
-    right: 8%; 
+    /* position: absolute;  */
+    /* top: 30%; 
+    right: 8%;  */
     z-index: 10; 
     background-color: #3eb0ac;
     color: white;
@@ -102,14 +102,14 @@ button:hover {
 }
 
 .dropdown-container {
-display: flex;
+    display: flex;
     flex-wrap: nowrap;
     gap: 20px;
     padding: 2px;
     background-color: #f8f9fa;
     border: 1px solid #e0e0e0;
     border-radius: 8px;
-    max-width: 814px;
+    max-width: 850px;
     margin: 0px;
     margin-bottom: -62px;
 }

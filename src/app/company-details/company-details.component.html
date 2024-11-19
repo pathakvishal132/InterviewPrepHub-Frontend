@@ -23,13 +23,22 @@
 
       <!-- Experience Dropdown -->
       <div class="dropdown">
-        <label for="experiences">Experiences:</label>
-        <select id="experiences" [(ngModel)]="selectedDropExperience" (change)="onDropdownChange()">
-          <option *ngFor="let experience of experiences" [value]="experience">
+        <label for="experiences">Min Experience:</label>
+        <select id="experiences" [(ngModel)]="selectedDropMinExperience" (change)="onDropdownChange()">
+          <option *ngFor="let experience of minExperiences" [value]="experience">
             {{ experience }} Years
           </option>
         </select>
       </div>
+      <div class="dropdown">
+        <label for="experiences">Max Experience:</label>
+        <select id="experiences" [(ngModel)]="selectedDropMaxExperience" (change)="onDropdownChange()">
+          <option *ngFor="let experience of maxExperienceRange" [value]="experience">
+            {{ experience }} Years
+          </option>
+        </select>
+      </div>
+
 
       <!-- Description Dropdown -->
       <div class="dropdown">
@@ -63,7 +72,8 @@
               <div class="side-nav-content">
                 <h3>Question Details:</h3>
                 <p><strong>Experience range:</strong>
-                  {{ question.experience > 0 ? '0 - ' + question.experience : '0' }}
+                  {{ question.min_experience}}
+                  {{ question.max_experience}}
                 </p>
                 <p><strong>Role:</strong> {{ question.role || 'N/A' }}</p>
                 <p><strong>Level:</strong> {{ question.level || 'N/A' }}</p>
@@ -80,10 +90,11 @@
               <div class="answer-box">
                 <h3>Answer</h3>
                 <div [innerHTML]="question.answer"></div>
+                <button *ngIf="receivedMessage.length" class="delQ"
+                  (click)="deleteCompanyQuestion(question.id)">Delete</button>
               </div>
-              <button *ngIf="receivedMessage.length" class="delQ"
-                (click)="deleteCompanyQuestion(question.id)">Delete</button>
             </div>
+
           </div>
         </div>
       </div>
@@ -106,3 +117,4 @@
       </button>
     </div>
   </div>
+</div>
