@@ -7,14 +7,37 @@ import { Component } from '@angular/core';
 })
 export class FooterComponent {
   faqs = [
-    { question: 'How do I start?', answer: 'To get started, create an account and follow the guided steps.', showAnswer: false },
-    { question: 'Can I track my progress?', answer: 'Yes, you can track your progress in the dashboard.', showAnswer: false },
-    { question: 'Are the questions updated?', answer: 'We update the questions regularly to keep them relevant.', showAnswer: false },
-    { question: 'Is there a free trial?', answer: 'Yes, we offer a 7-day free trial to new users.', showAnswer: false },
-    { question: 'How do I contact support?', answer: 'You can contact support through the Contact Us page.', showAnswer: false }
+    {
+      question: 'How do I get started?',
+      answer: 'Click on "Start Preparing" to begin your journey.',
+      showAnswer: false
+    },
+    {
+      question: 'How can I prepare for company-specific interviews?',
+      answer: 'Navigate to the company page, select your desired company, and you’ll find all previously asked questions. You can also filter questions based on the job description.',
+      showAnswer: false
+    },
+    {
+      question: 'Is this platform focused on theoretical or coding questions for software engineers?',
+      answer: 'Currently, the platform offers theory-based questions. Coding questions will be added in the future.',
+      showAnswer: false
+    },
+    {
+      question: 'Are the questions regularly updated?',
+      answer: 'Yes, we update questions frequently to ensure they remain relevant and up-to-date.',
+      showAnswer: false
+    },
+    {
+      question: 'Developer Message',
+      answer: 'Please click on gmail to reach me or send the message in contact us page..',
+      showAnswer: false
+    },
+    {
+      question: 'How can I contact support?',
+      answer: 'You can reach out to support through the "Contact Us" page.',
+      showAnswer: false
+    },
   ];
-
-  // Toggle the visibility of the answer
   toggleAnswer(faq: any): void {
     faq.showAnswer = !faq.showAnswer;
   }
