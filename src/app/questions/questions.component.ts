@@ -145,7 +145,7 @@ export class QuestionsComponent implements OnInit {
   feedbackStatus: boolean = false;
   actualAnswerStatus: boolean = false;
   temp: string = "";
-  aa: any;
+  defaultQuestions: any;
 
   constructor(
     private questionService: QuestionsService,
@@ -159,13 +159,13 @@ export class QuestionsComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       this.domain = params['domain'];
       this.subdomain = params['subdomain'];
-      this.start();
     });
   }
 
   ngOnInit(): void {
-
+    this.start();
   }
+
   startListening(): void {
     this.voiceService.start();
     this.voiceService.speechRecognition.addEventListener('result', (event: any) => {
@@ -176,38 +176,39 @@ export class QuestionsComponent implements OnInit {
     });
     // this.temp += this.userAnswer;
   }
-
-  // Stop voice recognition
   stopListening(): void {
     this.voiceService.stop();
     this.userAnswer = this.voiceService.text;
     this.cdr.detectChanges(); // Manually trigger change detection to update the UI
   }
-
-  // Initialize and load the questions
   start(): void {
     this.loadQuestions();
   }
-
   // Fetch questions from the service
   loadQuestions(): void {
     this.loading = true;
+    this.defaultQuestions = this.questionService.getDefaultQuestions(this.subdomain);
     this.questionService.getQuestions(this.domain, this.subdomain)
       .subscribe(
         (data) => {
-          this.questions = data.result;
-          console.log("jdjjjdjd", this.questions);
+          if (data && data.result && Object.keys(data.result).length > 0) {
+            this.questions = data.result;
+          } else {
+            this.questions = this.defaultQuestions.result;
+          }
           this.currentQuestion = this.questions[`q${this.currentIndex + 1}`];
           this.loading = false;
-          this.actualAnswerStatus = false;
-          this.feedbackStatus = false;
         },
         (error) => {
           console.error('Error fetching questions:', error);
+          this.questions = this.defaultQuestions.result; // Fallback
+          this.currentQuestion = this.defaultQuestions.result[`q${this.currentIndex + 1}`];
           this.loading = false;
         }
       );
   }
+
+
 
   // Move to the next question
   nextQuestion(): void {
@@ -249,6 +250,7 @@ export class QuestionsComponent implements OnInit {
           (error) => {
             console.error('Error submitting answer:', error);
             this.loadingAnswers = false;
+
           }
         );
     }
