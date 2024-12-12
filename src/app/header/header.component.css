@@ -78,13 +78,21 @@
 .logo:hover .website-name {
   color: #3eb0ac;
 }
+.nav-links a {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 16px;
+  padding: 8px; /* Add padding for better clickability */
+  border-radius: 5px; /* Smooth corners */
+  transition: all 0.3s ease; /* Smooth transitions */
+}
 
 .nav-links a:hover {
   background-color: #ffffff;
-  padding: 2px;
-  border: 1px solid;
-  border-radius: 5px;
   color: #1e1f26;
+  padding: 8px; /* Ensure padding remains consistent */
+  border: 1px solid #ffffff;
+  border-radius: 5px;
 }
 
 .profile:hover{
