@@ -34,6 +34,8 @@ import { InterviewDiscussionComponent } from './interview-discussion/interview-d
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { PaginationModule } from './pagination/pagination.module';
 import { ResourceComponent } from './resource/resource.component';
+import { ReviewsComponent } from './reviews/reviews.component';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -61,6 +63,8 @@ import { ResourceComponent } from './resource/resource.component';
     AdminComponent,
     InterviewDiscussionComponent,
     ResourceComponent,
+    ReviewsComponent,
+    ProfileComponent,
     // CompanyDetailsComponent,
     // CompanyComponent,
 

@@ -104,8 +104,8 @@ button:hover {
 .dropdown-container {
     display: flex;
     flex-wrap: nowrap;
-    gap: 20px;
-    padding: 2px;
+    gap: 10px;
+    padding: 1px;
     background-color: #f8f9fa;
     border: 1px solid #e0e0e0;
     border-radius: 8px;
@@ -117,7 +117,7 @@ button:hover {
 .dropdown {
   display: flex;
   flex-direction: column;
-  width: 200px;
+  width: 180px;
 }
 
 label {
@@ -143,25 +143,24 @@ select:focus {
 .clear-filter-btn {
   background: linear-gradient(135deg, #2c3e50, #2c3e50); 
   color: #ffffff; 
-  /* padding: 10px 20px; Comfortable padding */
-  border: none; /* Remove default border */
-  border-radius: 8px; /* Rounded corners for a modern look */
-  font-size: 16px; /* Slightly larger font size */
-  cursor: pointer; /* Pointer cursor on hover */
-  transition: all 0.3s ease-in-out; /* Smooth transition for hover effects */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  border: none; 
+  border-radius: 8px; 
+  font-size: 16px; 
+  cursor: pointer; 
+  transition: all 0.3s ease-in-out; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
 }
 
 .clear-filter-btn:hover {
-  background: linear-gradient(135deg, #2c3e50, #3eb0ac); /* Reverse the gradient on hover */
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Increased shadow on hover for emphasis */
-  transform: scale(1.05); /* Slight zoom effect on hover */
+  background: linear-gradient(135deg, #2c3e50, #3eb0ac); 
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); 
+  transform: scale(1.05);
 }
 
 .clear-filter-btn:active {
-  background: #1f2f3a; /* Darker background on click for a pressed effect */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Reduce shadow on active */
-  transform: scale(1); /* Reset zoom on active */
+  background: #1f2f3a; 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); 
+  transform: scale(1);
 }
 
 .loading-container {
@@ -174,8 +173,8 @@ select:focus {
 }
 
 .loading-spinner {
-  border: 8px solid #f3f3f3; /* Light gray background */
-  border-top: 8px solid #3498db; /* Blue color for spinner */
+  border: 8px solid #f3f3f3; 
+  border-top: 8px solid #3498db; 
   border-radius: 50%;
   width: 50px;
   height: 50px;

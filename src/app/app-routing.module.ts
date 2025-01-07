@@ -19,6 +19,9 @@ import { LoginComponent } from './login/login.component';
 // import { CompanyComponent } from './company/company.component';
 import { UserStepsComponent } from './user-steps/user-steps.component';
 import { AdminComponent } from './admin/admin.component';
+import { PaginationModule } from './pagination/pagination.module';
+import { ReviewsComponent } from './reviews/reviews.component';
+import { ProfileComponent } from './profile/profile.component';
 const routes: Routes = [
   { path: 'interview-dashboard', component: InterviewDashboardComponent },
   {
@@ -66,6 +69,12 @@ const routes: Routes = [
 
   {
     path: 'admin', component: AdminComponent
+  },
+  {
+    path: 'company-review', component: ReviewsComponent
+  },
+  {
+    path: 'profile', component: ProfileComponent
   },
 
 

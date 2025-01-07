@@ -1,0 +1,84 @@
+.user-profile-container {
+  padding: 40px 20px;
+  background-color: #222831;
+  color: #f0f0f0;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background-color: #393e46;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.profile-image {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 3px solid #00adb5;
+  object-fit: cover;
+}
+
+.user-details h1 {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0;
+  color: #00adb5;
+}
+
+.user-details p {
+  margin: 5px 0;
+  font-size: 16px;
+}
+
+.progress-section {
+  background-color: #393e46;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.progress-section h2 {
+  margin-bottom: 20px;
+  color: #00adb5;
+}
+
+.additional-info {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.achievements, .recommendations {
+  flex: 1;
+  background-color: #393e46;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.achievements h2, .recommendations h2 {
+  margin-bottom: 20px;
+  color: #00adb5;
+}
+
+.achievements ul, .recommendations ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.achievements li, .recommendations li {
+  background-color: #222831;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  color: #f0f0f0;
+}
