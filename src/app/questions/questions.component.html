@@ -1,0 +1,51 @@
+<div class="main">
+  <div class="question-container">
+    <!-- Display a loading message while waiting for data -->
+    <!-- <ng-container *ngIf="loading; else content">
+            <body>Loading</body>
+        </ng-container> -->
+    <ng-container *ngIf="loading; else content">
+      <div class="loading-spinner"></div>
+    </ng-container>
+
+    <ng-template #content>
+      <!-- Display the current question -->
+      <h1 class="question-title">{{ currentQuestion || 'Loading question...' }}</h1>
+      <div class="answer-box">
+        <textarea id="answer" [(ngModel)]="voiceService.text" (input)="onInputChange($event)"
+          placeholder="Type your answer here..." rows="5"></textarea>
+        <div class="voice-controls">
+          <button id="speak-btn" (click)="toggleVoiceRecognition()"
+            class="voice-btn">{{ voiceService.isRecognizing ? 'Stop' : 'Speak' }}</button>
+          <!-- <button id="speak-btn" (click)="startListening()" class="voice-btn">Speak</button> -->
+          <!-- <button id="stop-btn" (click)="stopListening()" class="voice-btn">Stop</button> -->
+          <button class="voice-btn" (click)="nextQuestion()">Next Question</button>
+          <button class="voice-btn" (click)="previousQuestion()">Previous Question</button>
+        </div>
+      </div>
+      <div class="answer-actions">
+
+        <button class="feedback-btn" *ngIf="feedback.length" (click)="getFeedback()">Feedback</button>
+        <button class="actual-answer-btn" *ngIf="actualAnswer.length" (click)="getActualAnswer()">Actual Answer</button>
+      </div>
+      <button id="submit-btn" (click)="submitAnswer()" class="submit-btn">Submit Answer</button>
+      <ng-container *ngIf="loadingAnswers">
+        <div class="loading-spinner"></div>
+      </ng-container>
+
+
+      <p *ngIf="feedbackStatus">{{feedback}}</p>
+      <p *ngIf="actualAnswerStatus" [innerHTML]="actualAnswer"></p>
+    </ng-template>
+  </div>
+  <div class="go-back-container">
+    <button (click)="goBack()" class="go-back-btn">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left">
+        <line x1="19" y1="12" x2="5" y2="12"></line>
+        <polyline points="12 19 5 12 12 5"></polyline>
+      </svg>
+      <span>Go Back</span>
+    </button>
+  </div>
+</div>

@@ -1,0 +1,124 @@
+.steps-container {
+    padding: 40px;
+    background-color: #1a1f24; /* Dark background to match the theme */
+    color: #ffffff; /* Light text color */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.steps-container h2 {
+    text-align: center;
+    font-size: 28px;
+    margin-bottom: 40px;
+    color: #7367f0; /* Primary bright purple for heading */
+}
+
+.steps-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.step {
+    display: flex;
+    align-items: flex-start;
+    background-color: #25292e; /* Slightly lighter dark background for step sections */
+    padding: 20px;
+    border-radius: 10px;
+    position: relative;
+    border-left: 5px solid #7367f0; /* Left accent border for each step */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.step-number {
+    background-color: #7367f0; /* Bright purple for step number */
+    color: #ffffff;
+    font-size: 24px;
+    font-weight: bold;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%; /* Circular step number */
+    margin-right: 20px;
+}
+
+.step-details h3 {
+    font-size: 20px;
+    color: #ffffff;
+    margin-bottom: 10px;
+    
+}
+.head{
+    text-align: center;
+    font-size: 25px;
+}
+
+.step-details p {
+    color: #b0b0b0; /* Lighter color for the paragraph text */
+}
+
+.step::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 25px;
+    height: 100%;
+    width: 2px;
+    background-color: #5b54db; /* Slightly darker purple for step connectors */
+    z-index: -1;
+}
+
+.step:last-child::before {
+    background-color: transparent; /* Remove line for the last step */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .steps-wrapper {
+        flex-direction: column;
+    }
+
+    .step {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .step-number {
+        margin-right: 0;
+        margin-bottom: 15px;
+    }
+}
+
+
+.go-back-container {
+    position: absolute;
+    top: 11%; 
+    left: 92%; 
+    transform: translateX(-50%); 
+}
+.go-back-btn {
+    display: flex;
+    align-items: center; 
+    padding: 5px 10px; 
+    font-size: 14px; 
+    background-color: transparent;
+    color: white;
+    border: 1px solid white;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.go-back-btn svg {
+    margin-right: 6px; 
+    width: 18px;
+    height: 18px;
+    stroke: white;
+}
+
+.go-back-btn:hover {
+    background-color: #3eb0ac;
+    color: white;
+}
+

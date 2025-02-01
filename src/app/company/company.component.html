@@ -1,0 +1,56 @@
+<div class="main">
+  <div class="container">
+    <div class="table-title">
+      <h2>Companies</h2>
+    </div>
+
+    <div class="search-box">
+      <input type="text" placeholder="Search company..." [(ngModel)]="searchTerm" (keyup.enter)="onSearch()" />
+    </div>
+    <div *ngIf="loading" class="loading-container">
+      <div class="loading-spinner"></div>
+      <p>Loading...</p>
+    </div>
+
+    <table class="company-table">
+      <thead>
+        <tr>
+          <th>Company Name</th>
+          <!-- <th>Title</th> -->
+          <th>Asked Questions</th>
+          <!-- <th>Interview Level</th> -->
+          <th *ngIf="receivedMessage.length">Delete Company</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let company of companies">
+          <td style="text-transform: capitalize;">{{ company.name }}</td>
+          <!-- <td>title</td> -->
+          <td><a [routerLink]="['/company/details', company.id]">See all Questions</a></td>
+
+          <!-- <td>{{ company.interviewLevel }}</td> -->
+          <th *ngIf="receivedMessage.length">
+            <button (click)="deleteCompany(company.id)" class="go-back-btn">
+              <svg viewBox="0 0 24 24" stroke-linejoin="round">
+              </svg>
+              <span>Delete</span>
+            </button>
+          </th>
+        </tr>
+
+      </tbody>
+    </table>
+    <app-pagination [currentPage]="currentPage" [totalPages]="totalPages" (pageChanged)="onPageChanged($event)">
+    </app-pagination>
+  </div>
+  <div class="go-back-container">
+    <button (click)="goBack()" class="go-back-btn">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left">
+        <line x1="19" y1="12" x2="5" y2="12"></line>
+        <polyline points="12 19 5 12 12 5"></polyline>
+      </svg>
+      <span>Go Back</span>
+    </button>
+  </div>
+</div>

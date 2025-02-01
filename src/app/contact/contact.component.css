@@ -1,0 +1,134 @@
+.contact-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 50px;
+  background-color: #222831;
+  color: #fff;
+}
+
+.contact-image {
+  flex: 1;
+  padding: 20px;
+}
+
+.contact-image img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.contact-form {
+  flex: 1;
+  background-color: #232635;
+  padding: 40px;
+  border-radius: 8px;
+}
+
+.contact-form h2 {
+  margin-bottom: 10px;
+  font-size: 24px;
+}
+
+.contact-form p {
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  background-color: #3a3f54;
+  color: #fff;
+}
+
+textarea {
+  height: 100px;
+  resize: none;
+}
+
+.send-button {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  background-color: #3ccf91;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.send-button:hover {
+  background-color: #32b97b;
+}
+
+.footer {
+  background-color: #1c1e26;
+  padding: 20px;
+  color: #fff;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #3a3f54;
+}
+
+.footer-content nav {
+  display: flex;
+  gap: 20px;
+}
+
+.footer-content a {
+  color: #3ccf91;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-content a:hover {
+  color: #32b97b;
+}
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 20px;
+}
+
+.footer-bottom p {
+  margin: 0;
+}
+
+.footer-links a {
+  color: #3ccf91;
+  text-decoration: none;
+  margin-left: 20px;
+  transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: #32b97b;
+}
+
+.success-message {
+  color: green; /* You can adjust the color as needed */
+  font-weight: bold;
+  margin-top: 10px;
+}

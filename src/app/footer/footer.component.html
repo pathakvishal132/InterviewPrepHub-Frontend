@@ -1,0 +1,62 @@
+<footer class="footer">
+  <div class="footer-container">
+    <div class="faq-section">
+      <h2>FAQs</h2>
+      <p>Find answers to common questions about our services.</p>
+      <ul class="faq-list">
+        <li *ngFor="let faq of faqs">
+          <div (click)="toggleAnswer(faq)">
+            <h4>{{ faq.question }}</h4>
+          </div>
+          <p *ngIf="faq.showAnswer">
+            ➡️ {{ faq.answer }}
+          </p>
+        </li>
+      </ul>
+    </div>
+    <div class="help-section">
+      <h2>Need more help?</h2>
+      <p>Reach out to our support team for assistance.</p>
+      <button routerLink="/contact" routerLinkActive="active" ariaCurrentWhenActive="page" class="contact-btn">Contact
+        Us</button>
+    </div>
+    <div class="footer-bottom">
+      <div class="collaborate">
+        <h3>Let's Collaborate</h3>
+        <p>Join us in creating the best interview preparation platform.</p>
+        <div class="social-links">
+          <!-- <a href="#"><i class="fab fa-facebook-f"></i></a> -->
+          <a href="https://www.instagram.com/interview_prep_hub/" target="_blank"><i class="fab fa-instagram"></i></a>
+          <a href="https://www.linkedin.com/company/105041621/admin/dashboard/" target="_blank"><i
+              class="fab fa-linkedin-in"></i></a>
+          <!-- <a href="#"><i class="fab fa-youtube"></i></a> -->
+        </div>
+      </div>
+      <div class="projects">
+        <h3></h3>
+        <ul>
+          <li>Developed By Himanshu Pathak </li>
+          <!-- <li>Mock Interviews</li>
+                    <li>Question Bank</li>
+                    <li>Progress Tracker</li> -->
+        </ul>
+      </div>
+      <div class="contact">
+        <h3>Contact</h3>
+        <ul>
+          <li>
+            <a href="mailto:pathakvishal132@gmail.com" target="_blank">Gmail</a>
+          </li>
+
+          <li>
+            <a routerLink="/contact">Support</a>
+          </li>
+          <li>
+            <a href="https://www.linkedin.com/in/himanshu-pathak-997720201/" target="_blank">Developer LinkedIn</a>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</footer>

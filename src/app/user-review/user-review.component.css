@@ -1,0 +1,73 @@
+.testimonials {
+    text-align: center;
+    padding: 40px 0;
+    background-color: #3B4049; /* Dark background to match the image */
+    border-radius: 10px; /* Rounded corners for a modern look */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.testimonials h2 {
+    margin-bottom: 30px;
+    color: #fff; /* White text for better contrast */
+    font-size: 28px; /* Larger heading for prominence */
+    font-weight: bold;
+    
+}
+
+.testimonial-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 20px;
+    text-align: left;
+    background-color: #222;
+    padding: 25px; 
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out; 
+    
+}
+
+.testimonial-card:hover {
+    transform: scale(1.05); /* Slightly enlarge the card on hover */
+    
+}
+
+.testimonial-card img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-bottom: 20px;
+    object-fit: cover; /* Ensure image fills the container without distortion */
+    
+}
+
+.testimonial-content {
+    text-align: center;
+    
+}
+
+.testimonial-content p {
+    margin-bottom: 15px;
+    color: #fff; /* White text for better contrast */
+    font-size: 16px; /* Slightly larger font size for readability */
+    line-height: 1.4; /* Adjust line height for better spacing */
+    
+}
+
+.rating {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.rating i {
+    color: gold;
+    font-size: 20px; /* Increase star size for better visibility */
+}
+
+.testimonial-card p:last-child {
+    font-style: italic;
+    color: #999; /* Lighter color for author information */
+    font-size: 14px; /* Smaller font size for author details */
+}

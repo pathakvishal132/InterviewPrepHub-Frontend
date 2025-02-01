@@ -1,0 +1,119 @@
+<div class="main">
+  <div class="container">
+    <div class="table-title">
+      <h2>Problems</h2>
+    </div>
+
+    <div class="dropdown-container">
+      <!-- Level Dropdown -->
+      <div class="dropdown">
+        <label for="levels">Levels:</label>
+        <select id="levels" [(ngModel)]="selectedDropLevel" (change)="onDropdownChange()">
+          <option *ngFor="let level of levels" [value]="level">{{ level }}</option>
+        </select>
+      </div>
+
+      <!-- Role Dropdown -->
+      <div class="dropdown">
+        <label for="roles">Roles:</label>
+        <select id="roles" [(ngModel)]="selectedDropRole" (change)="onDropdownChange()">
+          <option *ngFor="let role of roles" [value]="role">{{ role }}</option>
+        </select>
+      </div>
+
+      <!-- Experience Dropdown -->
+      <div class="dropdown">
+        <label for="experiences">Min Experience:</label>
+        <select id="experiences" [(ngModel)]="selectedDropMinExperience" (change)="onDropdownChange()">
+          <option *ngFor="let experience of minExperiences" [value]="experience">
+            {{ experience }} Years
+          </option>
+        </select>
+      </div>
+      <div class="dropdown">
+        <label for="experiences">Max Experience:</label>
+        <select id="experiences" [(ngModel)]="selectedDropMaxExperience" (change)="onDropdownChange()">
+          <option *ngFor="let experience of maxExperienceRange" [value]="experience">
+            {{ experience }} Years
+          </option>
+        </select>
+      </div>
+
+
+      <!-- Description Dropdown -->
+      <div class="dropdown">
+        <label for="descriptions">Descriptions:</label>
+        <select id="descriptions" [(ngModel)]="selectedDropDescription" (change)="onDropdownChange()">
+          <option *ngFor="let description of descriptions" [value]="description">
+            {{ description }}
+          </option>
+        </select>
+      </div>
+      <div>
+        <button class="clear-filter-btn" (click)="clearFilter()">Clear Filter</button>
+      </div>
+    </div>
+
+    <div class="search-box">
+      <input type="text" placeholder="Search Questions, Role, Description ,Level " [(ngModel)]="searchTerm"
+        (keyup.enter)="onSearch()" />
+    </div>
+    <div *ngIf="loading" class="loading-container">
+      <div class="loading-spinner"></div>
+      <p>Loading...</p>
+    </div>
+
+    <div class="question-answer-container">
+      <div *ngFor="let question of questions" class="question-answer-box">
+        <div class="main-box-1">
+          <div class="flex-container">
+            <!-- Side Navigation -->
+            <div class="side-nav">
+              <div class="side-nav-content">
+                <h3>Question Details:</h3>
+                <p><strong>Experience range:</strong>
+                  {{ question.min_experience}} - {{ question.max_experience}}
+                </p>
+                <p><strong>Role:</strong> {{ question.role || 'N/A' }}</p>
+                <p><strong>Level:</strong> {{ question.level || 'N/A' }}</p>
+                <p><strong>Description:</strong> {{ question.description || 'N/A' }}</p>
+              </div>
+            </div>
+
+            <!-- Main Question and Answer Content -->
+            <div class="main-box">
+              <div class="question-box">
+                <h3>Question</h3>
+                <div [innerHTML]="question.question"></div>
+              </div>
+              <div class="answer-box">
+                <h3>Answer</h3>
+                <div [innerHTML]="question.answer"></div>
+                <button *ngIf="receivedMessage.length" class="delQ"
+                  (click)="deleteCompanyQuestion(question.id)">Delete</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div *ngIf="!loading && !questions.length" class="no-questions">
+        <h1>No records found</h1>
+      </div>
+    </div>
+    <app-pagination [currentPage]="currentPage" [totalPages]="totalPages" (pageChanged)="onPageChanged($event)">
+    </app-pagination>
+
+
+    <div class="go-back-container">
+      <button (click)="goBack()" class="go-back-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left">
+          <line x1="19" y1="12" x2="5" y2="12"></line>
+          <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+        <span>Go Back</span>
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,53 @@
+<div class="login-container">
+  <div class="login-box">
+    <h2 *ngIf="isLoginActive; else signupTitle">{{ isLoginActive ? 'Login' : 'Signup' }}</h2>
+    
+    <form (ngSubmit)="onSubmit()">
+
+        <div class="input-group">
+        <label for="userName">User Name</label>
+        <input type="userName" id="userName" [(ngModel)]="userName" name="userName" required />
+      </div>
+      <div class="input-group"  *ngIf="!isLoginActive">
+        <label for="email">Email</label>
+        <input type="email" id="email" [(ngModel)]="email" name="email" required />
+      </div>
+      
+      <div class="input-group">
+        <label for="password">Password</label>
+        <input
+          type="password"
+          id="password"
+          [(ngModel)]="password"
+          name="password"
+          required
+        />
+      </div>
+
+      <!-- Extra field for Signup -->
+      <div class="input-group" *ngIf="!isLoginActive">
+        <label for="confirm-password">Confirm Password</label>
+        <input
+          type="password"
+          id="confirm-password"
+          [(ngModel)]="confirmPassword"
+          name="confirmPassword"
+          required
+        />
+      </div>
+
+      <div class="error-message" *ngIf="errorMessage">{{ errorMessage }}</div>
+      <button type="submit" class="login-button">{{ isLoginActive ? 'Login' : 'Signup' }}</button>
+    </form>
+
+    <!-- Toggle between Login and Signup -->
+    <p class="toggle-text">
+      {{ isLoginActive ? 'Don\'t have an account?' : 'Already have an account?' }}
+      <a (click)="toggleActiveState()">{{ isLoginActive ? 'Signup' : 'Login' }}</a>
+    </p>
+  </div>
+</div>
+
+<ng-template #signupTitle>
+  <h2>Signup</h2>
+</ng-template>

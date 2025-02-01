@@ -1,0 +1,183 @@
+.user-profile-container {
+  padding: 30px 20px;
+  background-color: #222831;
+  color: #f0f0f0;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  min-height: 100vh; /* Ensures the container takes full viewport height */
+  align-items: center; /* Centers the content horizontally */
+  justify-content: center; /* Centers the content vertically */
+}
+
+.user-info {
+  display: flex;
+  align-items: flex-start; /* Aligns the items to the top */
+  gap: 20px;
+  background-color: #393e46;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 1000px;
+  margin: auto;
+  flex-wrap: wrap; /* Ensures the content adjusts on smaller screens */
+}
+
+.profile-image {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 3px solid #00adb5;
+  object-fit: cover;
+}
+
+.user-details {
+  flex-grow: 1; 
+}
+
+.user-details h1 {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0;
+  color: #00adb5;
+}
+
+.user-details p {
+  margin: 5px 0;
+  font-size: 16px;
+  color: #f0f0f0;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+form input[type="file"] {
+  font-size: 14px;
+  color: #00adb5;
+  padding: 5px;
+  background: #222831;
+  border: 1px solid #00adb5;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+form button {
+  padding: 10px 20px;
+  font-size: 14px;
+  background-color: #00adb5;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+form button:hover {
+  background-color: #007f86;
+}
+
+form button:disabled {
+  background-color: #3a4a4d;
+  cursor: not-allowed;
+}
+
+.uploaded-image {
+  max-width: 300px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.progress-section {
+  background-color: #393e46;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  width: 100%; max-width: 1000px; margin: auto;
+}
+
+.progress-section h2 {
+  margin-bottom: 20px;
+  color: #00adb5;
+}
+
+.additional-info {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.achievements, .recommendations {
+  flex: 1;
+  background-color: #393e46;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.achievements h2, .recommendations h2 {
+  margin-bottom: 20px;
+  color: #00adb5;
+}
+
+.achievements ul, .recommendations ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.achievements li, .recommendations li {
+  background-color: #222831;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  color: #f0f0f0;
+}
+
+.upload-container {
+  text-align: center;
+  color: #f0f0f0;
+}
+
+.upload-box {
+  width: 80px;
+  height: 50px;
+  border: 2px dashed #00adb5;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 10px;
+  transition: background 0.3s ease;
+}
+
+.upload-box:hover {
+  background: rgba(0, 173, 181, 0.1);
+}
+
+.upload-box svg {
+  margin-bottom: 8px;
+}
+
+.upload-box p {
+  font-size: 14px;
+  color: #00adb5;
+}
+
+.uploaded-image {
+  max-width: 300px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  margin-top: 10px;
+}
+.upload-btn {
+  width: 160px;
+  padding: 10px 15px;
+  height: 40px;
+}

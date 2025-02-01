@@ -1,0 +1,22 @@
+<div class="dashboard">
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="phone-conatiner">
+        <img src="assets/dashboard/dash3.jpg" alt="Interview Preparation" class="hero-image">
+      </div>
+      <div class="hero-text">
+        <h1>Ace Your Interviews</h1>
+        <p>Prepare with domain-specific and company-specific questions.</p>
+        <!-- <a routerLink="/interview-dashboard" routerLinkActive="active" ariaCurrentWhenActive="page" class="cta-button">Start Preparing</a> -->
+        <a class="cta-button" (click)="navigateToInterviewDashboard()">Start Preparing</a>
+      </div>
+    </div>
+  </section>
+
+
+  <app-about></app-about>
+  <div class="conainer">
+    <router-outlet></router-outlet>
+  </div>
+</div>

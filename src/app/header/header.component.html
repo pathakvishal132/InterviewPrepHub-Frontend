@@ -1,0 +1,37 @@
+<header class="navbar">
+  <div class="container">
+    <div class="logo">
+      <img routerLink="/" src="assets/dashboard/logo.jpg" alt="Interview Preparation" class="logo-image">
+      <p routerLink="/" class="website-name">InterviewPrepHub</p>
+    </div>
+    <nav class="nav-links">
+      <!-- <a routerLink="/" routerLinkActive="active" ariaCurrentWhenActive="page">Home</a> -->
+      <!-- <a routerLink="/company" routerLinkActive="active" ariaCurrentWhenActive="page">Company Based </a> -->
+      <!-- <a routerLink="/domain-dashboard" routerLinkActive="active" ariaCurrentWhenActive="page">Domain Based </a> -->
+      <!-- <a routerLink="/company-review" routerLinkActive="active" ariaCurrentWhenActive="page">Company Review</a> -->
+      <a routerLink="/user-steps" routerLinkActive="active" ariaCurrentWhenActive="page" class="nav-items">User
+        Guide</a>
+      <!-- <a href="#">Services</a> -->
+      <a *ngIf="receivedMessage.length" routerLink="/admin" routerLinkActive="active" ariaCurrentWhenActive="page"
+        class="nav-items">Admin</a>
+      <a *ngIf="!loginMessage.length" routerLink="/login" routerLinkActive="active" ariaCurrentWhenActive="page"
+        class="nav-items">Login/Signup</a>
+      <a *ngIf="loginMessage" (click)="logout()" routerLinkActive="active" ariaCurrentWhenActive="page"
+        class="nav-items">Logout</a>
+    </nav>
+    <div class="profile">
+      <a *ngIf="loginMessage.length" routerLink="/profile" routerLinkActive="active" ariaCurrentWhenActive="page">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="40" height="40" fill="#ffffff"
+          aria-label="Profile Icon">
+
+          <circle cx="12" cy="8" r="4" />
+
+          <path d="M12 14c-5 0-8 2-8 5v2h16v-2c0-3-3-5-8-5z" />
+        </svg>
+      </a>
+    </div>
+
+
+  </div>
+
+</header>

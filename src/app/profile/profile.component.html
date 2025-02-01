@@ -1,0 +1,56 @@
+<div class="user-profile-container">
+  <!-- User Information Section -->
+  <div class="user-info">
+    <img *ngIf="imageBase64" class="profile-image" [src]="'data:image/png;base64,' + imageBase64" alt="User Profile" />
+    <div class="user-details">
+      <h1>{{ userName }}</h1>
+      <p>Email: {{ email }}</p>
+      <p>Joined: {{ dateJoined | date }}</p>
+      <!-- <p>Completed Domains: {{ user.completedDomains }}</p> -->
+    </div>
+    <div class="upload-container">
+      <h3>Upload Profile Picture</h3>
+      <form (submit)="onSubmit()">
+        <input type="file" #fileInput (change)="onFileSelected($event)" hidden />
+        <div class="upload-box" (click)="fileInput.click()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none"
+            stroke="#00adb5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 5v14M5 12h14" />
+          </svg>
+          <p *ngIf="!selectedFile">Click to upload</p>
+          <p *ngIf="selectedFile">{{ selectedFile.name }}</p>
+        </div>
+
+        <button class="upload-btn" type="submit" [disabled]="!selectedFile">Upload Image</button>
+      </form>
+
+      <div *ngIf="uploadedImage">
+        <h4>Uploaded Image:</h4>
+        <img [src]="uploadedImage" alt="Uploaded Image" class="uploaded-image" />
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Progress Graph Section -->
+  <div class="progress-section">
+    <h2>Progress Overview</h2>
+    <canvas id="progressChart"></canvas>
+  </div>
+
+  <!-- Achievements and Recommendations -->
+  <div class="additional-info">
+    <div class="achievements">
+      <h2>Achievements</h2>
+      <ul>
+        <li *ngFor="let achievement of user.achievements">{{ achievement }}</li>
+      </ul>
+    </div>
+    <div class="recommendations">
+      <h2>Recommended Paths</h2>
+      <ul>
+        <li *ngFor="let recommendation of user.recommendations">{{ recommendation }}</li>
+      </ul>
+    </div>
+  </div>
+</div>

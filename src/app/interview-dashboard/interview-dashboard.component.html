@@ -1,0 +1,38 @@
+<div class="main">
+    <div class="container">
+        <div class="phone-container">
+            <img src="assets/interview-dashboard/about1.webp" alt="Person on Phone" class="phone-image">
+        </div>
+        <div class="text-container">
+            <div class="domain">
+                <h1>Choose Your Domain</h1>
+            <p>Select a domain and subdomain to start your interview preparation.</p>
+            <div class="buttons">
+                <button routerLink="/domain-dashboard" routerLinkActive="active" ariaCurrentWhenActive="page" class="start-btn">Start Now</button>
+                <button mat-button (click)="openDialog('domain')" class="learn-btn">Learn More</button>
+            </div>
+            </div>
+            <div class="company">
+                <h1>Choose Your Company</h1>
+            <p>Select a domain and subdomain to start your interview preparation.</p>
+            <div class="buttons">
+                <button routerLink="/company" routerLinkActive="active" ariaCurrentWhenActive="page" class="start-btn">Start Now</button>
+                <button  mat-button (click)="openDialog('company')" class="learn-btn">Learn More</button>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- New "Go Back" Button below the navbar -->
+  <div class="go-back-container">
+    <button (click)="goBack()" class="go-back-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left">
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+        <span>Go Back</span>
+    </button>
+</div>
+
+</div>
+

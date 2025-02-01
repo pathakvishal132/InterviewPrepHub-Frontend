@@ -1,0 +1,70 @@
+<div class="main">
+  <form (ngSubmit)="submitQuestion()" #companyForm="ngForm">
+    <div>
+      <label for="level">Level:</label>
+      <select id="level" [(ngModel)]="level" name="level" required>
+        <option value="" disabled>Select Level</option>
+        <option value="Low">Low</option>
+        <option value="Medium">Medium</option>
+        <option value="High">High</option>
+      </select>
+    </div>
+    <div>
+      <label for="question">Question:</label>
+      <textarea id="question" [(ngModel)]="question" name="question" required></textarea>
+    </div>
+
+    <div>
+      <label for="answer">Answer:</label>
+      <textarea id="answer" [(ngModel)]="answer" name="answer" required></textarea>
+    </div>
+
+    <div>
+      <label for="description">Description:</label>
+      <input type="text" id="description" [(ngModel)]="description" name="description" required>
+    </div>
+
+    <div>
+      <label for="role">Role:</label>
+      <input type="text" id="role" [(ngModel)]="role" name="role" required>
+    </div>
+
+    <div>
+      <label for="experience">Min Experience:</label>
+      <input type="number" id="experience" [(ngModel)]="min_experience" name="experience" required>
+    </div>
+
+    <div>
+      <label for="experience">Max Experience:</label>
+      <input type="number" id="experience" [(ngModel)]="max_experience" name="experience" required>
+    </div>
+
+
+    <div>
+      <label for="company">Company:</label>
+      <input type="text" id="company" [(ngModel)]="company" name="company" required
+        placeholder="e.g., tcs,accenture,wipro">
+    </div>
+
+    <button type="submit">Submit</button>
+  </form>
+  <div>
+    <button (click)="close()">close</button>
+  </div>
+  <div class="message-container">
+    <h2>Messages</h2>
+    <div *ngIf="messages.length === 0" class="no-messages">
+      <p>No messages found.</p>
+    </div>
+    <div *ngFor="let message of messages" class="message-card">
+      <p><strong>Name:</strong> {{ message.name }}</p>
+      <p><strong>Email:</strong> {{ message.email }}</p>
+      <p><strong>Message:</strong> {{ message.message }}</p>
+      <button (click)="deleteMessage(message.id)" class="delete-button">Delete</button>
+    </div>
+    <div class="s">
+      <app-pagination [currentPage]="currentPage" [totalPages]="totalPages" (pageChanged)="onPageChanged($event)">
+      </app-pagination>
+    </div>
+  </div>
+</div>
