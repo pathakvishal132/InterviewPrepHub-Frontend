@@ -44,10 +44,15 @@ export class HeaderComponent implements OnInit {
       // Clear user-related data from localStorage
       localStorage.removeItem('hi');
       localStorage.removeItem('loginMessage');
+      localStorage.removeItem('id');
+      localStorage.removeItem("userName");
+      localStorage.removeItem("email");
+      localStorage.removeItem("dateJoined");
 
       // Reset component properties
       this.receivedMessage = '';
       this.loginMessage = '';
+
 
       // Navigate to the login or home page
       this.router.navigate(['/login']);

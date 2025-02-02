@@ -33,6 +33,7 @@ export class ProfileComponent implements OnInit {
   problemData: { date: string, problemsSolved: number }[] = [];
 
   ngOnInit() {
+    this.u_id = localStorage.getItem("id");
     this.initializeProgressGraph();
     if (this.u_id !== null) {
       this.getImage(this.u_id);
@@ -121,28 +122,37 @@ export class ProfileComponent implements OnInit {
   }
 
   onSubmit(): void {
+    if (!this.u_id) {
+      console.error('User ID is not available. Please log in.');
+      return;
+    }
+
     if (this.selectedFile) {
       const name = this.name || 'default_name';
-      const imgId = this.u_id ?? ""; // Use nullish coalescing operator to handle null
-
-      this.imageService.uploadImage(this.selectedFile, name, imgId).subscribe(
-        (response) => {
-          if (this.u_id) { // Check if u_id is not null or empty
-            this.getImage(this.u_id);
+      const imgId = this.u_id;
+      if (localStorage.getItem("loginMessage") === "success") {
+        this.imageService.uploadImage(this.selectedFile, name, imgId).subscribe(
+          (response) => {
+            this.getImage(this.u_id!); // Use non-null assertion since u_id is checked
             this.selectedFile = null;
+            console.log('Upload successful:', response);
+          },
+          (error) => {
+            console.error('Upload failed:', error);
           }
-          console.log('Upload successful:', response);
-        },
-        (error) => {
-          console.error('Upload failed:', error);
-        }
-      );
-    } else {
-      console.warn('No file selected.');
+        );
+      } else {
+        console.warn('No file selected.');
+      }
     }
   }
 
   getImage(imageId: string): void {
+    if (!imageId) {
+      console.error('User ID is not available. Please log in.');
+      return;
+    }
+
     this.imageService.getImage(imageId).subscribe(
       (response) => {
         this.imageBase64 = response.image_base64;
