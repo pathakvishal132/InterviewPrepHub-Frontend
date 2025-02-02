@@ -1,5 +1,5 @@
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { QuestionsService } from '../services/questions.service';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
@@ -12,7 +12,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
   templateUrl: './questions.component.html',
   styleUrls: ['./questions.component.css']
 })
-export class QuestionsComponent implements OnInit {
+export class QuestionsComponent implements OnInit, OnDestroy {
   questions: any = {};
   currentIndex: number = 0;
   currentQuestion: string = '';
@@ -161,6 +161,10 @@ export class QuestionsComponent implements OnInit {
 
   goBack(): void {
     this.location.back();
+  }
+  ngOnDestroy(): void {
+    this.stopListening();
+    this.voiceService.text = "";
   }
 }
 
