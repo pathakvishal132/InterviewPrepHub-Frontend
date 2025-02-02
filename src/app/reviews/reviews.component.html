@@ -1,95 +1,49 @@
-<!-- <div>
-  <p onclick="addReview()">Add Review </p>
-  <p onclick="seeReview()">See Review </p>
-  <div>
-    <input type="text" name="" id="" placeholder="Search">
+<div class="review-container">
+  <h2>Company Reviews for {{ companyName }}</h2>
+  <button (click)="toggleReviewForm()">Add Review</button>
+  <div class="outer-conatiner">
+    <div *ngFor="let review of reviews" class="review-item">
+      <h3><strong>Job Profile:</strong>{{ review.job_role }}</h3>
+      <p><strong>Interview Level:</strong> {{ review.interview_level }}</p>
+      <p><strong>Questions Asked:</strong> {{ review.questions_asked }}</p>
+      <p><strong>Company Culture:</strong> {{ review.company_culture }}</p>
+      <p><strong>Company Payroll:</strong> {{ review.company_payroll }}</p>
+    </div>
   </div>
-</div>
+  <app-pagination *ngIf="reviews.length" [currentPage]="currentPage" [totalPages]="totalPages"
+    (pageChanged)="onPageChanged($event)">
+  </app-pagination>
+  <div class="review-overlay" (click)="toggleReviewForm()"></div>
+  <div class="review-form">
+    <button class="close-btn" (click)="toggleReviewForm()">✖</button>
+    <h3>Add a Review</h3>
+    <form (ngSubmit)="submitReview()">
+      <label for="jobRole">Job Role:</label>
+      <input id="jobRole" [(ngModel)]="newReview.job_role" name="jobRole" required>
 
-<div class="add-review-container">
-  <h2>Add Company Review</h2>
-  <form (ngSubmit)="submitReview()" #reviewForm="ngForm">
-    <div class="form-group">
-      <label for="companyName">Company Name</label>
-      <input type="text" id="companyName" name="companyName" [(ngModel)]="review.companyName" required
-        placeholder="Enter company name" />
-    </div>
-    <div class="form-group">
-      <label for="reviewText">Company Culture Review</label>
-      <textarea id="reviewText" name="reviewText" [(ngModel)]="review.reviewText" required
-        placeholder="Write your review here"></textarea>
-    </div>
-    <div class="form-group">
-      <label for="reviewText">Intreview Process </label>
-      <textarea id="reviewText" name="reviewText" [(ngModel)]="review.reviewText" required
-        placeholder="Please mention some questions"></textarea>
-    </div>
-    <div class="form-group">
-      <label for="rating">Rating</label>
-      <input type="number" id="rating" name="rating" [(ngModel)]="review.rating" min="0" max="5" required
-        placeholder="Rate out of 5" />
-    </div>
-    <button type="submit" class="btn-submit" [disabled]="!reviewForm.form.valid">
-      Submit Review
+      <label for="interviewLevel">Interview Level:</label>
+      <input id="interviewLevel" [(ngModel)]="newReview.interview_level" name="interviewLevel">
+
+      <label for="questionsAsked">Questions Asked:</label>
+      <textarea id="questionsAsked" [(ngModel)]="newReview.questions_asked" name="questionsAsked"></textarea>
+
+      <label for="companyCulture">Company Culture:</label>
+      <textarea id="companyCulture" [(ngModel)]="newReview.company_culture" name="companyCulture"></textarea>
+
+      <label for="companyPayroll">Company Payroll:</label>
+      <input id="companyPayroll" [(ngModel)]="newReview.company_payroll" name="companyPayroll">
+
+      <button type="submit">Submit Review</button>
+    </form>
+  </div>
+  <div class="go-back-container">
+    <button (click)="goBack()" class="go-back-btn">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left">
+        <line x1="19" y1="12" x2="5" y2="12"></line>
+        <polyline points="12 19 5 12 12 5"></polyline>
+      </svg>
+      <span>Go Back</span>
     </button>
-  </form>
-</div>
-
-<div View>
-
-</div> -->
-
-<div class="company-review-container">
-  <!-- Header -->
-  <div class="review-header">
-    <h1>Company Reviews</h1>
-    <button mat-raised-button color="primary" (click)="openAddReviewDialog()">Add Review</button>
-  </div>
-
-  <!-- Reviews Listing -->
-  <div class="review-list">
-    <div class="review-card" *ngFor="let review of companyReviews">
-      <h3>{{ review.title }}</h3>
-      <p><strong>Reviewer:</strong> {{ review.reviewer }}</p>
-      <p><strong>Interview Experience:</strong> {{ review.interviewExperience }}</p>
-      <p><strong>Culture:</strong> {{ review.culture }}</p>
-      <p><strong>Rating:</strong> {{ review.rating }}/5</p>
-    </div>
   </div>
 </div>
-
-<!-- MatDialog Template -->
-<ng-template #addReviewDialog>
-  <h2 mat-dialog-title>Add Review</h2>
-  <form (ngSubmit)="submitReview()">
-    <mat-form-field appearance="fill" class="full-width">
-      <mat-label>Title</mat-label>
-      <input matInput formControlName="title" required />
-    </mat-form-field>
-
-    <mat-form-field appearance="fill" class="full-width">
-      <mat-label>Reviewer Name</mat-label>
-      <input matInput formControlName="reviewer" required />
-    </mat-form-field>
-
-    <mat-form-field appearance="fill" class="full-width">
-      <mat-label>Interview Experience</mat-label>
-      <textarea matInput formControlName="interviewExperience" rows="3"></textarea>
-    </mat-form-field>
-
-    <mat-form-field appearance="fill" class="full-width">
-      <mat-label>Culture</mat-label>
-      <textarea matInput formControlName="culture" rows="3"></textarea>
-    </mat-form-field>
-
-    <mat-form-field appearance="fill" class="full-width">
-      <mat-label>Rating</mat-label>
-      <input matInput formControlName="rating" type="number" min="1" max="5" />
-    </mat-form-field>
-
-    <div class="dialog-actions">
-      <button mat-button mat-dialog-close>Cancel</button>
-      <button mat-raised-button color="primary" type="submit" [disabled]="reviewForm.invalid">Submit</button>
-    </div>
-  </form>
-</ng-template>

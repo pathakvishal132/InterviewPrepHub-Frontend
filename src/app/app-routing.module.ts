@@ -71,7 +71,8 @@ const routes: Routes = [
     path: 'admin', component: AdminComponent
   },
   {
-    path: 'company-review', component: ReviewsComponent
+    path: 'company-review/:id/:companyName',
+    component: ReviewsComponent
   },
   {
     path: 'profile', component: ProfileComponent

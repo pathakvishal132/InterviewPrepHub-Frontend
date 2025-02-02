@@ -19,7 +19,7 @@
 
 .question-title {
     font-size: 24px;
-    color: #1a1a1a; /* Dark text color */
+    color: #1a1a1a; 
     margin-bottom: 20px;
 }
 
@@ -45,7 +45,7 @@ textarea {
 }
 
 .voice-btn {
-    background-color: #7367f0; /* Button color similar to arrow button */
+    background-color: #7367f0; 
     color: white;
     border: none;
     border-radius: 50px;
@@ -62,7 +62,7 @@ textarea {
 
 
 .submit-btn {
-    background-color: #7367f0; /* Submit button color */
+    background-color: #7367f0;
     color: white;
     border: none;
     border-radius: 50px;
@@ -73,21 +73,21 @@ textarea {
 }
 
 .submit-btn:hover {
-    background-color: #5b54db; /* Darker shade on hover */
+    background-color: #5b54db;
 }
 
 
 .go-back-container {
     position: fixed;
-    top: 11%; /* Aligns the button vertically near the top */
-    left: 92%; /* Positions the button on the right side */
-    transform: translateX(-50%); /* Ensures the button stays centered horizontally */
+    top: 11%;
+    left: 92%; 
+    transform: translateX(-50%);
 }
 .go-back-btn {
     display: flex;
-    align-items: center; /* Aligns icon and text horizontally */
-    padding: 5px 10px; /* Reduced padding */
-    font-size: 14px; /* Smaller font size */
+    align-items: center;
+    padding: 5px 10px;
+    font-size: 14px; 
     background-color: transparent;
     color: white;
     border: 1px solid white;
@@ -109,7 +109,6 @@ textarea {
 }
 
 .feedback-btn{
-    /* background-color: #7367f0;  */
     color: white;
     border: none;
     border-radius: 50px;
@@ -118,11 +117,10 @@ textarea {
     cursor: pointer;
     transition: background-color 0.3s ease;
     font-size: 16px;
-    background-color: #4CAF50; /* Customize button color */
+    background-color: #4CAF50; 
 }
 
 .actual-answer-btn{
-   /* background-color: #7367f0; */
     color: white;
     border: none;
     border-radius: 50px;
@@ -145,19 +143,17 @@ textarea {
   opacity: 0.9;
 }
 
-/* Add this to your component's CSS file or global styles */
 
 .loading-spinner {
-  border: 8px solid #f3f3f3; /* Light grey background */
-  border-top: 8px solid #3498db; /* Blue spinner color */
+  border: 8px solid #f3f3f3; 
+  border-top: 8px solid #3498db; 
   border-radius: 50%;
-  width: 50px; /* Size of the spinner */
-  height: 50px; /* Size of the spinner */
-  animation: spin 1s linear infinite; /* Animation */
-  margin: 0 auto; /* Center the spinner horizontally */
+  width: 50px; 
+  height: 50px; 
+  animation: spin 1s linear infinite; 
+  margin: 0 auto; 
 }
 
-/* Spinner animation */
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }

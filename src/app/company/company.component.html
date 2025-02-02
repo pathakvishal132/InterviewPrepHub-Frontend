@@ -18,6 +18,7 @@
           <th>Company Name</th>
           <!-- <th>Title</th> -->
           <th>Asked Questions</th>
+          <th>Company Review</th>
           <!-- <th>Interview Level</th> -->
           <th *ngIf="receivedMessage.length">Delete Company</th>
         </tr>
@@ -27,7 +28,9 @@
           <td style="text-transform: capitalize;">{{ company.name }}</td>
           <!-- <td>title</td> -->
           <td><a [routerLink]="['/company/details', company.id]">See all Questions</a></td>
-
+          <td>
+            <a [routerLink]="['/company-review', company.id, company.name]">Go to review page</a>
+          </td>
           <!-- <td>{{ company.interviewLevel }}</td> -->
           <th *ngIf="receivedMessage.length">
             <button (click)="deleteCompany(company.id)" class="go-back-btn">
