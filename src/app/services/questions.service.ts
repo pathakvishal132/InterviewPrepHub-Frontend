@@ -302,14 +302,27 @@ export class QuestionsService {
     const currentDate = new Date();
     const formattedDate = currentDate.toISOString();
     const id = localStorage.getItem("id")
-    const payload = {
-      question,
-      answer,
-      date: formattedDate,
-      id
-    };
-    console.log(payload);
-    return this.http.post<any>(`${this.apiUrl}/get_feedback/`, payload);
+    if (id === null) {
+      const payload = {
+        question,
+        answer,
+        date: formattedDate,
+        id: 9999
+      };
+      console.log(payload);
+      return this.http.post<any>(`${this.apiUrl}/get_feedback/`, payload);
+    }
+    else {
+      const payload = {
+        question,
+        answer,
+        date: formattedDate,
+        id
+      };
+      console.log(payload);
+      return this.http.post<any>(`${this.apiUrl}/get_feedback/`, payload);
+    }
+
   }
 
   setQuestions(questions: any) {
