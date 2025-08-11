@@ -1,11 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class QuestionsService {
+
+
   ds: any = {
     "result": {
       "q1": "Explain the bias-variance tradeoff in the context of machine learning models. How can it be addressed?",
@@ -282,10 +285,11 @@ export class QuestionsService {
       "q20": "What are the current trends and future challenges in microelectronics technology?"
     }
   };
-  // private apiUrl = 'http://127.0.0.1:8000/api';
-  private apiUrl = 'https://interview-prep-hub-backend-three.vercel.app/api';
+  private apiUrl = environment.apiUrl;
+
   private questionsData: any;
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
   // private getHeaders(): HttpHeaders {
   //   return new HttpHeaders().set('Authorization', `Bearer ${this.token}`);

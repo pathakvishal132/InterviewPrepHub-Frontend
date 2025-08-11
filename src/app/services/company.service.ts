@@ -2,14 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
 export class CompanyService {
-  // private apiUrl = 'http://127.0.0.1:8000/api';
-  private apiUrl = 'https://interview-prep-hub-backend-three.vercel.app/api';
-  private token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI2NTcyNzczLCJpYXQiOjE3MjY1NjA3NzMsImp0aSI6ImM1NzJlNmYzZGY1NzQyMjQ4MzcyMzRmYjIyNTM2MjNjIiwidXNlcl9pZCI6Nn0.utWE1D4yZnK9sHg1IiezZhR2xukpKaxSBeCbJPLKrC8';
-
+  private apiUrl = environment.apiUrl;
   constructor(private http: HttpClient) { }
 
   getReviews(companyId: number, page: number): Observable<any[]> {

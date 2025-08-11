@@ -24,10 +24,13 @@ export class ProfileComponent implements OnInit {
     email: '',
     joinedDate: '',
     achievements: [
-
+      "Basics Web Development",
+      "Tcs Interview Question"
     ],
     recommendations: [
-
+      "Data Science Module",
+      "Infosys Questions",
+      "Microsoft Questions"
     ]
   };
   problemData: { date: string, problemsSolved: number }[] = [];
