@@ -1,8 +1,8 @@
 export const environment = {
     production: true,
     apis: {
-        primary: 'https://interviewprephub.onrender.com/api',
-        secondary: 'https://interview-prep-hub-backend-three.vercel.app/api'
+        secondary: 'https://interviewprephub.onrender.com/api',
+        primary: 'https://interview-prep-hub-backend-three.vercel.app/api'
     },
     featureXEnabled: false
 };
