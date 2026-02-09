@@ -7,7 +7,8 @@ import { environment } from '../../environments/environment';
   providedIn: 'root'
 })
 export class CompanyService {
-  private apiUrl = environment.apiUrl;
+  private apiUrl = environment.apis.primary;
+  private apiUrl2 = environment.apis.secondary;
   constructor(private http: HttpClient) { }
 
   getReviews(companyId: number, page: number): Observable<any[]> {
@@ -19,7 +20,7 @@ export class CompanyService {
   }
 
   getCompany(page: number): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/get_company/?page=${page}`);
+    return this.http.get<any>(`${this.apiUrl2}/company?page=${page}`);
   }
   deleteCompany(id: number): Observable<any> {
     return this.http.delete<any>(`${this.apiUrl}/companies/${id}/`);
@@ -29,7 +30,7 @@ export class CompanyService {
     return this.http.get<any>(url);
   }
   getCompanyQuestion(companyId: any, page: number) {
-    return this.http.get<any>(`${this.apiUrl}/company/${companyId}/questions?page=${page}`);
+    return this.http.get<any>(`${this.apiUrl2}/company/questions/${companyId}?page=${page}`);
   }
   deleteCompanyQuestion(companyId: any) {
     return this.http.delete<any>(`${this.apiUrl}/company/${companyId}/`);

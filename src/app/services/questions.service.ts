@@ -55,46 +55,46 @@ export class QuestionsService {
   }
   wb: any = {
     "result": {
-      "q1": "What is the difference between HTML, CSS, and JavaScript in web development?",
-      "q2": "Explain the concept of the DOM. How is it used in web development?",
-      "q3": "What are some common HTTP methods, and how are they used?",
-      "q4": "Describe the difference between inline, internal, and external CSS. When would you use each?",
-      "q5": "What is the purpose of responsive design, and how can it be achieved?",
-      "q6": "Explain the box model in CSS. What are its components?",
-      "q7": "What is the difference between synchronous and asynchronous JavaScript? Provide examples.",
-      "q8": "What are web APIs, and how are they used in web development?",
-      "q9": "Describe the concept of RESTful architecture. What makes an API RESTful?",
-      "q10": "What is the difference between session storage, local storage, and cookies in web development?",
-      "q11": "Explain the purpose of media queries in CSS. Provide an example of how they are used.",
-      "q12": "What are some common types of positioning in CSS, and how do they work?",
-      "q13": "What is the difference between GET and POST requests in HTTP?",
-      "q14": "Explain the concept of cross-origin resource sharing (CORS). Why is it important?",
-      "q15": "What is the difference between client-side rendering (CSR) and server-side rendering (SSR)?",
-      "q16": "How do you optimize a website for performance? Name at least three techniques.",
-      "q17": "What is the difference between CSS Grid and Flexbox? When would you use each?",
-      "q18": "Explain the purpose of version control in web development. What are some popular tools used for it?",
-      "q19": "What is a Progressive Web App (PWA), and how does it enhance user experience?",
-      "q20": "Describe the process of deploying a website. What tools or platforms can you use?",
-      "q21": "What is the difference between authentication and authorization in web applications?",
-      "q22": "Explain the concept of single-page applications (SPAs). What are their advantages and disadvantages?",
-      "q23": "What is the difference between relational and non-relational databases? Provide examples.",
-      "q24": "What is the purpose of a CSS preprocessor like Sass or LESS?",
-      "q25": "Describe the purpose of WebSockets in modern web applications.",
-      "q26": "What is the difference between a framework and a library in web development? Provide examples.",
-      "q27": "What is the difference between a static website and a dynamic website?",
-      "q28": "Explain the concept of MVC architecture. How is it used in web development?",
-      "q29": "What is the purpose of the <meta> tag in HTML? Provide examples of its use.",
-      "q30": "What are the benefits of using a content delivery network (CDN) in web development?",
-      "q31": "Explain the purpose of semantic HTML. Why is it important?",
-      "q32": "What are web components, and how do they differ from traditional HTML elements?",
-      "q33": "Describe the importance of accessibility in web development. How can it be achieved?",
-      "q34": "What is the purpose of lazy loading in web development, and how can it be implemented?",
-      "q35": "What is the difference between inline-block and block elements in CSS?",
-      "q36": "Explain the role of a build tool in web development. Provide examples of popular tools.",
-      "q37": "What is a front-end framework? Name three popular frameworks and their key features.",
-      "q38": "How does the browser render a web page? Explain the critical rendering path.",
-      "q39": "What is the purpose of TypeScript in web development? How does it differ from JavaScript?",
-      "q40": "Explain the purpose of HTTPS. How does it make a website more secure?"
+      "q1": "Compare and contrast HTML, CSS, and JavaScript in terms of their roles in the rendering pipeline and how they interact to create dynamic, accessible, and performant web applications.",
+      "q2": "Explain how the DOM differs from the CSSOM and how both are used together in rendering. How do DOM manipulation and reflows/repaints impact performance?",
+      "q3": "Discuss common and less common HTTP methods (GET, POST, PUT, PATCH, DELETE, OPTIONS, HEAD). Provide real-world scenarios for each, and explain their implications for caching and idempotency.",
+      "q4": "Compare inline, internal, and external CSS in terms of performance, maintainability, and specificity conflicts. In what situations could inline styles be justified in modern applications?",
+      "q5": "Explain how responsive design principles adapt layouts for different devices and network conditions. Compare fluid grids, flexible images, and CSS clamp() usage for responsive typography.",
+      "q6": "Describe the CSS box model and its interaction with box-sizing. How does changing box-sizing impact layout calculations and prevent unexpected overflow?",
+      "q7": "Compare synchronous, asynchronous, and deferred JavaScript execution. How do event loops, microtasks, and macrotasks affect async behavior in browsers?",
+      "q8": "What are browser-provided Web APIs versus third-party APIs? Discuss the security implications of using APIs that expose sensitive device features (e.g., Geolocation, Web Bluetooth).",
+      "q9": "Analyze the constraints that make an API RESTful. Provide examples of anti-patterns that break REST principles, such as incorrect use of verbs or improper status codes.",
+      "q10": "Compare sessionStorage, localStorage, cookies, and IndexedDB in terms of persistence, capacity limits, and security (XSS/CSRF risks). When should each be used?",
+      "q11": "Explain advanced usage of CSS media queries, including prefers-color-scheme, prefers-reduced-motion, and high-DPI detection. Provide code examples.",
+      "q12": "Compare static, relative, absolute, fixed, and sticky positioning in CSS. How does stacking context influence the z-index behavior in complex layouts?",
+      "q13": "Beyond basic definitions, compare GET and POST requests in terms of caching, bookmarking, request payload size, and security implications.",
+      "q14": "Explain the CORS preflight process and how browsers enforce the Same-Origin Policy. How can developers securely configure CORS on APIs?",
+      "q15": "Compare CSR and SSR in terms of SEO, first contentful paint, and interactivity. How does hydration in SSR frameworks bridge the gap between the two?",
+      "q16": "List and explain at least five advanced website performance optimization techniques, including code splitting, tree shaking, and critical CSS inlining.",
+      "q17": "Compare CSS Grid and Flexbox for building complex layouts. When might combining them be more effective than using only one?",
+      "q18": "Explain the role of version control in CI/CD pipelines. Compare Git with other VCS systems and discuss branching strategies like Gitflow versus trunk-based development.",
+      "q19": "Describe the core components of a PWA and how features like background sync and service workers improve resilience in poor network conditions.",
+      "q20": "Detail the deployment pipeline for a large-scale application, including build optimization, bundling, minification, testing, and integration with CDNs.",
+      "q21": "Compare authentication and authorization in terms of state management in SPAs. How can token expiration and refresh tokens be handled securely?",
+      "q22": "Explain how SPAs handle deep linking, browser history, and state persistence. What are the main pitfalls with SEO and analytics in SPAs?",
+      "q23": "Compare relational and non-relational databases in terms of scaling strategies, indexing, and data modeling flexibility. Provide real-world use cases for each.",
+      "q24": "Explain advanced features of CSS preprocessors like Sass, such as mixins, functions, and control directives. How do they improve maintainability in large teams?",
+      "q25": "Discuss the role of WebSockets versus HTTP/2 server push and WebRTC. How do you decide which protocol to use for real-time features?",
+      "q26": "Compare frameworks and libraries in terms of control inversion and opinionated design. How might adopting a highly opinionated framework limit flexibility?",
+      "q27": "Discuss trade-offs between static and dynamic websites for scalability, personalization, and content freshness. How does JAMstack blur the lines?",
+      "q28": "Explain how MVC differs in front-end frameworks versus back-end frameworks. How do modern variations like MVVM and Flux differ?",
+      "q29": "Discuss the SEO and accessibility implications of various <meta> tags. How do viewport, robots, and Open Graph tags impact user experience?",
+      "q30": "Analyze how CDNs handle edge caching, cache invalidation, and DDoS protection. What are the downsides of relying too heavily on a CDN?",
+      "q31": "Discuss how semantic HTML impacts screen reader navigation and SEO ranking algorithms. Provide examples of semantic misuse.",
+      "q32": "Compare Web Components with framework-based components (React/Vue). How do Shadow DOM and custom elements impact style encapsulation?",
+      "q33": "Discuss WCAG accessibility guidelines and ARIA roles. How would you test for accessibility compliance in a large web project?",
+      "q34": "Explain lazy loading for both assets and components. How can improper lazy loading impact SEO and perceived performance?",
+      "q35": "Compare inline-block, block, and display: contents in CSS. How can they impact accessibility and DOM structure?",
+      "q36": "Explain the difference between bundlers, task runners, and build tools. Compare Webpack, Vite, and Rollup in terms of HMR and output optimization.",
+      "q37": "Compare Angular, React, and Vue in terms of learning curve, ecosystem, and rendering performance under heavy data binding.",
+      "q38": "Explain the browser's critical rendering path in detail, including how render-blocking resources and preload hints affect it.",
+      "q39": "Discuss how TypeScript's type system helps prevent runtime errors. How does it integrate with JavaScript libraries that don't provide type definitions?",
+      "q40": "Explain how HTTPS, TLS handshakes, and certificate authorities work together. What are the risks of mixed content on a secure page?"
     }
   }
 
@@ -285,7 +285,8 @@ export class QuestionsService {
       "q20": "What are the current trends and future challenges in microelectronics technology?"
     }
   };
-  private apiUrl = environment.apiUrl;
+  private apiUrl = environment.apis.primary;
+  private apiUrl2 = environment.apis.secondary;
 
   private questionsData: any;
   constructor(private http: HttpClient) {
@@ -299,7 +300,7 @@ export class QuestionsService {
     let params = new HttpParams()
       .set('domain', domain)
       .set('subdomain', subdomain);
-    return this.http.get<any>(`${this.apiUrl}/get_questions`, { params });
+    return this.http.get<any>(`${this.apiUrl2}/get_questions`, { params });
   }
 
   getFeedback(question: string, answer: string): Observable<any> {
@@ -314,7 +315,7 @@ export class QuestionsService {
         id: 9999
       };
       console.log(payload);
-      return this.http.post<any>(`${this.apiUrl}/get_feedback/`, payload);
+      return this.http.post<any>(`${this.apiUrl2}/get_feedback/`, payload);
     }
     else {
       const payload = {
@@ -324,7 +325,7 @@ export class QuestionsService {
         id
       };
       console.log(payload);
-      return this.http.post<any>(`${this.apiUrl}/get_feedback/`, payload);
+      return this.http.post<any>(`${this.apiUrl2}/get_feedback/`, payload);
     }
 
   }

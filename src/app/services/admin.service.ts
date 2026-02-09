@@ -7,7 +7,8 @@ import { environment } from '../../environments/environment';
 })
 export class AdminService {
 
-  private apiUrl = environment.apiUrl;
+  private apiUrl = environment.apis.primary;
+  private apiUrl2 = environment.apis.secondary;
   constructor(private http: HttpClient) { }
   submitCompanyData(data: any): Observable<any> {
     return this.http.post(this.apiUrl + "/company/", data);

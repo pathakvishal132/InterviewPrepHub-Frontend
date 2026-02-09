@@ -1,5 +1,8 @@
 export const environment = {
     production: false,
-    apiUrl: 'http://127.0.0.1:8000/api',
+    apis: {
+        primary: 'http://localhost:8080/api',
+        secondary: 'http://localhost:8080/api'
+    },
     featureXEnabled: true
 };

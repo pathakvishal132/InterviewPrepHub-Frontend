@@ -6,7 +6,8 @@ import { environment } from '../../environments/environment';
   providedIn: 'root'
 })
 export class ProfileService {
-  private apiUrl = environment.apiUrl;
+  private apiUrl = environment.apis.primary;
+  private apiUrl2 = environment.apis.secondary;
   constructor(private http: HttpClient) { }
   getUserSubmissionData(userId: string): Observable<{ dates: string[]; submission_counts: number[] }> {
     const params = new HttpParams().set('user_id', userId);

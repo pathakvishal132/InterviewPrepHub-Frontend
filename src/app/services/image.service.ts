@@ -7,7 +7,8 @@ import { environment } from '../../environments/environment';
 })
 export class ImageService {
 
-  private apiUrl = environment.apiUrl;
+  private apiUrl = environment.apis.primary;
+  private apiUrl2 = environment.apis.secondary;
   constructor(private http: HttpClient) { }
   uploadImage(image: File, name: string, id: string | null) {
     const formData = new FormData();
