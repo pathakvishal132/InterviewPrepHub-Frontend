@@ -295,37 +295,37 @@ export class QuestionsService {
   // private getHeaders(): HttpHeaders {
   //   return new HttpHeaders().set('Authorization', `Bearer ${this.token}`);
   // }
-
+  // http://localhost:8080/api/questions/get-question?domain=Java&subdomain=Streams
   getQuestions(domain: string, subdomain: string): Observable<any> {
     let params = new HttpParams()
       .set('domain', domain)
       .set('subdomain', subdomain);
-    return this.http.get<any>(`${this.apiUrl2}/get_questions`, { params });
+    return this.http.get<any>(`${this.apiUrl2}/questions/get-question`, { params });
   }
 
   getFeedback(question: string, answer: string): Observable<any> {
     const currentDate = new Date();
     const formattedDate = currentDate.toISOString();
-    const id = localStorage.getItem("id")
-    if (id === null) {
+    const userId = localStorage.getItem("id")
+    if (userId === null) {
       const payload = {
         question,
         answer,
-        date: formattedDate,
-        id: 9999
+        // date: formattedDate,
+        userId: 9999
       };
       console.log(payload);
-      return this.http.post<any>(`${this.apiUrl2}/get_feedback/`, payload);
+      return this.http.post<any>(`${this.apiUrl2}/questions/feedback`, payload);
     }
     else {
       const payload = {
         question,
         answer,
-        date: formattedDate,
-        id
+        // date: formattedDate,
+        userId
       };
       console.log(payload);
-      return this.http.post<any>(`${this.apiUrl2}/get_feedback/`, payload);
+      return this.http.post<any>(`${this.apiUrl2}/questions/feedback`, payload);
     }
 
   }
