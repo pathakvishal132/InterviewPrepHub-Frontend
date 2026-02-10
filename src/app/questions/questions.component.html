@@ -6,6 +6,9 @@
         </ng-container> -->
     <ng-container *ngIf="loading; else content">
       <div class="loading-spinner"></div>
+      <p class="loading-note">
+        This might take some time as we’re using free resources.
+      </p>
     </ng-container>
 
     <ng-template #content>
@@ -31,6 +34,9 @@
       <button id="submit-btn" (click)="submitAnswer()" class="submit-btn">Submit Answer</button>
       <ng-container *ngIf="loadingAnswers">
         <div class="loading-spinner"></div>
+        <p class="loading-note">
+          This might take some time as we’re using free resources.
+        </p>
       </ng-container>
 
 
