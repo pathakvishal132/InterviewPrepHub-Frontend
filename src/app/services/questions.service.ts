@@ -292,6 +292,10 @@ export class QuestionsService {
   constructor(private http: HttpClient) {
   }
 
+  ping(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl2}/company/ping`);
+  }
+
   // private getHeaders(): HttpHeaders {
   //   return new HttpHeaders().set('Authorization', `Bearer ${this.token}`);
   // }
