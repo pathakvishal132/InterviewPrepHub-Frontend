@@ -129,7 +129,15 @@ export class QuestionsComponent implements OnInit, OnDestroy {
     }
   }
 
-  // Submit the user's answer and fetch feedback
+  cleanText(text: string): string {
+    return text
+      .replace(/^#{1,6}\s*/gm, '')
+      .replace(/\*\*/g, '')
+      .replace(/\*/g, '')
+      .replace(/`/g, '')
+      .replace(/\|/g, '');
+  }
+
   submitAnswer(): void {
     this.userAnswer = this.voiceService.text;
     if (this.userAnswer.trim()) {
@@ -137,11 +145,14 @@ export class QuestionsComponent implements OnInit, OnDestroy {
       this.questionService.getFeedback(this.currentQuestion, this.userAnswer)
         .subscribe(
           (response: any) => {
-            this.feedback = response.feedback;
-            this.actualAnswer = response.actualAnswer;
+            this.feedback = this.cleanText(response.feedback);
+            this.actualAnswer = this.cleanText(response.actualAnswer);
             this.loadingAnswers = false;
           },
           (error) => {
+            this.feedback = "Our free quota has been exhausted. Can't provide feedback now.";
+            this.actualAnswer = "Our free quota has been exhausted. Can't provide the correct answer now."
+            this.loadingAnswers = false;
             console.error('Error submitting answer:', error);
             this.loadingAnswers = false;
           }

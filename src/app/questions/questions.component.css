@@ -8,14 +8,17 @@
     height: 100vh;
 }
 
-.question-container {
+ .question-container {
     background-color: white;
     border-radius: 15px;
     padding: 30px;
     width: 75%;
+    max-height: 500px;        /* Set maximum height */
+    overflow-y: auto;         /* Enable vertical scroll */
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     text-align: center;
 }
+
 
 .question-title {
     font-size: 24px;
