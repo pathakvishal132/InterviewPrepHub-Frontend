@@ -11,13 +11,27 @@ export class CompanyService {
   private apiUrl2 = environment.apis.secondary;
   constructor(private http: HttpClient) { }
 
-  getReviews(companyId: number, page: number): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/company_reviews/?company_id=${companyId}&page=${page}`);
+  getReviews(companyId: number, page: number): Observable<any> {
+    return this.http.get<any>(
+      `${this.apiUrl2}/company/reviews?company_id=${companyId}&page=${page}`
+    );
   }
 
   addReview(review: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/reviews/post/`, review);
+
+    const payload = {
+      companyId: review.company_id,
+      companyName: review.company_name,
+      jobRole: review.job_role,
+      interviewLevel: review.interview_level,
+      questionsAsked: review.questions_asked,
+      companyCulture: review.company_culture,
+      companyPayroll: review.company_payroll
+    };
+
+    return this.http.post(`${this.apiUrl2}/company/reviews`, payload);
   }
+
 
   getCompany(page: number): Observable<any> {
     return this.http.get<any>(`${this.apiUrl2}/company?page=${page}`);
@@ -38,8 +52,6 @@ export class CompanyService {
 
   search_company(word: string, page: number) {
     return this.http.get<any>(`${this.apiUrl2}/company?searchText=${word}&page=${page}`);
-
-    // return this.http.get<any>(`${this.apiUrl}/search_company/?word=${word}&page=${page}`);
   }
 
   search_question(id: number, word: string, page: number) {
