@@ -23,10 +23,10 @@ export class CompanyService {
     return this.http.get<any>(`${this.apiUrl2}/company?page=${page}`);
   }
   deleteCompany(id: number): Observable<any> {
-    return this.http.delete<any>(`${this.apiUrl}/companies/${id}/`);
+    return this.http.delete<any>(`${this.apiUrl2}/companies/${id}/`);
   }
   getOtherDetails(companyId: string): Observable<any> {
-    const url = `${this.apiUrl}/get_other_details/?company_id=${companyId}`;
+    const url = `${this.apiUrl2}/company/get-other-details/${companyId}`;
     return this.http.get<any>(url);
   }
   getCompanyQuestion(companyId: any, page: number) {
@@ -37,7 +37,9 @@ export class CompanyService {
   }
 
   search_company(word: string, page: number) {
-    return this.http.get<any>(`${this.apiUrl}/search_company/?word=${word}&page=${page}`);
+    return this.http.get<any>(`${this.apiUrl2}/company?searchText=${word}&page=${page}`);
+
+    // return this.http.get<any>(`${this.apiUrl}/search_company/?word=${word}&page=${page}`);
   }
 
   search_question(id: number, word: string, page: number) {
@@ -45,16 +47,23 @@ export class CompanyService {
   }
 
   filterCompanyQuestions(filters: any, page: number = 1): Observable<any> {
-    const url = `${this.apiUrl}/filter_company_questions/`;
+    const url = `${this.apiUrl2}/company/filter`;
 
-    // Create HttpParams to send filters as query parameters
     let params = new HttpParams().set('page', page.toString());
+
     if (filters.level) params = params.set('level', filters.level);
     if (filters.role) params = params.set('role', filters.role);
-    if (filters.experience) params = params.set('experience', filters.experience);
-    if (filters.description) params = params.set('description', filters.description);
+    if (filters.min_experience)
+      params = params.set('min_experience', filters.min_experience);
+    if (filters.max_experience)
+      params = params.set('max_experience', filters.max_experience);
+    if (filters.description)
+      params = params.set('description', filters.description);
+    if (filters.searchText) {
+      params = params.set('searchText', filters.searchText);
+    }
 
-    return this.http.post<any>(url, filters, { params });
+    return this.http.post<any>(url, null, { params }); // body null
   }
 
 }

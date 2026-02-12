@@ -55,8 +55,7 @@
     </div>
 
     <div class="search-box">
-      <input type="text" placeholder="Search Questions, Role, Description ,Level " [(ngModel)]="searchTerm"
-        (keyup.enter)="onSearch()" />
+      <input type="text" placeholder="Search Question" [(ngModel)]="searchTerm" (keyup.enter)="onSearch()" />
     </div>
     <div *ngIf="loading" class="loading-container">
       <div class="loading-spinner"></div>

@@ -108,17 +108,23 @@ export class CompanyDetailsComponent implements OnInit {
   }
 
   searchQuestions(id: any, word: string, page: number): void {
-    if (word.length > 0 && id) {
-      this.cs.search_question(id, word, page).subscribe(
-        (response: any) => {
+    const filters = {
+      level: this.selectedDropLevel,
+      role: this.selectedDropRole,
+      min_experience: this.selectedDropMinExperience,
+      max_experience: this.selectedDropMaxExperience,
+      description: this.selectedDropDescription,
+      searchText: word
+    };
+    if (true) {
+      this.cs.filterCompanyQuestions(filters, page).subscribe(
+        (response) => {
           this.questions = response.questions;
           this.totalPages = response.total_pages;
           this.searchPerformed = true;
-          this.selectedMinExperience = response.questions[0].min_experience;
-          this.selectedMaxExperience = response.questions[0].max_experience;
-          this.selectedRole = response.questions[0].role;
-          this.selectedLevel = response.questions[0].level;
-          this.description = response.questions[0].description;
+          this.currentPage = response.current_page; // Ensure current page is updated
+          const maxExperience = Math.max(...this.maxExperiences);
+          this.maxExperienceRange = Array.from({ length: maxExperience }, (_, i) => i + 1);
         },
         (error) => {
           console.error("Error searching questions:", error);
@@ -131,6 +137,28 @@ export class CompanyDetailsComponent implements OnInit {
           this.description = "";
         }
       );
+      // this.cs.search_question(id, word, page).subscribe(
+      //   (response: any) => {
+      //     this.questions = response.questions;
+      //     this.totalPages = response.total_pages;
+      //     this.searchPerformed = true;
+      //     this.selectedMinExperience = response.questions[0].min_experience;
+      //     this.selectedMaxExperience = response.questions[0].max_experience;
+      //     this.selectedRole = response.questions[0].role;
+      //     this.selectedLevel = response.questions[0].level;
+      //     this.description = response.questions[0].description;
+      //   },
+      //   (error) => {
+      //     console.error("Error searching questions:", error);
+      //     this.questions = [];
+      //     this.totalPages = 0;
+      //     this.searchPerformed = false;
+      //     this.selectedMinExperience = 0;
+      //     this.selectedRole = ""
+      //     this.selectedLevel = "";
+      //     this.description = "";
+      //   }
+      // );
     } else {
       console.log("Search term or company ID is invalid.");
     }
