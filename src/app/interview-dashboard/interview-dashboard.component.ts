@@ -2,97 +2,104 @@ import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../dialog/dialog.component';
-// import { OnInit } from '@angular/core';
+
 @Component({
   selector: 'app-interview-dashboard',
   templateUrl: './interview-dashboard.component.html',
   styleUrl: './interview-dashboard.component.css'
 })
 export class InterviewDashboardComponent implements OnInit {
-  domain_message: string = `Welcome to Interview PrepHub!
-To get started with your interview preparation, follow these simple steps:
-1. Select Your Domain: Choose the domain you want to focus on. We offer a wide range of domains such as:
-    * Computer Science
-    * Mechanical Engineering
-    * Electrical Engineering
-    * Civil Engineering
-    * Electronics and Communication Engineering (ECE)
-2. Select Your Subdomain: Once you’ve selected your domain, choose a subdomain to narrow down your focus. For example, if you select Computer Science, you might choose subdomains like:
-    * Algorithms and Data Structures
-    * Operating Systems
-    * Networking
-    * Databases
-3. Start Answering Questions: You’ll be presented with a series of questions. You can respond to these questions either by:
-    * Speaking your answer aloud (voice input)
-    * Typing your answer (text input)
-4. Get Feedback and Correct Answers: After answering, you’ll receive:
-    * Personalized feedback on your response
-    * The correct answer to help you improve and better prepare for your interviews.
-Enjoy the journey of mastering your interview skills with Interview PrepHub!`;
 
-  company_message: string = `Welcome to Interview PrepHub!
+  domain_message: string = `
+    <div class="dlg-intro">
+      Master your fundamentals across engineering disciplines with AI-powered feedback on every answer.
+    </div>
+    <div class="dlg-steps">
+      <div class="dlg-step">
+        <span class="dlg-num">1</span>
+        <div>
+          <strong>Choose Your Domain</strong>
+          <p>Pick from CS, ECE, Electrical, Mechanical, or Civil Engineering.</p>
+        </div>
+      </div>
+      <div class="dlg-step">
+        <span class="dlg-num">2</span>
+        <div>
+          <strong>Select a Subdomain</strong>
+          <p>Narrow your focus — e.g. Algorithms, OS, Databases for Computer Science.</p>
+        </div>
+      </div>
+      <div class="dlg-step">
+        <span class="dlg-num">3</span>
+        <div>
+          <strong>Answer Questions</strong>
+          <p>Speak your answer aloud with voice input, or type it manually.</p>
+        </div>
+      </div>
+      <div class="dlg-step">
+        <span class="dlg-num">4</span>
+        <div>
+          <strong>Get AI Feedback</strong>
+          <p>Receive personalized feedback and the model answer instantly.</p>
+        </div>
+      </div>
+    </div>`;
 
-Prepare for your dream job by following these simple steps:
+  company_message: string = `
+    <div class="dlg-intro">
+      Target your dream company directly with real interview questions asked at top tech companies.
+    </div>
+    <div class="dlg-steps">
+      <div class="dlg-step">
+        <span class="dlg-num">1</span>
+        <div>
+          <strong>Select a Company</strong>
+          <p>Choose from 200+ companies including Google, Microsoft, Amazon, Apple, Meta.</p>
+        </div>
+      </div>
+      <div class="dlg-step">
+        <span class="dlg-num">2</span>
+        <div>
+          <strong>Pick Your Experience Level</strong>
+          <p>Entry level, mid-level, or senior — tailored question sets for each.</p>
+        </div>
+      </div>
+      <div class="dlg-step">
+        <span class="dlg-num">3</span>
+        <div>
+          <strong>Answer Questions</strong>
+          <p>Use voice or text input to practice real interview questions.</p>
+        </div>
+      </div>
+      <div class="dlg-step">
+        <span class="dlg-num">4</span>
+        <div>
+          <strong>Refine Your Skills</strong>
+          <p>Get detailed feedback and the correct answer after every response.</p>
+        </div>
+      </div>
+    </div>`;
 
-Select the Company: Choose the company you’re preparing for. We provide tailored interview preparation for top companies, including:
+  constructor(private location: Location, public dialog: MatDialog) { }
 
-Google
-Microsoft
-Amazon
-Facebook
-Apple
-Select Your Experience Level: Based on your experience, select the appropriate category:
+  ngOnInit(): void { }
 
-Entry Level
-Mid-Level
-Senior Level
-Choose the Topic: Next, pick the topic you want to focus on for your interview preparation. For example:
-
-Algorithms and Data Structures
-System Design
-Problem Solving
-Behavioral Questions
-Start Answering Questions: You will be presented with interview questions tailored to your selection. You can answer them by:
-
-Speaking your answer (voice input)
-Typing your response (text input)
-Receive Feedback and Correct Answers: After each response, you’ll get:
-
-Detailed feedback on your answer
-The correct answer to help refine your interview skills
-Prepare confidently and succeed with Interview PrepHub!`;
-  constructor(private location: Location,
-    public dialog: MatDialog
-  ) { }
-  ngOnInit(): void {
-    console.log("dndnd");
-  }
   goBack(): void {
     this.location.back();
   }
-  openDialog(message: string): void {
-    let dialogRef;
 
-    if (message === "domain") {
-      dialogRef = this.dialog.open(DialogComponent, {
-        width: '88%',
-        height: '600px',
-        data: { message: this.domain_message }
-      });
-    } else if (message === "company") {
-      dialogRef = this.dialog.open(DialogComponent, {
-        width: '88%',
-        height: '600px',
-        data: { message: this.company_message }
-      });
-    }
+  openDialog(type: string): void {
+    const message = type === 'domain' ? this.domain_message : this.company_message;
+    const title = type === 'domain' ? 'Domain-Based Prep' : 'Company-Based Prep';
 
-    if (dialogRef) {
-      dialogRef.afterClosed().subscribe(result => {
-        console.log('The dialog was closed', result);
-      });
-    }
+    const dialogRef = this.dialog.open(DialogComponent, {
+      maxWidth: '520px',
+      width: '92vw',
+      panelClass: 'app-dialog-panel',
+      backdropClass: 'app-dialog-backdrop',
+      data: { message, title }
+    });
+
+    dialogRef.afterClosed().subscribe(() => { });
   }
-
-
 }

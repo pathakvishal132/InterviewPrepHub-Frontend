@@ -1,21 +1,34 @@
 <div class="dialog-overlay">
   <div class="dialog-card">
-    <!-- Icon -->
-    <div class="dialog-icon">
-      <i class="fas fa-info-circle"></i>
+
+    <!-- Header -->
+    <div class="dialog-header">
+      <div class="dialog-icon">
+        <i class="fas fa-info-circle"></i>
+      </div>
+      <div class="dialog-header-text">
+        <h3 class="dialog-title">{{ data.title || 'How It Works' }}</h3>
+        <p class="dialog-subtitle">Your step-by-step guide</p>
+      </div>
+      <button class="dialog-x-btn" (click)="closeDialog()">
+        <i class="fas fa-times"></i>
+      </button>
     </div>
+
+    <!-- Divider -->
+    <div class="dialog-divider"></div>
 
     <!-- Content -->
     <div class="dialog-body">
-      <h3 class="dialog-title">Information</h3>
       <div class="dialog-message" [innerHTML]="data.message"></div>
     </div>
 
     <!-- Action -->
     <div class="dialog-actions">
       <button class="dialog-close-btn" (click)="closeDialog()">
-        <i class="fas fa-times"></i> Close
+        <i class="fas fa-check"></i> Got it!
       </button>
     </div>
+
   </div>
 </div>

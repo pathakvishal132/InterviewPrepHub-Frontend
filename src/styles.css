@@ -584,3 +584,85 @@ body {
         padding: 88px 20px 52px;
     }
 }
+/* ═══════════════════════════════════════════════════════════
+   ANGULAR MATERIAL DIALOG — Global Overrides
+   (Must be global; dialog renders outside component scope)
+═══════════════════════════════════════════════════════════ */
+
+/* Dark blurred backdrop */
+.app-dialog-backdrop {
+    background: rgba(5, 7, 20, 0.75) !important;
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+}
+
+/* Strip Material's default white panel background */
+.app-dialog-panel .mat-mdc-dialog-surface,
+.app-dialog-panel mat-dialog-container,
+.app-dialog-panel .mat-dialog-container {
+    background: transparent !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    border-radius: 24px !important;
+    overflow: visible !important;
+}
+
+/* Injected HTML step styles (global scope needed for innerHTML) */
+.dlg-intro {
+    font-size: 0.88rem;
+    color: #94a3b8;
+    line-height: 1.7;
+    margin-bottom: 18px;
+    padding: 12px 14px;
+    background: rgba(99, 102, 241, 0.07);
+    border-left: 3px solid #6366f1;
+    border-radius: 0 8px 8px 0;
+    font-family: 'Inter', sans-serif;
+}
+
+.dlg-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.dlg-step {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+}
+
+.dlg-num {
+    width: 28px;
+    height: 28px;
+    min-width: 28px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #6366f1, #4f46e5);
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.35);
+    font-family: 'Inter', sans-serif;
+}
+
+.dlg-step strong {
+    display: block;
+    font-size: 0.87rem;
+    font-weight: 700;
+    color: #f1f5f9;
+    margin-bottom: 3px;
+    font-family: 'Inter', sans-serif;
+}
+
+.dlg-step p {
+    font-size: 0.8rem;
+    color: #94a3b8;
+    line-height: 1.6;
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+}
