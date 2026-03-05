@@ -8,7 +8,10 @@ import { Location } from '@angular/common';
 @Component({
   selector: 'app-reviews',
   templateUrl: './reviews.component.html',
-  styleUrl: './reviews.component.css'
+  styleUrls: [
+    './reviews.component.css',
+    './reviewsAdditional.component.css'
+  ]
 })
 export class ReviewsComponent implements OnInit {
   reviews: any[] = [];

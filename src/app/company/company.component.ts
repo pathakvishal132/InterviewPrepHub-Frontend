@@ -7,7 +7,7 @@ import { Location } from '@angular/common';
 @Component({
   selector: 'app-company',
   templateUrl: './company.component.html',
-  styleUrl: './company.component.css'
+  styleUrls: ['./company.component.css', './additionalCompany.component.css']
 })
 export class CompanyComponent implements OnInit {
   companies: any;
