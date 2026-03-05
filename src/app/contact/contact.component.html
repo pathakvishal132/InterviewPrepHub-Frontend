@@ -1,28 +1,89 @@
-<div class="contact-container">
-  <div class="contact-image">
-    <img src="assets/footer/intdash1.png" alt="Contact Us">
-  </div>
-  <div class="contact-form">
-    <h2>Contact Us</h2>
-    <p>We are here to help.</p>
-    
-    <!-- Display success message -->
-    <div *ngIf="successMessage" class="success-message">{{ successMessage }}</div>
+<div class="contact-page">
 
-    <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
-      <div class="form-group">
-        <label for="name">Full Name</label>
-        <input type="text" id="name" formControlName="name" placeholder="Enter your name">
+  <!-- Left Brand Panel -->
+  <div class="contact-brand">
+    <div class="contact-brand-inner">
+      <div class="contact-brand-icon">
+        <i class="fas fa-brain"></i>
       </div>
-      <div class="form-group">
-        <label for="email">Email Address</label>
-        <input type="email" id="email" formControlName="email" placeholder="Enter your email">
+      <h2 class="contact-brand-title">Let's <span>Connect</span></h2>
+      <p class="contact-brand-sub">Have a question, feedback, or partnership idea? We'd love to hear from you. Our team typically responds within 24 hours.</p>
+
+      <div class="contact-features">
+        <div class="contact-feature">
+          <div class="contact-feature-icon"><i class="fas fa-bolt"></i></div>
+          <div>
+            <div class="contact-feature-title">Quick Response</div>
+            <div class="contact-feature-desc">Usually within 24 hours</div>
+          </div>
+        </div>
+        <div class="contact-feature">
+          <div class="contact-feature-icon"><i class="fas fa-shield-alt"></i></div>
+          <div>
+            <div class="contact-feature-title">Privacy First</div>
+            <div class="contact-feature-desc">Your data stays safe with us</div>
+          </div>
+        </div>
+        <div class="contact-feature">
+          <div class="contact-feature-icon"><i class="fas fa-headset"></i></div>
+          <div>
+            <div class="contact-feature-title">Dedicated Support</div>
+            <div class="contact-feature-desc">Real humans, not bots</div>
+          </div>
+        </div>
       </div>
-      <div class="form-group">
-        <label for="message">Your Message</label>
-        <textarea id="message" formControlName="message" placeholder="Type your message"></textarea>
+
+      <div class="contact-socials">
+        <a class="social-btn" href="#"><i class="fab fa-instagram"></i></a>
+        <a class="social-btn" href="#"><i class="fab fa-linkedin-in"></i></a>
+        <a class="social-btn" href="mailto:prep@gmail.com"><i class="fas fa-envelope"></i></a>
       </div>
-      <button type="submit" class="send-button" [disabled]="contactForm.invalid">Send</button>
-    </form>
+    </div>
+    <div class="brand-glow"></div>
   </div>
+
+  <!-- Right Form Panel -->
+  <div class="contact-form-panel">
+    <div class="contact-form-box glass-card">
+      <h3 class="form-title">Send us a message</h3>
+      <p class="form-sub">Fill in the form below and we'll get back to you shortly.</p>
+
+      <!-- Success Toast -->
+      <div class="success-toast" *ngIf="successMessage">
+        <i class="fas fa-check-circle"></i>
+        <span>{{ successMessage }}</span>
+      </div>
+
+      <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="contact-form">
+        <div class="form-group">
+          <label for="name"><i class="fas fa-user"></i> Full Name</label>
+          <input type="text" id="name" formControlName="name" placeholder="John Doe">
+          <div class="field-error" *ngIf="contactForm.get('name')?.invalid && contactForm.get('name')?.touched">
+            Name is required
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="email"><i class="fas fa-envelope"></i> Email Address</label>
+          <input type="email" id="email" formControlName="email" placeholder="you@example.com">
+          <div class="field-error" *ngIf="contactForm.get('email')?.invalid && contactForm.get('email')?.touched">
+            Valid email required
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="message"><i class="fas fa-comment-alt"></i> Message</label>
+          <textarea id="message" formControlName="message" placeholder="Tell us what's on your mind..." rows="5"></textarea>
+          <div class="field-error" *ngIf="contactForm.get('message')?.invalid && contactForm.get('message')?.touched">
+            Message is required
+          </div>
+        </div>
+
+        <button type="submit" class="send-btn" [disabled]="contactForm.invalid">
+          <i class="fas fa-paper-plane"></i> Send Message
+        </button>
+      </form>
+    </div>
+  </div>
+
 </div>

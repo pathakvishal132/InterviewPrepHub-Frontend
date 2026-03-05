@@ -1,10 +1,21 @@
-<div class="dialog-container">
-  <div mat-dialog-content class="dialog-content">
-      <strong><div [innerHTML]="data.message"></div></strong>
+<div class="dialog-overlay">
+  <div class="dialog-card">
+    <!-- Icon -->
+    <div class="dialog-icon">
+      <i class="fas fa-info-circle"></i>
+    </div>
 
-  </div>
+    <!-- Content -->
+    <div class="dialog-body">
+      <h3 class="dialog-title">Information</h3>
+      <div class="dialog-message" [innerHTML]="data.message"></div>
+    </div>
 
-  <div mat-dialog-actions class="dialog-actions">
-    <button mat-button (click)="closeDialog()">Close</button>
+    <!-- Action -->
+    <div class="dialog-actions">
+      <button class="dialog-close-btn" (click)="closeDialog()">
+        <i class="fas fa-times"></i> Close
+      </button>
+    </div>
   </div>
 </div>

@@ -1,22 +1,371 @@
-<div class="dashboard">
-  <!-- Hero Section -->
-  <section class="hero">
-    <div class="hero-content">
-      <div class="phone-conatiner">
-        <img src="assets/dashboard/dash3.jpg" alt="Interview Preparation" class="hero-image">
+<div class="dashboard-wrapper">
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- HERO SECTION -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <section class="hero-section">
+    <div class="hero-particles">
+      <span class="particle"></span><span class="particle"></span>
+      <span class="particle"></span><span class="particle"></span>
+      <span class="particle"></span>
+    </div>
+
+    <div class="hero-inner">
+      <div class="hero-badge animate-fade-up">
+        <span class="badge-dot"></span>
+        🚀 &nbsp;India's #1 Interview Prep Platform
       </div>
-      <div class="hero-text">
-        <h1>Ace Your Interviews</h1>
-        <p>Prepare with domain-specific and company-specific questions.</p>
-        <!-- <a routerLink="/interview-dashboard" routerLinkActive="active" ariaCurrentWhenActive="page" class="cta-button">Start Preparing</a> -->
-        <a class="cta-button" (click)="navigateToInterviewDashboard()">Start Preparing</a>
+
+      <h1 class="hero-title animate-fade-up delay-100">
+        Ace Every<br>
+        <span class="gradient-text">Interview</span> You Face
+      </h1>
+
+      <p class="hero-subtitle animate-fade-up delay-200">
+        Master domain-specific questions, track your progress, and get hired at your dream company.
+        Thousands of engineers prepared with us.
+      </p>
+
+      <div class="hero-ctas animate-fade-up delay-300">
+        <a class="btn-primary-hero" (click)="navigateToInterviewDashboard()">
+          <i class="fas fa-rocket"></i> Start Preparing
+        </a>
+        <a class="btn-secondary-hero" routerLink="/user-steps">
+          <i class="fas fa-play-circle"></i> How It Works
+        </a>
+      </div>
+
+      <!-- Floating stat bubbles -->
+      <div class="hero-floaters">
+        <div class="floater floater-1 animate-float">
+          <div class="floater-icon">🎯</div>
+          <div class="floater-text">
+            <span class="floater-num">10K+</span>
+            <span class="floater-label">Questions</span>
+          </div>
+        </div>
+        <div class="floater floater-2 animate-float delay-200">
+          <div class="floater-icon">🏆</div>
+          <div class="floater-text">
+            <span class="floater-num">50K+</span>
+            <span class="floater-label">Users</span>
+          </div>
+        </div>
+        <div class="floater floater-3 animate-float delay-400">
+          <div class="floater-icon">⚡</div>
+          <div class="floater-text">
+            <span class="floater-num">95%</span>
+            <span class="floater-label">Success Rate</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hero Orbs (decorative) -->
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- STATS ROW -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <section class="stats-section">
+    <div class="stats-grid">
+      <div class="stat-card glass-card animate-fade-up" *ngFor="let stat of stats; let i = index"
+           [style.animation-delay]="(i * 0.1) + 's'">
+        <div class="stat-icon-wrap" [style.background]="stat.iconBg">
+          <i class="fas" [class]="stat.icon" [style.color]="stat.color"></i>
+        </div>
+        <div class="stat-info">
+          <div class="stat-value">{{ stat.displayValue }}<span class="stat-suffix">{{ stat.suffix }}</span></div>
+          <div class="stat-label">{{ stat.label }}</div>
+        </div>
+        <div class="stat-trend up">
+          <i class="fas fa-arrow-up"></i> {{ stat.trend }}
+        </div>
       </div>
     </div>
   </section>
 
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- MAIN WIDGETS GRID -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <section class="widgets-section">
+    <div class="widgets-grid">
 
-  <app-about></app-about>
-  <div class="conainer">
-    <router-outlet></router-outlet>
-  </div>
+      <!-- Interview Progress Card -->
+      <div class="widget-card glass-card animate-fade-up">
+        <div class="widget-header">
+          <div class="widget-title">
+            <i class="fas fa-chart-line widget-title-icon" style="color: #6366f1"></i>
+            Interview Progress
+          </div>
+          <span class="widget-badge badge-purple">This Week</span>
+        </div>
+        <div class="progress-list">
+          <div class="progress-item" *ngFor="let p of progressItems">
+            <div class="progress-meta">
+              <span class="progress-label">{{ p.label }}</span>
+              <span class="progress-pct">{{ p.percent }}%</span>
+            </div>
+            <div class="progress-track">
+              <div class="progress-fill"
+                   [style.width]="p.percent + '%'"
+                   [style.background]="p.color">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Streak Tracker -->
+      <div class="widget-card glass-card animate-fade-up delay-100">
+        <div class="widget-header">
+          <div class="widget-title">
+            <i class="fas fa-fire widget-title-icon" style="color: #f59e0b"></i>
+            Daily Streak
+          </div>
+          <span class="streak-count">🔥 {{ currentStreak }} days</span>
+        </div>
+        <div class="streak-grid">
+          <div class="streak-dot"
+               *ngFor="let day of streakDays"
+               [class.active]="day.active"
+               [class.today]="day.isToday"
+               [title]="day.label">
+          </div>
+        </div>
+        <div class="streak-labels">
+          <span *ngFor="let d of weekLabels">{{ d }}</span>
+        </div>
+        <div class="streak-footer">
+          <div class="streak-stat">
+            <span class="stat-num">{{ currentStreak }}</span>
+            <span class="stat-nm-label">Current</span>
+          </div>
+          <div class="streak-stat">
+            <span class="stat-num">{{ longestStreak }}</span>
+            <span class="stat-nm-label">Longest</span>
+          </div>
+          <div class="streak-stat">
+            <span class="stat-num">{{ totalDaysActive }}</span>
+            <span class="stat-nm-label">Total Active</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Skill Doughnut Chart -->
+      <div class="widget-card glass-card animate-fade-up delay-200">
+        <div class="widget-header">
+          <div class="widget-title">
+            <i class="fas fa-bullseye widget-title-icon" style="color: #06b6d4"></i>
+            Skill Mastery
+          </div>
+          <span class="widget-badge badge-cyan">Overall</span>
+        </div>
+        <div class="chart-container-sm">
+          <canvas id="skillDoughnut"></canvas>
+        </div>
+        <div class="doughnut-legend">
+          <div class="legend-item" *ngFor="let s of skillsData">
+            <span class="legend-dot" [style.background]="s.color"></span>
+            <span class="legend-label">{{ s.label }}</span>
+            <span class="legend-pct">{{ s.value }}%</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- CHARTS ROW -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <section class="charts-section">
+    <div class="charts-grid">
+
+      <!-- Weekly Activity Bar Chart -->
+      <div class="chart-card glass-card animate-fade-up">
+        <div class="widget-header">
+          <div class="widget-title">
+            <i class="fas fa-calendar-week widget-title-icon" style="color: #6366f1"></i>
+            Weekly Activity
+          </div>
+          <div class="chart-filter">
+            <button class="filter-btn active">Week</button>
+            <button class="filter-btn">Month</button>
+          </div>
+        </div>
+        <div class="chart-container-lg">
+          <canvas id="weeklyBarChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Topic Mastery Horizontal Bar -->
+      <div class="chart-card glass-card animate-fade-up delay-200">
+        <div class="widget-header">
+          <div class="widget-title">
+            <i class="fas fa-layer-group widget-title-icon" style="color: #10b981"></i>
+            Topic Mastery
+          </div>
+          <span class="widget-badge badge-green">All Topics</span>
+        </div>
+        <div class="chart-container-lg">
+          <canvas id="topicHorizontalBar"></canvas>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- ACTIVITY FEED + QUICK ACTIONS -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <section class="bottom-section">
+    <div class="bottom-grid">
+
+      <!-- Recent Activity Timeline -->
+      <div class="activity-card glass-card animate-fade-up">
+        <div class="widget-header">
+          <div class="widget-title">
+            <i class="fas fa-history widget-title-icon" style="color: #f59e0b"></i>
+            Recent Activity
+          </div>
+          <a class="view-all-link" routerLink="/interview-dashboard">View All</a>
+        </div>
+        <div class="activity-timeline">
+          <div class="timeline-item" *ngFor="let act of recentActivity; let last = last">
+            <div class="timeline-line" *ngIf="!last"></div>
+            <div class="timeline-dot" [style.background]="act.color">
+              <i class="fas" [class]="act.icon"></i>
+            </div>
+            <div class="timeline-content">
+              <div class="timeline-title">{{ act.title }}</div>
+              <div class="timeline-meta">
+                <span class="timeline-tag" [style.background]="act.tagBg" [style.color]="act.tagColor">{{ act.tag }}</span>
+                <span class="timeline-time">{{ act.time }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="quick-actions-card glass-card animate-fade-up delay-200">
+        <div class="widget-header">
+          <div class="widget-title">
+            <i class="fas fa-bolt widget-title-icon" style="color: #6366f1"></i>
+            Quick Actions
+          </div>
+        </div>
+        <div class="actions-grid">
+          <button class="action-btn" *ngFor="let action of quickActions" (click)="handleAction(action)">
+            <div class="action-icon-wrap" [style.background]="action.iconBg">
+              <i class="fas" [class]="action.icon" [style.color]="action.color"></i>
+            </div>
+            <span class="action-label">{{ action.label }}</span>
+            <i class="fas fa-chevron-right action-arrow"></i>
+          </button>
+        </div>
+
+        <!-- Score Indicator -->
+        <div class="score-section">
+          <div class="score-header">
+            <span class="score-title">Mock Interview Score</span>
+            <span class="score-num">{{ mockScore }}/100</span>
+          </div>
+          <div class="score-track">
+            <div class="score-fill" [style.width]="mockScore + '%'"></div>
+          </div>
+          <div class="score-tags">
+            <span class="score-tag" [class.score-tag--active]="mockScore >= 40">Beginner</span>
+            <span class="score-tag" [class.score-tag--active]="mockScore >= 60">Intermediate</span>
+            <span class="score-tag" [class.score-tag--active]="mockScore >= 80">Advanced</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- HOW IT WORKS + FEATURES -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <section class="features-section">
+    <div class="section-header animate-fade-up">
+      <h2 class="section-title">How <span class="gradient-text">It Works</span></h2>
+      <p class="section-subtitle">Three simple steps to your dream job</p>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature-card glass-card animate-fade-up" *ngFor="let f of features; let i = index"
+           [style.animation-delay]="(i * 0.15) + 's'">
+        <div class="feature-step">{{ i + 1 }}</div>
+        <div class="feature-icon-wrap" [style.background]="f.iconBg">
+          <i class="fas" [class]="f.icon" [style.color]="f.color"></i>
+        </div>
+        <h3 class="feature-title">{{ f.title }}</h3>
+        <p class="feature-desc">{{ f.desc }}</p>
+        <div class="feature-glow" [style.background]="f.color"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- TESTIMONIALS -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <section class="testimonials-section">
+    <div class="section-header animate-fade-up">
+      <h2 class="section-title">Loved by <span class="gradient-text">Engineers</span></h2>
+      <p class="section-subtitle">Real stories from real users who landed their dream jobs</p>
+    </div>
+
+    <div class="testimonials-track-wrapper">
+      <div class="testimonials-track" [style.transform]="'translateX(-' + (activeTestimonial * 100 / testimonials.length) + '%)'">
+        <div class="testimonial-card glass-card" *ngFor="let t of testimonials">
+          <div class="testimonial-stars">
+            <i class="fas fa-star" *ngFor="let s of [1,2,3,4,5]"></i>
+          </div>
+          <p class="testimonial-quote">"{{ t.quote }}"</p>
+          <div class="testimonial-author">
+            <div class="author-avatar" [style.background]="t.avatarBg">{{ t.initials }}</div>
+            <div class="author-info">
+              <div class="author-name">{{ t.name }}</div>
+              <div class="author-role">{{ t.role }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="testimonial-dots">
+      <span class="tdot"
+            *ngFor="let t of testimonials; let i = index"
+            [class.active]="i === activeTestimonial"
+            (click)="activeTestimonial = i">
+      </span>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- CTA BANNER -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <section class="cta-section glass-card animate-fade-up">
+    <div class="cta-orb"></div>
+    <div class="cta-content">
+      <div class="cta-icon">🎓</div>
+      <h2 class="cta-title">Ready to Land Your <span class="gradient-text">Dream Job?</span></h2>
+      <p class="cta-desc">Join 50,000+ engineers who prepared smarter and interviewed better.</p>
+      <div class="cta-buttons">
+        <button class="btn-primary-hero" (click)="navigateToInterviewDashboard()">
+          <i class="fas fa-rocket"></i> Start Free Today
+        </button>
+        <a class="btn-ghost" routerLink="/contact">
+          <i class="fas fa-envelope"></i> Contact Us
+        </a>
+      </div>
+    </div>
+  </section>
+
 </div>

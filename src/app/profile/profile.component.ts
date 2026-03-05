@@ -78,10 +78,15 @@ export class ProfileComponent implements OnInit {
         {
           label: 'Problems Solved',
           data: this.problemData.map(entry => entry.problemsSolved),
-          borderColor: '#00adb5',
-          backgroundColor: 'rgba(0, 173, 181, 0.2)',
-          tension: 0.4,
-          fill: true
+          borderColor: '#818cf8',
+          backgroundColor: 'rgba(99, 102, 241, 0.12)',
+          pointBackgroundColor: '#818cf8',
+          pointBorderColor: 'rgba(99,102,241,0.5)',
+          pointRadius: 5,
+          pointHoverRadius: 7,
+          tension: 0.45,
+          fill: true,
+          borderWidth: 2
         }
       ]
     };
@@ -90,27 +95,42 @@ export class ProfileComponent implements OnInit {
   private getChartOptions() {
     return {
       responsive: true,
+      maintainAspectRatio: false,
       plugins: {
         legend: {
-          display: true
+          display: true,
+          labels: {
+            color: '#94a3b8',
+            font: { family: 'Inter', size: 12 }
+          }
+        },
+        tooltip: {
+          backgroundColor: 'rgba(15, 16, 34, 0.9)',
+          borderColor: 'rgba(99, 102, 241, 0.3)',
+          borderWidth: 1,
+          titleColor: '#f1f5f9',
+          bodyColor: '#94a3b8',
+          padding: 12
         }
       },
       scales: {
         x: {
-          title: {
-            display: true,
-            text: 'Date'
-          },
+          grid: { color: 'rgba(255,255,255,0.05)' },
           ticks: {
-            maxRotation: 90,
-            minRotation: 45
-          }
+            color: '#64748b',
+            maxRotation: 60,
+            minRotation: 30,
+            font: { family: 'Inter', size: 11 }
+          },
+          border: { color: 'rgba(255,255,255,0.06)' }
         },
         y: {
-          title: {
-            display: true,
-            text: 'Problems Solved'
+          grid: { color: 'rgba(255,255,255,0.05)' },
+          ticks: {
+            color: '#64748b',
+            font: { family: 'Inter', size: 11 }
           },
+          border: { color: 'rgba(255,255,255,0.06)' },
           beginAtZero: true
         }
       }

@@ -1,62 +1,89 @@
-<footer class="footer">
-  <div class="footer-container">
-    <div class="faq-section">
-      <h2>FAQs</h2>
-      <p>Find answers to common questions about our services.</p>
-      <ul class="faq-list">
-        <li *ngFor="let faq of faqs">
-          <div (click)="toggleAnswer(faq)">
-            <h4>{{ faq.question }}</h4>
-          </div>
-          <p *ngIf="faq.showAnswer">
-            ➡️ {{ faq.answer }}
-          </p>
-        </li>
-      </ul>
-    </div>
-    <div class="help-section">
-      <h2>Need more help?</h2>
-      <p>Reach out to our support team for assistance.</p>
-      <button routerLink="/contact" routerLinkActive="active" ariaCurrentWhenActive="page" class="contact-btn">Contact
-        Us</button>
-    </div>
-    <div class="footer-bottom">
-      <div class="collaborate">
-        <h3>Let's Collaborate</h3>
-        <p>Join us in creating the best interview preparation platform.</p>
-        <div class="social-links">
-          <!-- <a href="#"><i class="fab fa-facebook-f"></i></a> -->
-          <a href="https://www.instagram.com/interview_prep_hub/" target="_blank"><i class="fab fa-instagram"></i></a>
-          <a href="https://www.linkedin.com/company/105041621/admin/dashboard/" target="_blank"><i
-              class="fab fa-linkedin-in"></i></a>
-          <!-- <a href="#"><i class="fab fa-youtube"></i></a> -->
+<footer class="footer-wrapper">
+  <div class="footer-inner">
+
+    <!-- Top: Brand + tagline + socials -->
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <div class="footer-logo-icon"><i class="fas fa-brain"></i></div>
+          <span class="footer-logo-text">InterviewPrep<span class="footer-logo-accent">Hub</span></span>
+        </div>
+        <p class="footer-tagline">Empowering engineers to ace every interview with targeted preparation & real-time analytics.</p>
+        <div class="social-row">
+          <a href="https://www.instagram.com/interview_prep_hub/" target="_blank" class="social-btn" title="Instagram">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a href="https://www.linkedin.com/company/105041621/admin/dashboard/" target="_blank" class="social-btn" title="LinkedIn">
+            <i class="fab fa-linkedin-in"></i>
+          </a>
+          <a href="mailto:pathakvishal132@gmail.com" target="_blank" class="social-btn" title="Email">
+            <i class="fas fa-envelope"></i>
+          </a>
         </div>
       </div>
-      <div class="projects">
-        <h3></h3>
-        <ul>
-          <li>Developed By Himanshu Pathak </li>
-          <!-- <li>Mock Interviews</li>
-                    <li>Question Bank</li>
-                    <li>Progress Tracker</li> -->
-        </ul>
-      </div>
-      <div class="contact">
-        <h3>Contact</h3>
-        <ul>
-          <li>
-            <a href="mailto:pathakvishal132@gmail.com" target="_blank">Gmail</a>
-          </li>
 
-          <li>
-            <a routerLink="/contact">Support</a>
-          </li>
-          <li>
-            <a href="https://www.linkedin.com/in/himanshu-pathak-997720201/" target="_blank">Developer LinkedIn</a>
-          </li>
-        </ul>
+      <!-- Links grid -->
+      <div class="footer-links-grid">
+        <div class="footer-col">
+          <h4 class="footer-col-title">Platform</h4>
+          <ul class="footer-links">
+            <li><a routerLink="/interview-dashboard">Start Preparing</a></li>
+            <li><a routerLink="/domain-dashboard">Domain Prep</a></li>
+            <li><a routerLink="/company">Company Prep</a></li>
+            <li><a routerLink="/user-steps">User Guide</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4 class="footer-col-title">Resources</h4>
+          <ul class="footer-links">
+            <li><a routerLink="/about">About Us</a></li>
+            <li><a routerLink="/contact">Contact</a></li>
+            <li><a routerLink="/login">Login / Sign Up</a></li>
+            <li><a routerLink="/profile">My Profile</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4 class="footer-col-title">Contact</h4>
+          <ul class="footer-links">
+            <li><a href="mailto:pathakvishal132@gmail.com" target="_blank"><i class="fas fa-envelope"></i> Gmail</a></li>
+            <li><a href="https://www.linkedin.com/in/himanshu-pathak-997720201/" target="_blank"><i class="fab fa-linkedin"></i> Developer</a></li>
+            <li><a routerLink="/contact"><i class="fas fa-headset"></i> Support</a></li>
+          </ul>
+        </div>
       </div>
-
     </div>
+
+    <!-- FAQ accordion -->
+    <div class="faq-section">
+      <div class="faq-header">
+        <h3 class="faq-title">Frequently Asked <span class="gradient-text">Questions</span></h3>
+        <p class="faq-subtitle">Quick answers to common queries</p>
+      </div>
+      <div class="faq-grid">
+        <div class="faq-item glass-card" *ngFor="let faq of faqs" (click)="toggleAnswer(faq)" [class.open]="faq.showAnswer">
+          <div class="faq-question">
+            <span>{{ faq.question }}</span>
+            <i class="fas fa-chevron-down faq-chevron"></i>
+          </div>
+          <div class="faq-answer" *ngIf="faq.showAnswer">
+            <p>{{ faq.answer }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom bar -->
+    <div class="footer-bottom">
+      <div class="footer-bottom-left">
+        <span>© 2025 InterviewPrepHub. All rights reserved.</span>
+      </div>
+      <div class="footer-bottom-right">
+        <span class="dev-credit">
+          <i class="fas fa-code"></i> Built with ❤️ by
+          <a href="https://www.linkedin.com/in/himanshu-pathak-997720201/" target="_blank">Himanshu Pathak</a>
+        </span>
+      </div>
+    </div>
+
   </div>
 </footer>

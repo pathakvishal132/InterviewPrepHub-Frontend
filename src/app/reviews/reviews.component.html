@@ -1,49 +1,125 @@
-<div class="review-container">
-  <h2>Company Reviews for {{ companyName }}</h2>
-  <button (click)="toggleReviewForm()">Add Review</button>
-  <div class="outer-conatiner">
-    <div *ngFor="let review of reviews" class="review-item">
-      <h3><strong>Job Profile:</strong>{{ review.job_role }}</h3>
-      <p><strong>Interview Level:</strong> {{ review.interview_level }}</p>
-      <p><strong>Questions Asked:</strong> {{ review.questions_asked }}</p>
-      <p><strong>Company Culture:</strong> {{ review.company_culture }}</p>
-      <p><strong>Company Payroll:</strong> {{ review.company_payroll }}</p>
+<div class="reviews-page">
+
+  <!-- Hero Header -->
+  <div class="reviews-hero">
+    <button class="back-btn" (click)="goBack()">
+      <i class="fas fa-arrow-left"></i>
+    </button>
+    <div class="reviews-hero-inner">
+      <div class="company-avatar">{{ (companyName || 'C').charAt(0).toUpperCase() }}</div>
+      <div>
+        <div class="reviews-hero-badge"><i class="fas fa-star"></i> Interview Reviews</div>
+        <h1 class="reviews-hero-title">{{ companyName }}</h1>
+        <p class="reviews-hero-sub">Real experiences from candidates who interviewed here</p>
+      </div>
     </div>
-  </div>
-  <app-pagination *ngIf="reviews.length" [currentPage]="currentPage" [totalPages]="totalPages"
-    (pageChanged)="onPageChanged($event)">
-  </app-pagination>
-  <div class="review-overlay" (click)="toggleReviewForm()"></div>
-  <div class="review-form">
-    <button class="close-btn" (click)="toggleReviewForm()">✖</button>
-    <h3>Add a Review</h3>
-    <form (ngSubmit)="submitReview()">
-      <label for="jobRole">Job Role:</label>
-      <input id="jobRole" [(ngModel)]="newReview.job_role" name="jobRole" required>
-
-      <label for="interviewLevel">Interview Level:</label>
-      <input id="interviewLevel" [(ngModel)]="newReview.interview_level" name="interviewLevel">
-
-      <label for="questionsAsked">Questions Asked:</label>
-      <textarea id="questionsAsked" [(ngModel)]="newReview.questions_asked" name="questionsAsked"></textarea>
-
-      <label for="companyCulture">Company Culture:</label>
-      <textarea id="companyCulture" [(ngModel)]="newReview.company_culture" name="companyCulture"></textarea>
-
-      <label for="companyPayroll">Company Payroll:</label>
-      <input id="companyPayroll" [(ngModel)]="newReview.company_payroll" name="companyPayroll">
-
-      <button type="submit">Submit Review</button>
-    </form>
-  </div>
-  <div class="go-back-container">
-    <button (click)="goBack()" class="go-back-btn">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-        stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left">
-        <line x1="19" y1="12" x2="5" y2="12"></line>
-        <polyline points="12 19 5 12 12 5"></polyline>
-      </svg>
-      <span>Go Back</span>
+    <button class="add-review-btn" (click)="toggleReviewForm()">
+      <i class="fas fa-plus"></i> Add Review
     </button>
   </div>
+
+  <!-- Review Cards Grid -->
+  <div class="reviews-body">
+
+    <!-- Empty State -->
+    <div class="reviews-empty" *ngIf="!reviews.length">
+      <i class="fas fa-comment-slash"></i>
+      <h3>No reviews yet</h3>
+      <p>Be the first to share your interview experience!</p>
+      <button class="add-review-btn-sm" (click)="toggleReviewForm()">
+        <i class="fas fa-plus"></i> Add Review
+      </button>
+    </div>
+
+    <!-- Grid -->
+    <div class="reviews-grid" *ngIf="reviews.length">
+      <div class="review-card glass-card" *ngFor="let review of reviews">
+        <div class="review-card-top">
+          <div class="review-role-badge">
+            <i class="fas fa-briefcase"></i>
+            {{ review.job_role || 'Engineer' }}
+          </div>
+          <div class="review-level-pill" [class]="getLevelClass(review.interview_level)">
+            {{ review.interview_level || 'N/A' }}
+          </div>
+        </div>
+
+        <div class="review-field" *ngIf="review.questions_asked">
+          <div class="review-field-label"><i class="fas fa-question-circle"></i> Questions Asked</div>
+          <p class="review-field-val">{{ review.questions_asked }}</p>
+        </div>
+
+        <div class="review-row">
+          <div class="review-field review-field--half" *ngIf="review.company_culture">
+            <div class="review-field-label"><i class="fas fa-users"></i> Culture</div>
+            <p class="review-field-val">{{ review.company_culture }}</p>
+          </div>
+          <div class="review-field review-field--half" *ngIf="review.company_payroll">
+            <div class="review-field-label"><i class="fas fa-money-bill-wave"></i> Pay</div>
+            <p class="review-field-val">{{ review.company_payroll }}</p>
+          </div>
+        </div>
+
+        <div class="review-card-glow"></div>
+      </div>
+    </div>
+
+    <!-- Pagination -->
+    <app-pagination *ngIf="reviews.length" [currentPage]="currentPage" [totalPages]="totalPages"
+      (pageChanged)="onPageChanged($event)">
+    </app-pagination>
+  </div>
+
+  <!-- Overlay -->
+  <div class="review-overlay" (click)="toggleReviewForm()"></div>
+
+  <!-- Slide-in Drawer -->
+  <div class="review-drawer">
+    <div class="drawer-header">
+      <div class="drawer-title">
+        <i class="fas fa-pen-alt"></i>
+        <span>Share Your Experience</span>
+      </div>
+      <button class="drawer-close" (click)="toggleReviewForm()">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+
+    <form (ngSubmit)="submitReview()" class="drawer-form">
+      <div class="form-field">
+        <label for="jobRole"><i class="fas fa-briefcase"></i> Job Role</label>
+        <input id="jobRole" [(ngModel)]="newReview.job_role" name="jobRole" placeholder="e.g. Software Engineer" required>
+      </div>
+
+      <div class="form-field">
+        <label for="interviewLevel"><i class="fas fa-signal"></i> Interview Level</label>
+        <input id="interviewLevel" [(ngModel)]="newReview.interview_level" name="interviewLevel"
+          placeholder="e.g. Easy / Medium / Hard">
+      </div>
+
+      <div class="form-field">
+        <label for="questionsAsked"><i class="fas fa-question-circle"></i> Questions Asked</label>
+        <textarea id="questionsAsked" [(ngModel)]="newReview.questions_asked" name="questionsAsked"
+          placeholder="What was asked in the interview?" rows="3"></textarea>
+      </div>
+
+      <div class="form-row">
+        <div class="form-field form-field--half">
+          <label for="companyCulture"><i class="fas fa-users"></i> Company Culture</label>
+          <textarea id="companyCulture" [(ngModel)]="newReview.company_culture" name="companyCulture"
+            placeholder="Work culture & environment" rows="2"></textarea>
+        </div>
+        <div class="form-field form-field--half">
+          <label for="companyPayroll"><i class="fas fa-money-bill-wave"></i> Payroll / CTC</label>
+          <input id="companyPayroll" [(ngModel)]="newReview.company_payroll" name="companyPayroll"
+            placeholder="e.g. ₹8-12 LPA">
+        </div>
+      </div>
+
+      <button type="submit" class="drawer-submit">
+        <i class="fas fa-paper-plane"></i> Submit Review
+      </button>
+    </form>
+  </div>
+
 </div>

@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { CompanyService } from '../services/company.service';
 import { Location } from '@angular/common';
+
 @Component({
   selector: 'app-reviews',
   templateUrl: './reviews.component.html',
@@ -18,35 +19,32 @@ export class ReviewsComponent implements OnInit {
   companyName: string | null = "";
   newReview: any = {
     company_id: null,
-    comapany_name: '',
+    company_name: '',
     job_role: '',
     interview_level: '',
     questions_asked: '',
     company_culture: '',
     company_payroll: ''
   };
-  constructor(private dialog: MatDialog,
+
+  constructor(
+    private dialog: MatDialog,
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private cs: CompanyService,
-    private location: Location) {
+    private location: Location
+  ) { }
 
-  }
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
       const id = params.get('id');
-      const name = params.get('companyName')
-      if (id) {
-        this.companyId = +id;
-      }
+      const name = params.get('companyName');
+      if (id) { this.companyId = +id; }
       this.companyName = name;
-      // if (id && name ) {
-      //   this.companyId = +id;
-      //   this.comapanyName = +name;
-      // }
     });
     this.loadReviews(this.currentPage);
   }
+
   loadReviews(page: number): void {
     if (this.companyId) {
       this.cs.getReviews(this.companyId, page).subscribe(
@@ -56,34 +54,33 @@ export class ReviewsComponent implements OnInit {
             this.totalPages = data.total_pages;
             this.currentPage = data.current_page;
           } else {
-            console.warn('No reviews found');
             this.reviews = [];
           }
         },
-        (error) => {
-          console.error('Error fetching reviews', error);
-        }
+        (error) => { console.error('Error fetching reviews', error); }
       );
     }
   }
+
   onPageChanged(page: number): void {
     this.currentPage = page;
     this.loadReviews(this.currentPage);
-
   }
 
   toggleReviewForm() {
     this.showReviewForm = !this.showReviewForm;
-    const form = document.querySelector('.review-form') as HTMLElement;
+    const drawer = document.querySelector('.review-drawer') as HTMLElement;
     const overlay = document.querySelector('.review-overlay') as HTMLElement;
+    if (drawer) drawer.classList.toggle('active', this.showReviewForm);
+    if (overlay) overlay.classList.toggle('active', this.showReviewForm);
+  }
 
-    if (this.showReviewForm) {
-      form.classList.add('active');
-      overlay.classList.add('active');
-    } else {
-      form.classList.remove('active');
-      overlay.classList.remove('active');
-    }
+  getLevelClass(level: string): string {
+    if (!level) return '';
+    const l = level.toLowerCase();
+    if (l.includes('hard') || l.includes('difficult')) return 'hard';
+    if (l.includes('medium') || l.includes('moderate')) return 'medium';
+    return ''; // easy = default green
   }
 
   submitReview(): void {
@@ -91,26 +88,27 @@ export class ReviewsComponent implements OnInit {
     this.newReview.company_name = this.companyName;
     this.cs.addReview(this.newReview).subscribe(
       (response) => {
-        console.log('Review added successfully', response);
-        this.loadReviews(this.currentPage); // Reload reviews after adding a new one
-        this.showReviewForm = false; // Hide the form after submission
-        this.newReview = { // Reset the form
-          jobRole: '',
-          interviewLevel: '',
-          questionsAsked: '',
-          companyCulture: '',
-          companyPayroll: ''
+        this.loadReviews(this.currentPage);
+        this.showReviewForm = false;
+        const drawer = document.querySelector('.review-drawer') as HTMLElement;
+        const overlay = document.querySelector('.review-overlay') as HTMLElement;
+        if (drawer) drawer.classList.remove('active');
+        if (overlay) overlay.classList.remove('active');
+        this.newReview = {
+          company_id: null,
+          company_name: '',
+          job_role: '',
+          interview_level: '',
+          questions_asked: '',
+          company_culture: '',
+          company_payroll: ''
         };
       },
-      (error) => {
-        console.error('Error adding review', error);
-      }
+      (error) => { console.error('Error adding review', error); }
     );
   }
+
   goBack(): void {
     this.location.back();
   }
 }
-
-
-

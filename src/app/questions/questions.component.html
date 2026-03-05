@@ -1,57 +1,199 @@
-<div class="main">
-  <div class="question-container">
-    <!-- Display a loading message while waiting for data -->
-    <!-- <ng-container *ngIf="loading; else content">
-            <body>Loading</body>
-        </ng-container> -->
-    <ng-container *ngIf="loading; else content">
-      <div class="loading-spinner"></div>
-      <p class="loading-note">
-        This might take some time as we’re using free resources.
-      </p>
-    </ng-container>
+<div class="questions-wrapper">
 
-    <ng-template #content>
-      <!-- Display the current question -->
-      <h1 class="question-title">{{ currentQuestion || 'Loading question...' }}</h1>
-      <div class="answer-box">
-        <textarea id="answer" [(ngModel)]="voiceService.text" (input)="onInputChange($event)"
-          placeholder="Type your answer here..." rows="5"></textarea>
-        <div class="voice-controls">
-          <button id="speak-btn" (click)="toggleVoiceRecognition()"
-            class="voice-btn">{{ voiceService.isRecognizing ? 'Stop' : 'Speak' }}</button>
-          <!-- <button id="speak-btn" (click)="startListening()" class="voice-btn">Speak</button> -->
-          <!-- <button id="stop-btn" (click)="stopListening()" class="voice-btn">Stop</button> -->
-          <button class="voice-btn" (click)="nextQuestion()">Next Question</button>
-          <button class="voice-btn" (click)="previousQuestion()">Previous Question</button>
+  <!-- Sidebar / Progress Panel -->
+  <aside class="questions-sidebar">
+    <div class="sidebar-brand">
+      <div class="sidebar-brand-icon"><i class="fas fa-brain"></i></div>
+      <span class="sidebar-brand-name">Prep<span class="brand-accent">Hub</span></span>
+    </div>
+
+    <div class="sidebar-meta" *ngIf="domain">
+      <div class="meta-row"><i class="fas fa-layer-group"></i><span>{{ domain }}</span></div>
+      <div class="meta-row"><i class="fas fa-tag"></i><span>{{ subdomain }}</span></div>
+    </div>
+
+    <!-- Stats chips -->
+    <div class="sidebar-stats" *ngIf="!loading">
+      <div class="stat-chip">
+        <span class="stat-chip-val">{{ totalQuestions }}</span>
+        <span class="stat-chip-lbl">Total</span>
+      </div>
+      <div class="stat-chip stat-chip--green">
+        <span class="stat-chip-val">{{ answeredCount }}</span>
+        <span class="stat-chip-lbl">Answered</span>
+      </div>
+      <div class="stat-chip stat-chip--amber">
+        <span class="stat-chip-val">{{ totalQuestions - answeredCount }}</span>
+        <span class="stat-chip-lbl">Remaining</span>
+      </div>
+    </div>
+
+    <div class="sidebar-progress" *ngIf="!loading">
+      <div class="progress-header">
+        <span>Progress</span>
+        <span class="progress-count">{{ currentIndex + 1 }} / {{ totalQuestions }}</span>
+      </div>
+      <div class="progress-bar-outer">
+        <div class="progress-bar-inner" [style.width.%]="progressPercent"></div>
+      </div>
+      <div class="progress-pct">{{ progressPercent }}% complete</div>
+    </div>
+
+    <!-- Question Navigator -->
+    <div class="q-navigator" *ngIf="!loading">
+      <p class="q-nav-label">Questions</p>
+      <div class="q-nav-dots">
+        <div class="q-dot"
+             *ngFor="let q of questionKeys; let i = index"
+             [class.active]="i === currentIndex"
+             [class.answered]="answeredSet.has(i)"
+             (click)="jumpTo(i)"
+             [title]="'Q' + (i + 1)">
+          <i class="fas fa-check q-dot-check" *ngIf="answeredSet.has(i) && i !== currentIndex"></i>
+          <span *ngIf="!answeredSet.has(i) || i === currentIndex">{{ i + 1 }}</span>
         </div>
       </div>
-      <div class="answer-actions">
+    </div>
 
-        <button class="feedback-btn" *ngIf="feedback.length" (click)="getFeedback()">Feedback</button>
-        <button class="actual-answer-btn" *ngIf="actualAnswer.length" (click)="getActualAnswer()">Actual Answer</button>
-      </div>
-      <button id="submit-btn" (click)="submitAnswer()" class="submit-btn">Submit Answer</button>
-      <ng-container *ngIf="loadingAnswers">
-        <div class="loading-spinner"></div>
-        <p class="loading-note">
-          This might take some time as we’re using free resources.
-        </p>
-      </ng-container>
-
-
-      <p *ngIf="feedbackStatus">{{feedback}}</p>
-      <p *ngIf="actualAnswerStatus" [innerHTML]="actualAnswer"></p>
-    </ng-template>
-  </div>
-  <div class="go-back-container">
-    <button (click)="goBack()" class="go-back-btn">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-        stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left">
-        <line x1="19" y1="12" x2="5" y2="12"></line>
-        <polyline points="12 19 5 12 12 5"></polyline>
-      </svg>
-      <span>Go Back</span>
+    <button class="sidebar-back-btn" (click)="goBack()">
+      <i class="fas fa-arrow-left"></i> Go Back
     </button>
-  </div>
+  </aside>
+
+  <!-- Main Question Area -->
+  <main class="questions-main">
+
+    <!-- Loading State -->
+    <ng-container *ngIf="loading">
+      <div class="loading-screen">
+        <div class="loading-brain">
+          <div class="loading-ring"></div>
+          <i class="fas fa-brain loading-brain-icon"></i>
+        </div>
+        <h2 class="loading-title">Loading Questions</h2>
+        <p class="loading-sub">Fetching personalized questions for <strong>{{ subdomain }}</strong>...</p>
+        <div class="loading-dots">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+    </ng-container>
+
+    <!-- Question View -->
+    <div class="question-view" *ngIf="!loading" [class.entrance]="questionEntrance">
+
+      <!-- Question Card -->
+      <div class="question-card glass-card">
+        <div class="question-card-header">
+          <div class="q-badges">
+            <div class="q-number">Question {{ currentIndex + 1 }}</div>
+            <div class="q-answered-badge" *ngIf="answeredSet.has(currentIndex)">
+              <i class="fas fa-check-circle"></i> Answered
+            </div>
+          </div>
+          <div class="q-keys">
+            <div class="q-key"><i class="fas fa-keyboard"></i> <kbd>←</kbd><kbd>→</kbd> navigate</div>
+          </div>
+        </div>
+        <h2 class="question-text">{{ currentQuestion || 'Loading question...' }}</h2>
+        <!-- Decorative glow blob -->
+        <div class="question-glow"></div>
+      </div>
+
+      <!-- Answer Area -->
+      <div class="answer-card glass-card">
+        <div class="answer-header">
+          <div class="answer-label"><i class="fas fa-pen"></i> Your Answer</div>
+          <div class="voice-status" [class.active]="voiceService.isRecognizing">
+            <span class="voice-dot"></span>
+            {{ voiceService.isRecognizing ? 'Listening...' : 'Microphone off' }}
+          </div>
+        </div>
+
+        <textarea
+          id="answer"
+          [(ngModel)]="voiceService.text"
+          (input)="onInputChange($event)"
+          placeholder="Type your answer here, or click 🎙 Speak to use voice input..."
+          class="answer-textarea"
+          rows="6">
+        </textarea>
+
+        <!-- Controls Row -->
+        <div class="controls-row">
+          <div class="nav-controls">
+            <button class="ctrl-btn ctrl-btn--nav" (click)="previousQuestion()" [disabled]="currentIndex === 0">
+              <i class="fas fa-chevron-left"></i> Prev
+            </button>
+            <button class="ctrl-btn ctrl-btn--nav" (click)="nextQuestion()" [disabled]="currentIndex >= totalQuestions - 1">
+              Next <i class="fas fa-chevron-right"></i>
+            </button>
+          </div>
+          <div class="action-controls">
+            <button class="ctrl-btn ctrl-btn--voice" (click)="toggleVoiceRecognition()" [class.recording]="voiceService.isRecognizing">
+              <i class="fas" [class.fa-microphone]="!voiceService.isRecognizing" [class.fa-stop]="voiceService.isRecognizing"></i>
+              {{ voiceService.isRecognizing ? 'Stop' : 'Speak' }}
+            </button>
+            <button class="ctrl-btn ctrl-btn--submit" (click)="submitAnswer()" [disabled]="!voiceService.text.trim()">
+              <i class="fas fa-paper-plane"></i> Submit
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Loading Answers -->
+      <div class="ai-loading glass-card" *ngIf="loadingAnswers">
+        <div class="ai-loading-ring"></div>
+        <div>
+          <p class="ai-loading-title">AI is analyzing your answer...</p>
+          <p class="ai-loading-sub">Generating personalized feedback. This may take a moment.</p>
+        </div>
+      </div>
+
+      <!-- Feedback / Answer Panels -->
+      <div class="result-panels" *ngIf="!loadingAnswers && (feedback.length || actualAnswer.length)">
+        <div class="result-tabs">
+          <button class="result-tab" [class.active]="feedbackStatus" (click)="getFeedback()" *ngIf="feedback.length">
+            <i class="fas fa-comment-dots"></i> AI Feedback
+          </button>
+          <button class="result-tab result-tab--answer" [class.active]="actualAnswerStatus" (click)="getActualAnswer()" *ngIf="actualAnswer.length">
+            <i class="fas fa-lightbulb"></i> Model Answer
+          </button>
+        </div>
+
+        <div class="result-content glass-card result-content--feedback" *ngIf="feedbackStatus && feedback.length">
+          <div class="result-content-header">
+            <div class="result-badge result-badge--feedback">
+              <i class="fas fa-comment-dots"></i> AI Feedback
+            </div>
+            <button class="tts-btn" [class.tts-btn--speaking]="isSpeaking && speakingTarget === 'feedback'"
+              (click)="speakText(feedback, 'feedback')" title="Listen to feedback">
+              <i class="fas" [class.fa-volume-up]="!(isSpeaking && speakingTarget === 'feedback')"
+                             [class.fa-stop]="isSpeaking && speakingTarget === 'feedback'"></i>
+              <span>{{ (isSpeaking && speakingTarget === 'feedback') ? 'Stop' : 'Listen' }}</span>
+            </button>
+          </div>
+          <p class="result-text">{{ feedback }}</p>
+        </div>
+
+        <div class="result-content glass-card result-content--answer" *ngIf="actualAnswerStatus && actualAnswer.length">
+          <div class="result-content-header">
+            <div class="result-badge result-badge--answer">
+              <i class="fas fa-lightbulb"></i> Model Answer
+            </div>
+            <button class="tts-btn tts-btn--amber" [class.tts-btn--speaking]="isSpeaking && speakingTarget === 'answer'"
+              (click)="speakText(actualAnswer, 'answer')" title="Listen to model answer">
+              <i class="fas" [class.fa-volume-up]="!(isSpeaking && speakingTarget === 'answer')"
+                             [class.fa-stop]="isSpeaking && speakingTarget === 'answer'"></i>
+              <span>{{ (isSpeaking && speakingTarget === 'answer') ? 'Stop' : 'Listen' }}</span>
+            </button>
+          </div>
+          <div class="result-text" [innerHTML]="actualAnswer"></div>
+        </div>
+      </div>
+
+
+    </div>
+
+  </main>
+
 </div>

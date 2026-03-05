@@ -1,53 +1,173 @@
-<div class="login-container">
-  <div class="login-box">
-    <h2 *ngIf="isLoginActive; else signupTitle">{{ isLoginActive ? 'Login' : 'Signup' }}</h2>
-    
-    <form (ngSubmit)="onSubmit()">
+<div class="login-wrapper">
 
-        <div class="input-group">
-        <label for="userName">User Name</label>
-        <input type="userName" id="userName" [(ngModel)]="userName" name="userName" required />
-      </div>
-      <div class="input-group"  *ngIf="!isLoginActive">
-        <label for="email">Email</label>
-        <input type="email" id="email" [(ngModel)]="email" name="email" required />
-      </div>
-      
-      <div class="input-group">
-        <label for="password">Password</label>
-        <input
-          type="password"
-          id="password"
-          [(ngModel)]="password"
-          name="password"
-          required
-        />
+  <!-- Left Panel — Branding -->
+  <div class="login-left">
+    <div class="login-left-inner">
+      <div class="login-brand" routerLink="/">
+        <div class="brand-icon"><i class="fas fa-brain"></i></div>
+        <span class="brand-name">InterviewPrep<span class="brand-accent">Hub</span></span>
       </div>
 
-      <!-- Extra field for Signup -->
-      <div class="input-group" *ngIf="!isLoginActive">
-        <label for="confirm-password">Confirm Password</label>
-        <input
-          type="password"
-          id="confirm-password"
-          [(ngModel)]="confirmPassword"
-          name="confirmPassword"
-          required
-        />
+      <div class="login-left-content">
+        <div class="left-badge">
+          <span class="badge-dot"></span> Trusted by 50K+ Engineers
+        </div>
+        <h1 class="left-title">Your path to the<br><span class="gradient-text">perfect offer</span><br>starts here.</h1>
+        <p class="left-subtitle">Master domain-specific questions, ace company rounds, and track every step of your journey.</p>
+
+        <div class="left-stats">
+          <div class="left-stat" *ngFor="let s of brandStats">
+            <div class="left-stat-val">{{ s.val }}</div>
+            <div class="left-stat-label">{{ s.label }}</div>
+          </div>
+        </div>
+
+        <div class="testimonial-pill">
+          <div class="pill-avatar">PS</div>
+          <p class="pill-quote">"Cracked Google in 6 weeks using this platform!"</p>
+        </div>
       </div>
 
-      <div class="error-message" *ngIf="errorMessage">{{ errorMessage }}</div>
-      <button type="submit" class="login-button">{{ isLoginActive ? 'Login' : 'Signup' }}</button>
-    </form>
+      <!-- Decorative orbs -->
+      <div class="l-orb l-orb-1"></div>
+      <div class="l-orb l-orb-2"></div>
+    </div>
+  </div>
 
-    <!-- Toggle between Login and Signup -->
-    <p class="toggle-text">
-      {{ isLoginActive ? 'Don\'t have an account?' : 'Already have an account?' }}
-      <a (click)="toggleActiveState()">{{ isLoginActive ? 'Signup' : 'Login' }}</a>
-    </p>
+  <!-- Right Panel — Form -->
+  <div class="login-right">
+    <div class="login-card glass-card">
+
+      <!-- Tab Toggle -->
+      <div class="tab-toggle">
+        <button class="tab-btn" [class.active]="isLoginActive" (click)="setMode(true)">
+          <i class="fas fa-sign-in-alt"></i> Login
+        </button>
+        <button class="tab-btn" [class.active]="!isLoginActive" (click)="setMode(false)">
+          <i class="fas fa-user-plus"></i> Sign Up
+        </button>
+        <div class="tab-indicator" [style.transform]="isLoginActive ? 'translateX(0)' : 'translateX(100%)'"></div>
+      </div>
+
+      <!-- Title -->
+      <div class="form-header">
+        <h2 class="form-title">{{ isLoginActive ? 'Welcome back 👋' : 'Create account 🚀' }}</h2>
+        <p class="form-subtitle">{{ isLoginActive ? 'Sign in to continue your prep journey' : 'Join 50K+ engineers preparing smarter' }}</p>
+      </div>
+
+      <!-- Form -->
+      <form (ngSubmit)="onSubmit()" class="auth-form">
+
+        <!-- Username -->
+        <div class="form-group">
+          <label class="form-label">
+            <i class="fas fa-user"></i> Username
+          </label>
+          <div class="input-wrapper">
+            <input
+              type="text"
+              id="userName"
+              [(ngModel)]="userName"
+              name="userName"
+              placeholder="Enter your username"
+              required
+              class="form-input"
+            />
+          </div>
+        </div>
+
+        <!-- Email (Signup only) -->
+        <div class="form-group" *ngIf="!isLoginActive">
+          <label class="form-label">
+            <i class="fas fa-envelope"></i> Email
+          </label>
+          <div class="input-wrapper">
+            <input
+              type="email"
+              id="email"
+              [(ngModel)]="email"
+              name="email"
+              placeholder="Enter your email"
+              required
+              class="form-input"
+            />
+          </div>
+        </div>
+
+        <!-- Password -->
+        <div class="form-group">
+          <label class="form-label">
+            <i class="fas fa-lock"></i> Password
+          </label>
+          <div class="input-wrapper">
+            <input
+              [type]="showPassword ? 'text' : 'password'"
+              id="password"
+              [(ngModel)]="password"
+              name="password"
+              placeholder="Enter your password"
+              required
+              class="form-input"
+            />
+            <button type="button" class="eye-toggle" (click)="showPassword = !showPassword">
+              <i class="fas" [class.fa-eye]="!showPassword" [class.fa-eye-slash]="showPassword"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Confirm Password (Signup) -->
+        <div class="form-group" *ngIf="!isLoginActive">
+          <label class="form-label">
+            <i class="fas fa-lock"></i> Confirm Password
+          </label>
+          <div class="input-wrapper">
+            <input
+              [type]="showConfirmPassword ? 'text' : 'password'"
+              id="confirm-password"
+              [(ngModel)]="confirmPassword"
+              name="confirmPassword"
+              placeholder="Repeat your password"
+              required
+              class="form-input"
+            />
+            <button type="button" class="eye-toggle" (click)="showConfirmPassword = !showConfirmPassword">
+              <i class="fas" [class.fa-eye]="!showConfirmPassword" [class.fa-eye-slash]="showConfirmPassword"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Error -->
+        <div class="error-banner" *ngIf="errorMessage">
+          <i class="fas fa-exclamation-circle"></i>
+          {{ errorMessage }}
+        </div>
+
+        <!-- Submit -->
+        <button type="submit" class="submit-btn" [class.loading]="isLoading">
+          <span *ngIf="!isLoading">
+            <i class="fas" [class.fa-sign-in-alt]="isLoginActive" [class.fa-rocket]="!isLoginActive"></i>
+            {{ isLoginActive ? 'Sign In' : 'Create Account' }}
+          </span>
+          <span *ngIf="isLoading" class="btn-spinner"></span>
+        </button>
+
+        <!-- Toggle -->
+        <p class="toggle-link">
+          {{ isLoginActive ? "Don't have an account?" : "Already have an account?" }}
+          <a (click)="toggleActiveState()">{{ isLoginActive ? 'Sign Up' : 'Sign In' }}</a>
+        </p>
+
+      </form>
+
+      <!-- Divider -->
+      <div class="form-divider"><span>OR</span></div>
+
+      <!-- Feature Chips -->
+      <div class="feature-chips">
+        <div class="chip"><i class="fas fa-shield-alt"></i> Secure</div>
+        <div class="chip"><i class="fas fa-bolt"></i> Instant Access</div>
+        <div class="chip"><i class="fas fa-lock"></i> Private</div>
+      </div>
+    </div>
   </div>
 </div>
-
-<ng-template #signupTitle>
-  <h2>Signup</h2>
-</ng-template>

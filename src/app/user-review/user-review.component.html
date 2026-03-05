@@ -1,33 +1,62 @@
-<section class="testimonials">
-    <h2>What Our Users Say</h2>
-    <div class="testimonial-card">
-        <img src="assets/about/aif1.png" alt="Jane Doe">
-        <div class="testimonial-content">
-            <p>"InterviewPrepHub helped me land my dream job with its tailored questions and detailed feedback."</p>
-            <div class="rating">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-            </div>
-            <p>Jane Doe</p>
-            <p>Software Engineer, TechCorp</p>
-        </div>
+<section class="reviews-wrapper">
+  <div class="reviews-inner">
+    <div class="reviews-header">
+      <h2 class="section-title">Loved by <span class="gradient-text">Engineers</span></h2>
+      <p class="section-subtitle">Real success stories from people who prepared smarter</p>
     </div>
-    <div class="testimonial-card">
-        <img src="assets/about/aif3.png" alt="John Smith">
-        <div class="testimonial-content">
-            <p>"The domain-specific questions were exactly what I needed to prepare effectively for my interviews."</p>
-            <div class="rating">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
+
+    <!-- Scrolling Marquee Row 1 (left) -->
+    <div class="marquee-track-outer">
+      <div class="marquee-track marquee-left">
+        <div class="review-card glass-card" *ngFor="let r of reviewsRow1.concat(reviewsRow1)">
+          <div class="review-top">
+            <div class="review-avatar" [style.background]="r.avatarBg">{{ r.initials }}</div>
+            <div class="review-meta">
+              <div class="review-name">{{ r.name }}</div>
+              <div class="review-role">{{ r.role }}</div>
             </div>
-            <p>John Smith</p>
-            <p>Data Scientist, DataWorks</p>
+            <div class="review-company-logo">
+              <i class="fas" [class]="r.companyIcon" [style.color]="r.companyColor"></i>
+            </div>
+          </div>
+          <div class="review-stars">
+            <i class="fas fa-star" *ngFor="let s of [1,2,3,4,5]"></i>
+          </div>
+          <p class="review-quote">"{{ r.quote }}"</p>
+          <div class="review-tag" [style.background]="r.tagBg" [style.color]="r.tagColor">{{ r.tag }}</div>
         </div>
+      </div>
     </div>
+
+    <!-- Scrolling Marquee Row 2 (right) -->
+    <div class="marquee-track-outer">
+      <div class="marquee-track marquee-right">
+        <div class="review-card glass-card" *ngFor="let r of reviewsRow2.concat(reviewsRow2)">
+          <div class="review-top">
+            <div class="review-avatar" [style.background]="r.avatarBg">{{ r.initials }}</div>
+            <div class="review-meta">
+              <div class="review-name">{{ r.name }}</div>
+              <div class="review-role">{{ r.role }}</div>
+            </div>
+            <div class="review-company-logo">
+              <i class="fas" [class]="r.companyIcon" [style.color]="r.companyColor"></i>
+            </div>
+          </div>
+          <div class="review-stars">
+            <i class="fas fa-star" *ngFor="let s of [1,2,3,4,5]"></i>
+          </div>
+          <p class="review-quote">"{{ r.quote }}"</p>
+          <div class="review-tag" [style.background]="r.tagBg" [style.color]="r.tagColor">{{ r.tag }}</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stats bar -->
+    <div class="reviews-stats">
+      <div class="review-stat" *ngFor="let s of reviewStats">
+        <div class="review-stat-val">{{ s.value }}</div>
+        <div class="review-stat-label">{{ s.label }}</div>
+      </div>
+    </div>
+  </div>
 </section>

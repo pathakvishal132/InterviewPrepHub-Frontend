@@ -1,56 +1,99 @@
-<div class="user-profile-container">
-  <!-- User Information Section -->
-  <div class="user-info">
-    <img *ngIf="imageBase64" class="profile-image" [src]="'data:image/png;base64,' + imageBase64" alt="User Profile" />
-    <div class="user-details">
-      <h1>{{ userName }}</h1>
-      <p>Email: {{ email }}</p>
-      <p>Joined: {{ dateJoined | date }}</p>
-      <!-- <p>Completed Domains: {{ user.completedDomains }}</p> -->
+<div class="profile-page">
+
+  <!-- Top Profile Header -->
+  <div class="profile-header glass-card">
+    <!-- Avatar -->
+    <div class="profile-avatar-wrap">
+      <img *ngIf="imageBase64" class="profile-avatar" [src]="'data:image/png;base64,' + imageBase64" alt="Profile" />
+      <div class="profile-avatar-placeholder" *ngIf="!imageBase64">
+        {{ (userName || 'U').charAt(0).toUpperCase() }}
+      </div>
+      <!-- Upload trigger -->
+      <label class="avatar-upload-overlay" for="fileInputHidden" title="Change photo">
+        <i class="fas fa-camera"></i>
+      </label>
     </div>
-    <div class="upload-container">
-      <h3>Upload Profile Picture</h3>
-      <form (submit)="onSubmit()">
-        <input type="file" #fileInput (change)="onFileSelected($event)" hidden />
-        <div class="upload-box" (click)="fileInput.click()">
-          <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none"
-            stroke="#00adb5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 5v14M5 12h14" />
-          </svg>
-          <p *ngIf="!selectedFile">Click to upload</p>
-          <p *ngIf="selectedFile">{{ selectedFile.name }}</p>
-        </div>
 
-        <button class="upload-btn" type="submit" [disabled]="!selectedFile">Upload Image</button>
-      </form>
-
-      <div *ngIf="uploadedImage">
-        <h4>Uploaded Image:</h4>
-        <img [src]="uploadedImage" alt="Uploaded Image" class="uploaded-image" />
+    <!-- Info -->
+    <div class="profile-info">
+      <h1 class="profile-name">{{ userName || 'Anonymous User' }}</h1>
+      <div class="profile-meta">
+        <span class="profile-meta-chip"><i class="fas fa-envelope"></i> {{ email || 'Not set' }}</span>
+        <span class="profile-meta-chip"><i class="fas fa-calendar-alt"></i> Joined {{ dateJoined | date: 'MMM yyyy' }}</span>
       </div>
     </div>
 
+    <!-- Upload Form -->
+    <form (submit)="onSubmit()" class="upload-form">
+      <input type="file" id="fileInputHidden" #fileInput (change)="onFileSelected($event)" hidden />
+      <div class="upload-zone" (click)="fileInput.click()">
+        <i class="fas fa-cloud-upload-alt"></i>
+        <span>{{ selectedFile ? selectedFile.name : 'Upload Photo' }}</span>
+      </div>
+      <button class="upload-save-btn" type="submit" [disabled]="!selectedFile">
+        <i class="fas fa-save"></i> Save
+      </button>
+    </form>
   </div>
 
-  <!-- Progress Graph Section -->
-  <div class="progress-section">
-    <h2>Progress Overview</h2>
-    <canvas id="progressChart"></canvas>
+  <!-- Main Content Grid -->
+  <div class="profile-grid">
+
+    <!-- Progress Chart -->
+    <div class="profile-section glass-card profile-section--chart">
+      <div class="section-header">
+        <div class="section-header-icon"><i class="fas fa-chart-line"></i></div>
+        <div>
+          <h2 class="section-title">Progress Overview</h2>
+          <p class="section-sub">Daily submission activity</p>
+        </div>
+      </div>
+      <div class="chart-wrap">
+        <canvas id="progressChart"></canvas>
+      </div>
+    </div>
+
+    <!-- Right column: achievements + recommendations -->
+    <div class="profile-aside">
+
+      <!-- Achievements -->
+      <div class="profile-section glass-card">
+        <div class="section-header">
+          <div class="section-header-icon section-header-icon--amber"><i class="fas fa-trophy"></i></div>
+          <div>
+            <h2 class="section-title">Achievements</h2>
+            <p class="section-sub">{{ user.achievements.length }} unlocked</p>
+          </div>
+        </div>
+        <div class="achievement-list">
+          <div class="achievement-item" *ngFor="let a of user.achievements; let i = index">
+            <div class="achievement-dot" [style]="'animation-delay: ' + (i * 0.08) + 's'"></div>
+            <span>{{ a }}</span>
+          </div>
+        </div>
+        <div class="empty-state" *ngIf="!user.achievements.length">
+          <i class="fas fa-lock"></i> No achievements yet
+        </div>
+      </div>
+
+      <!-- Recommendations -->
+      <div class="profile-section glass-card">
+        <div class="section-header">
+          <div class="section-header-icon section-header-icon--cyan"><i class="fas fa-compass"></i></div>
+          <div>
+            <h2 class="section-title">Recommended Paths</h2>
+            <p class="section-sub">Curated for you</p>
+          </div>
+        </div>
+        <div class="rec-list">
+          <div class="rec-item" *ngFor="let r of user.recommendations">
+            <i class="fas fa-arrow-right rec-arrow"></i>
+            <span>{{ r }}</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
   </div>
 
-  <!-- Achievements and Recommendations -->
-  <div class="additional-info">
-    <div class="achievements">
-      <h2>Achievements</h2>
-      <ul>
-        <li *ngFor="let achievement of user.achievements">{{ achievement }}</li>
-      </ul>
-    </div>
-    <div class="recommendations">
-      <h2>Recommended Paths</h2>
-      <ul>
-        <li *ngFor="let recommendation of user.recommendations">{{ recommendation }}</li>
-      </ul>
-    </div>
-  </div>
 </div>

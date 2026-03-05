@@ -1,119 +1,200 @@
-<div class="steps-container">
-  <!-- Steps Wrapper -->
-  <div class="steps-wrapper">
-    <!-- Domain-Based Section -->
-    <div class="steps-column">
-      <h3 class="head">Domain-Based Interview Preparation</h3>
+<section class="steps-page">
 
-      <div class="step">
-        <div class="step-number">1</div>
-        <div class="step-details">
-          <h4>Choose Your Domain</h4>
-          <p>Select your field of interest, such as Web Development, Data Science, or Cyber Security.</p>
-        </div>
-      </div>
-
-      <div class="step">
-        <div class="step-number">2</div>
-        <div class="step-details">
-          <h4>Select Subdomain</h4>
-          <p>Pick a specific subdomain to get tailored questions for interview preparation.</p>
-        </div>
-      </div>
-
-      <div class="step">
-        <div class="step-number">3</div>
-        <div class="step-details">
-          <h4>Practice Questions</h4>
-          <p>Start answering interview-style questions and receive immediate feedback and actual answer.</p>
-        </div>
-      </div>
-
-      <div class="step">
-        <div class="step-number">4</div>
-        <div class="step-details">
-          <h4>Track Your Progress</h4>
-          <p>Monitor your performance and track improvements as you practice.</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Company-Based Section -->
-    <div class="steps-column">
-      <h3 class="head">Company-Specific Interview Preparation</h3>
-
-      <div class="step">
-        <div class="step-number">1</div>
-        <div class="step-details">
-          <h4>Select Your Company</h4>
-          <p>Pick a specific company like Google, Microsoft, or Amazon to receive company-specific questions.</p>
-        </div>
-      </div>
-
-      <div class="step">
-        <div class="step-number">1</div>
-        <div class="step-details">
-          <h4>See Review </h4>
-          <p>Pick a specific company and select to see review and it will redirect you to that page where you can also
-            write the review about company.</p>
-        </div>
-      </div>
-
-      <div class="step">
-        <div class="step-number">2</div>
-        <div class="step-details">
-          <h4>Company-Style Questions</h4>
-          <p>Practice interview questions that mimic the style and structure of your selected company.</p>
-        </div>
-      </div>
-
-      <div class="step">
-        <div class="step-number">3</div>
-        <div class="step-details">
-          <h4>Filter questions</h4>
-          <p>You can filter the questions based on your experience , role , job descriptions , level of questions ,
-            subjects .</p>
-        </div>
-      </div>
-
-      <div class="step">
-        <div class="step-number">4</div>
-        <div class="step-details">
-          <h4>Search the questions </h4>
-          <p>you can search questions and answers with the search box.</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Profile Section -->
-    <div class="steps-column">
-      <h3 class="head">Profile Feature </h3>
-
-      <div class="step">
-        <div class="step-number">1</div>
-        <div class="step-details">
-          <h4>See the progress chart</h4>
-          <p>You can see the progress chart based on per day submission. Only after login .</p>
-        </div>
-      </div>
-
-      <div class="step">
-        <div class="step-number">2</div>
-        <div class="step-details">
-          <h4>See Acheivements </h4>
-          <p>You can also view your acheivements on profile section.</p>
-        </div>
-      </div>
-    </div>
+  <!-- Hero -->
+  <div class="steps-hero">
+    <div class="steps-hero-badge"><i class="fas fa-map-signs"></i> How It Works</div>
+    <h1 class="steps-hero-title">Your Path to <span class="gradient-text">Interview Success</span></h1>
+    <p class="steps-hero-sub">Follow these structured steps to maximize your interview preparation across every feature of PrepHub.</p>
   </div>
-  <div class="go-back-container">
-    <button (click)="goBack()" class="go-back-btn">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-        stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left">
-        <line x1="19" y1="12" x2="5" y2="12"></line>
-        <polyline points="12 19 5 12 12 5"></polyline>
-      </svg>
-      <span>Go Back</span>
+
+  <!-- Three Columns -->
+  <div class="steps-grid">
+
+    <!-- Column 1 — Domain-Based -->
+    <div class="steps-card glass-card">
+      <div class="steps-card-header">
+        <div class="steps-card-icon">
+          <i class="fas fa-code-branch"></i>
+        </div>
+        <div>
+          <h3 class="steps-card-title">Domain-Based</h3>
+          <p class="steps-card-subtitle">Practice by technical domain</p>
+        </div>
+      </div>
+      <div class="steps-card-glow steps-card-glow--purple"></div>
+
+      <div class="step-list">
+        <div class="step-item">
+          <div class="step-num">1</div>
+          <div class="step-connector"></div>
+          <div class="step-body">
+            <div class="step-icon"><i class="fas fa-layer-group"></i></div>
+            <div class="step-content">
+              <h4 class="step-title">Choose Your Domain</h4>
+              <p class="step-desc">Select your engineering field — Computer Science, Electronics, Electrical, Mechanical, or Civil.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-num">2</div>
+          <div class="step-connector"></div>
+          <div class="step-body">
+            <div class="step-icon"><i class="fas fa-sitemap"></i></div>
+            <div class="step-content">
+              <h4 class="step-title">Select Subdomain</h4>
+              <p class="step-desc">Pick a specific topic area like Data Structures, VLSI, Power Systems, or Thermodynamics.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-num">3</div>
+          <div class="step-connector"></div>
+          <div class="step-body">
+            <div class="step-icon"><i class="fas fa-microphone-alt"></i></div>
+            <div class="step-content">
+              <h4 class="step-title">Answer Questions</h4>
+              <p class="step-desc">Type or use voice input to answer. Submit and receive instant AI feedback with model answers.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-num">4</div>
+          <div class="step-body">
+            <div class="step-icon"><i class="fas fa-chart-line"></i></div>
+            <div class="step-content">
+              <h4 class="step-title">Track Progress</h4>
+              <p class="step-desc">Monitor answered vs remaining questions. Watch your progress bar fill up as you practice.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Column 2 — Company-Based -->
+    <div class="steps-card glass-card">
+      <div class="steps-card-header">
+        <div class="steps-card-icon steps-card-icon--cyan">
+          <i class="fas fa-building"></i>
+        </div>
+        <div>
+          <h3 class="steps-card-title">Company-Based</h3>
+          <p class="steps-card-subtitle">Prepare for specific companies</p>
+        </div>
+      </div>
+      <div class="steps-card-glow steps-card-glow--cyan"></div>
+
+      <div class="step-list">
+        <div class="step-item">
+          <div class="step-num step-num--cyan">1</div>
+          <div class="step-connector"></div>
+          <div class="step-body">
+            <div class="step-icon step-icon--cyan"><i class="fas fa-search"></i></div>
+            <div class="step-content">
+              <h4 class="step-title">Browse Companies</h4>
+              <p class="step-desc">Explore our curated list of top companies — TCS, Infosys, Wipro, Google, Microsoft and more.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-num step-num--cyan">2</div>
+          <div class="step-connector"></div>
+          <div class="step-body">
+            <div class="step-icon step-icon--cyan"><i class="fas fa-star"></i></div>
+            <div class="step-content">
+              <h4 class="step-title">Read Reviews</h4>
+              <p class="step-desc">View real interview experiences shared by candidates and learn what to expect at each company.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-num step-num--cyan">3</div>
+          <div class="step-connector"></div>
+          <div class="step-body">
+            <div class="step-icon step-icon--cyan"><i class="fas fa-filter"></i></div>
+            <div class="step-content">
+              <h4 class="step-title">Filter Questions</h4>
+              <p class="step-desc">Narrow down by experience level, role, job description, subject, or question difficulty.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-num step-num--cyan">4</div>
+          <div class="step-body">
+            <div class="step-icon step-icon--cyan"><i class="fas fa-keyboard"></i></div>
+            <div class="step-content">
+              <h4 class="step-title">Search & Practice</h4>
+              <p class="step-desc">Use the inline search to find specific questions and practice company-style interview rounds.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Column 3 — Profile -->
+    <div class="steps-card glass-card">
+      <div class="steps-card-header">
+        <div class="steps-card-icon steps-card-icon--amber">
+          <i class="fas fa-user-circle"></i>
+        </div>
+        <div>
+          <h3 class="steps-card-title">Profile Features</h3>
+          <p class="steps-card-subtitle">Track your growth over time</p>
+        </div>
+      </div>
+      <div class="steps-card-glow steps-card-glow--amber"></div>
+
+      <div class="step-list">
+        <div class="step-item">
+          <div class="step-num step-num--amber">1</div>
+          <div class="step-connector"></div>
+          <div class="step-body">
+            <div class="step-icon step-icon--amber"><i class="fas fa-sign-in-alt"></i></div>
+            <div class="step-content">
+              <h4 class="step-title">Create Account</h4>
+              <p class="step-desc">Sign up or log in to unlock your personal dashboard, progress tracking, and achievements.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-num step-num--amber">2</div>
+          <div class="step-connector"></div>
+          <div class="step-body">
+            <div class="step-icon step-icon--amber"><i class="fas fa-chart-bar"></i></div>
+            <div class="step-content">
+              <h4 class="step-title">Progress Chart</h4>
+              <p class="step-desc">View your daily submission chart — a visual heatmap of consistency and practice streaks.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="step-item">
+          <div class="step-num step-num--amber">3</div>
+          <div class="step-body">
+            <div class="step-icon step-icon--amber"><i class="fas fa-trophy"></i></div>
+            <div class="step-content">
+              <h4 class="step-title">View Achievements</h4>
+              <p class="step-desc">Unlock badges and achievements as you hit practice milestones. Keep the streak alive!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Bottom CTA -->
+  <div class="steps-cta">
+    <p class="steps-cta-text">Ready to start your journey?</p>
+    <button class="steps-back-btn" (click)="goBack()">
+      <i class="fas fa-arrow-left"></i> Go Back to Dashboard
     </button>
   </div>
-</div>
+
+</section>

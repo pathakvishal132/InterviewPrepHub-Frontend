@@ -1,38 +1,90 @@
-<div class="main">
-    <div class="container">
-        <div class="phone-container">
-            <img src="assets/interview-dashboard/about1.webp" alt="Person on Phone" class="phone-image">
+<div class="prep-wrapper">
+
+  <!-- Hero -->
+  <div class="prep-hero">
+    <div class="prep-hero-inner">
+      <div class="back-btn" (click)="goBack()">
+        <i class="fas fa-arrow-left"></i> Back
+      </div>
+      <div class="hero-badge"><i class="fas fa-rocket"></i> Interview Prep Hub</div>
+      <h1 class="hero-title">How Do You Want to <span class="gradient-text">Prepare?</span></h1>
+      <p class="hero-sub">Choose your preparation path. Learn domain fundamentals or practice company-specific interview questions.</p>
+    </div>
+    <div class="hero-orb hero-orb-1"></div>
+    <div class="hero-orb hero-orb-2"></div>
+  </div>
+
+  <!-- Prep Path Cards -->
+  <div class="prep-paths">
+
+    <!-- Domain Path -->
+    <div class="prep-card prep-card--domain">
+      <div class="prep-card-glow"></div>
+      <div class="prep-card-inner">
+        <div class="prep-card-icon prep-card-icon--domain">
+          <i class="fas fa-sitemap"></i>
         </div>
-        <div class="text-container">
-            <div class="domain">
-                <h1>Choose Your Domain</h1>
-            <p>Select a domain and subdomain to start your interview preparation.</p>
-            <div class="buttons">
-                <button routerLink="/domain-dashboard" routerLinkActive="active" ariaCurrentWhenActive="page" class="start-btn">Start Now</button>
-                <button mat-button (click)="openDialog('domain')" class="learn-btn">Learn More</button>
-            </div>
-            </div>
-            <div class="company">
-                <h1>Choose Your Company</h1>
-            <p>Select a domain and subdomain to start your interview preparation.</p>
-            <div class="buttons">
-                <button routerLink="/company" routerLinkActive="active" ariaCurrentWhenActive="page" class="start-btn">Start Now</button>
-                <button  mat-button (click)="openDialog('company')" class="learn-btn">Learn More</button>
-            </div>
-            </div>
+        <div class="prep-card-badge">Recommended</div>
+        <h2 class="prep-card-title">Domain-Based Prep</h2>
+        <p class="prep-card-desc">Master fundamentals across engineering domains. Choose your field then dive into targeted subdomains with curated questions and AI feedback.</p>
+
+        <ul class="prep-card-features">
+          <li><i class="fas fa-check-circle"></i> CS, ECE, EEE, Mechanical, Civil</li>
+          <li><i class="fas fa-check-circle"></i> Subdomain deep-dives</li>
+          <li><i class="fas fa-check-circle"></i> Voice answer + AI feedback</li>
+          <li><i class="fas fa-check-circle"></i> 40+ questions per subdomain</li>
+        </ul>
+
+        <div class="prep-card-actions">
+          <button class="btn-start" routerLink="/domain-dashboard">
+            <i class="fas fa-arrow-right"></i> Start Preparing
+          </button>
+          <button class="btn-learn" (click)="openDialog('domain')">
+            <i class="fas fa-info-circle"></i> Learn More
+          </button>
         </div>
+      </div>
     </div>
 
-    <!-- New "Go Back" Button below the navbar -->
-  <div class="go-back-container">
-    <button (click)="goBack()" class="go-back-btn">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left">
-            <line x1="19" y1="12" x2="5" y2="12"></line>
-            <polyline points="12 19 5 12 12 5"></polyline>
-        </svg>
-        <span>Go Back</span>
-    </button>
-</div>
+    <!-- Company Path -->
+    <div class="prep-card prep-card--company">
+      <div class="prep-card-glow"></div>
+      <div class="prep-card-inner">
+        <div class="prep-card-icon prep-card-icon--company">
+          <i class="fas fa-building"></i>
+        </div>
+        <h2 class="prep-card-title">Company-Based Prep</h2>
+        <p class="prep-card-desc">Target your dream company directly. Access real interview questions asked at top companies, filterable by role and experience level.</p>
+
+        <ul class="prep-card-features">
+          <li><i class="fas fa-check-circle"></i> 200+ top companies</li>
+          <li><i class="fas fa-check-circle"></i> Filter by role & experience</li>
+          <li><i class="fas fa-check-circle"></i> Real interview questions</li>
+          <li><i class="fas fa-check-circle"></i> Company reviews included</li>
+        </ul>
+
+        <div class="prep-card-actions">
+          <button class="btn-start" routerLink="/company">
+            <i class="fas fa-arrow-right"></i> Choose Company
+          </button>
+          <button class="btn-learn" (click)="openDialog('company')">
+            <i class="fas fa-info-circle"></i> Learn More
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Stats Row -->
+  <div class="prep-stats">
+    <div class="pstat"><span class="pstat-val">10K+</span><span class="pstat-label">Questions</span></div>
+    <div class="pstat-divider"></div>
+    <div class="pstat"><span class="pstat-val">200+</span><span class="pstat-label">Companies</span></div>
+    <div class="pstat-divider"></div>
+    <div class="pstat"><span class="pstat-val">5</span><span class="pstat-label">Engineering Domains</span></div>
+    <div class="pstat-divider"></div>
+    <div class="pstat"><span class="pstat-val">95%</span><span class="pstat-label">Success Rate</span></div>
+  </div>
 
 </div>
-

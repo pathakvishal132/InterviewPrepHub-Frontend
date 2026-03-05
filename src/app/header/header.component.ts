@@ -1,14 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css'] // Fixed typo: "styleUrl" -> "styleUrls"
+  styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
   receivedMessage: string = '';
   loginMessage: string = '';
+  isScrolled = false;
+  menuOpen = false;
 
   constructor(private router: Router) {
     if (typeof window !== 'undefined' && localStorage) {
@@ -33,6 +35,19 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void { }
 
+  @HostListener('window:scroll', [])
+  onWindowScroll() {
+    this.isScrolled = window.scrollY > 20;
+  }
+
+  toggleMenu() {
+    this.menuOpen = !this.menuOpen;
+  }
+
+  closeMenu() {
+    this.menuOpen = false;
+  }
+
   private refreshCurrentRoute(): void {
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
       this.router.navigate([this.router.url]);
@@ -41,20 +56,17 @@ export class HeaderComponent implements OnInit {
 
   logout(): void {
     if (typeof window !== 'undefined' && localStorage) {
-      // Clear user-related data from localStorage
       localStorage.removeItem('hi');
       localStorage.removeItem('loginMessage');
       localStorage.removeItem('id');
-      localStorage.removeItem("userName");
-      localStorage.removeItem("email");
-      localStorage.removeItem("dateJoined");
+      localStorage.removeItem('userName');
+      localStorage.removeItem('email');
+      localStorage.removeItem('dateJoined');
 
-      // Reset component properties
       this.receivedMessage = '';
       this.loginMessage = '';
+      this.menuOpen = false;
 
-
-      // Navigate to the login or home page
       this.router.navigate(['/login']);
     }
   }

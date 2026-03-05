@@ -1,43 +1,47 @@
+<div class="about-wrapper">
+  <!-- Features Grid -->
+  <div class="about-inner">
+    <div class="about-header">
+      <h2 class="section-title">Everything You Need to <span class="gradient-text">Succeed</span></h2>
+      <p class="section-subtitle">A complete interview preparation ecosystem built for engineers</p>
+    </div>
 
-<div class="about">
-<div class="container my-5">
-  <!-- How It Works Section -->
-  <div class="row align-items-center">
-    <div class="col-lg-6">
-      <img src="assets/about/about4.jpg" alt="How It Works" class="img-fluid rounded">
+    <div class="about-cards-grid">
+      <div class="about-card" *ngFor="let feature of aboutFeatures; let i = index"
+           [style.animation-delay]="(i * 0.1) + 's'">
+        <div class="about-card-icon" [style.background]="feature.iconBg">
+          <i class="fas" [class]="feature.icon" [style.color]="feature.color"></i>
+        </div>
+        <h3 class="about-card-title">{{ feature.title }}</h3>
+        <p class="about-card-desc">{{ feature.desc }}</p>
+        <div class="about-card-tag">{{ feature.tag }}</div>
+      </div>
     </div>
-    <div class="col-lg-6 d-flex flex-column justify-content-center">
-      <h2 class="fw-bold text-light">How It Works</h2>
-      <p class="text-muted">Follow these simple steps.</p>
-      <a  routerLink="/user-steps" routerLinkActive="active" ariaCurrentWhenActive="page" class="btn btn-primary mt-3">Learn More</a>
+
+    <!-- How It Works -->
+    <div class="how-section">
+      <div class="about-header">
+        <h2 class="section-title">How It <span class="gradient-text">Works</span></h2>
+        <p class="section-subtitle">Three simple steps to your dream job</p>
+      </div>
+
+      <div class="steps-row">
+        <div class="step-card" *ngFor="let step of steps; let i = index; let last = last">
+          <div class="step-num">{{ i + 1 }}</div>
+          <div class="step-icon" [style.background]="step.iconBg">
+            <i class="fas" [class]="step.icon" [style.color]="step.color"></i>
+          </div>
+          <h3 class="step-title">{{ step.title }}</h3>
+          <p class="step-desc">{{ step.desc }}</p>
+          <a *ngIf="step.link" [routerLink]="step.link" class="step-link">
+            Get Started <i class="fas fa-arrow-right"></i>
+          </a>
+          <div class="step-connector" *ngIf="!last"></div>
+        </div>
+      </div>
     </div>
+
   </div>
 
-  <div class="row text-center mt-5">
-    <div class="col-lg-4">
-      <i class="fas fa-globe-americas fa-3x mb-3 text-info"></i>
-      <h4 class="text-light">Choose Your Domain</h4>
-      <p class="text-muted">Select the field you want to prepare for.</p>
-    </div>
-    <div class="col-lg-4">
-      <i class="fas fa-question-circle fa-3x mb-3 text-info"></i>
-      <h4 class="text-light">Practice Questions</h4>
-      <p class="text-muted">Get questions tailored to your chosen domain.</p>
-    </div>
-    <div class="col-lg-4">
-      <i class="fas fa-chart-line fa-3x mb-3 text-info"></i>
-      <h4 class="text-light">Track Progress</h4>
-      <p class="text-muted">Monitor your improvement over time.</p>
-    </div>
-  </div>
+  <app-user-review></app-user-review>
 </div>
- 
-<app-user-review></app-user-review>
-</div>
-
-
-
-
-
-
-<!-- </div> -->
