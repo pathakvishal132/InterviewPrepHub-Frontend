@@ -10,10 +10,11 @@
 
       <div class="login-left-content">
         <div class="left-badge">
-          <span class="badge-dot"></span> Trusted by 50K+ Engineers
+          <span class="badge-dot"></span> Trusted by 10K+ Engineers
         </div>
         <h1 class="left-title">Your path to the<br><span class="gradient-text">perfect offer</span><br>starts here.</h1>
-        <p class="left-subtitle">Master domain-specific questions, ace company rounds, and track every step of your journey.</p>
+        <p class="left-subtitle">Master domain-specific questions, ace company rounds, and track every step of your
+          journey.</p>
 
         <div class="left-stats">
           <div class="left-stat" *ngFor="let s of brandStats">
@@ -52,7 +53,8 @@
       <!-- Title -->
       <div class="form-header">
         <h2 class="form-title">{{ isLoginActive ? 'Welcome back 👋' : 'Create account 🚀' }}</h2>
-        <p class="form-subtitle">{{ isLoginActive ? 'Sign in to continue your prep journey' : 'Join 50K+ engineers preparing smarter' }}</p>
+        <p class="form-subtitle">
+          {{ isLoginActive ? 'Sign in to continue your prep journey' : 'Join 50K+ engineers preparing smarter' }}</p>
       </div>
 
       <!-- Form -->
@@ -64,15 +66,8 @@
             <i class="fas fa-user"></i> Username
           </label>
           <div class="input-wrapper">
-            <input
-              type="text"
-              id="userName"
-              [(ngModel)]="userName"
-              name="userName"
-              placeholder="Enter your username"
-              required
-              class="form-input"
-            />
+            <input type="text" id="userName" [(ngModel)]="userName" name="userName" placeholder="Enter your username"
+              required class="form-input" />
           </div>
         </div>
 
@@ -82,15 +77,8 @@
             <i class="fas fa-envelope"></i> Email
           </label>
           <div class="input-wrapper">
-            <input
-              type="email"
-              id="email"
-              [(ngModel)]="email"
-              name="email"
-              placeholder="Enter your email"
-              required
-              class="form-input"
-            />
+            <input type="email" id="email" [(ngModel)]="email" name="email" placeholder="Enter your email" required
+              class="form-input" />
           </div>
         </div>
 
@@ -100,15 +88,8 @@
             <i class="fas fa-lock"></i> Password
           </label>
           <div class="input-wrapper">
-            <input
-              [type]="showPassword ? 'text' : 'password'"
-              id="password"
-              [(ngModel)]="password"
-              name="password"
-              placeholder="Enter your password"
-              required
-              class="form-input"
-            />
+            <input [type]="showPassword ? 'text' : 'password'" id="password" [(ngModel)]="password" name="password"
+              placeholder="Enter your password" required class="form-input" />
             <button type="button" class="eye-toggle" (click)="showPassword = !showPassword">
               <i class="fas" [class.fa-eye]="!showPassword" [class.fa-eye-slash]="showPassword"></i>
             </button>
@@ -121,15 +102,9 @@
             <i class="fas fa-lock"></i> Confirm Password
           </label>
           <div class="input-wrapper">
-            <input
-              [type]="showConfirmPassword ? 'text' : 'password'"
-              id="confirm-password"
-              [(ngModel)]="confirmPassword"
-              name="confirmPassword"
-              placeholder="Repeat your password"
-              required
-              class="form-input"
-            />
+            <input [type]="showConfirmPassword ? 'text' : 'password'" id="confirm-password"
+              [(ngModel)]="confirmPassword" name="confirmPassword" placeholder="Repeat your password" required
+              class="form-input" />
             <button type="button" class="eye-toggle" (click)="showConfirmPassword = !showConfirmPassword">
               <i class="fas" [class.fa-eye]="!showConfirmPassword" [class.fa-eye-slash]="showConfirmPassword"></i>
             </button>

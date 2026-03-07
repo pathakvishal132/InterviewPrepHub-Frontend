@@ -47,7 +47,7 @@
         <div class="floater floater-2 animate-float delay-200">
           <div class="floater-icon">🏆</div>
           <div class="floater-text">
-            <span class="floater-num">500+</span>
+            <span class="floater-num">1K+</span>
             <span class="floater-label">Users</span>
           </div>
         </div>
@@ -73,7 +73,7 @@
   <section class="stats-section">
     <div class="stats-grid">
       <div class="stat-card glass-card animate-fade-up" *ngFor="let stat of stats; let i = index"
-           [style.animation-delay]="(i * 0.1) + 's'">
+        [style.animation-delay]="(i * 0.1) + 's'">
         <div class="stat-icon-wrap" [style.background]="stat.iconBg">
           <i class="fas" [class]="stat.icon" [style.color]="stat.color"></i>
         </div>
@@ -110,9 +110,7 @@
               <span class="progress-pct">{{ p.percent }}%</span>
             </div>
             <div class="progress-track">
-              <div class="progress-fill"
-                   [style.width]="p.percent + '%'"
-                   [style.background]="p.color">
+              <div class="progress-fill" [style.width]="p.percent + '%'" [style.background]="p.color">
               </div>
             </div>
           </div>
@@ -129,11 +127,8 @@
           <span class="streak-count">🔥 {{ currentStreak }} days</span>
         </div>
         <div class="streak-grid">
-          <div class="streak-dot"
-               *ngFor="let day of streakDays"
-               [class.active]="day.active"
-               [class.today]="day.isToday"
-               [title]="day.label">
+          <div class="streak-dot" *ngFor="let day of streakDays" [class.active]="day.active" [class.today]="day.isToday"
+            [title]="day.label">
           </div>
         </div>
         <div class="streak-labels">
@@ -243,7 +238,8 @@
             <div class="timeline-content">
               <div class="timeline-title">{{ act.title }}</div>
               <div class="timeline-meta">
-                <span class="timeline-tag" [style.background]="act.tagBg" [style.color]="act.tagColor">{{ act.tag }}</span>
+                <span class="timeline-tag" [style.background]="act.tagBg"
+                  [style.color]="act.tagColor">{{ act.tag }}</span>
                 <span class="timeline-time">{{ act.time }}</span>
               </div>
             </div>
@@ -300,7 +296,7 @@
 
     <div class="features-grid">
       <div class="feature-card glass-card animate-fade-up" *ngFor="let f of features; let i = index"
-           [style.animation-delay]="(i * 0.15) + 's'">
+        [style.animation-delay]="(i * 0.15) + 's'">
         <div class="feature-step">{{ i + 1 }}</div>
         <div class="feature-icon-wrap" [style.background]="f.iconBg">
           <i class="fas" [class]="f.icon" [style.color]="f.color"></i>
@@ -322,7 +318,8 @@
     </div>
 
     <div class="testimonials-track-wrapper">
-      <div class="testimonials-track" [style.transform]="'translateX(-' + (activeTestimonial * 100 / testimonials.length) + '%)'">
+      <div class="testimonials-track"
+        [style.transform]="'translateX(-' + (activeTestimonial * 100 / testimonials.length) + '%)'">
         <div class="testimonial-card glass-card" *ngFor="let t of testimonials">
           <div class="testimonial-stars">
             <i class="fas fa-star" *ngFor="let s of [1,2,3,4,5]"></i>
@@ -340,10 +337,8 @@
     </div>
 
     <div class="testimonial-dots">
-      <span class="tdot"
-            *ngFor="let t of testimonials; let i = index"
-            [class.active]="i === activeTestimonial"
-            (click)="activeTestimonial = i">
+      <span class="tdot" *ngFor="let t of testimonials; let i = index" [class.active]="i === activeTestimonial"
+        (click)="activeTestimonial = i">
       </span>
     </div>
   </section>
@@ -356,7 +351,7 @@
     <div class="cta-content">
       <div class="cta-icon">🎓</div>
       <h2 class="cta-title">Ready to Land Your <span class="gradient-text">Dream Job?</span></h2>
-      <p class="cta-desc">Join 50,000+ engineers who prepared smarter and interviewed better.</p>
+      <p class="cta-desc">Join 1,000+ engineers who prepared smarter and interviewed better.</p>
       <div class="cta-buttons">
         <button class="btn-primary-hero" (click)="navigateToInterviewDashboard()">
           <i class="fas fa-rocket"></i> Start Free Today

@@ -69,7 +69,7 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
     },
     {
       label: 'Active Learners',
-      value: 52300,
+      value: 1100,
       displayValue: '0',
       suffix: '+',
       icon: 'fa-users',
@@ -99,7 +99,7 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
     },
   ];
 
-  // ── Interview Progress ───────────────────────────────────────────
+
   progressItems = [
     { label: 'Data Structures', percent: 78, color: '#6366f1' },
     { label: 'System Design', percent: 55, color: '#06b6d4' },
@@ -108,14 +108,13 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
     { label: 'DBMS', percent: 85, color: '#ef4444' },
   ];
 
-  // ── Streak ───────────────────────────────────────────────────────
+
   currentStreak = 12;
   longestStreak = 21;
   totalDaysActive = 47;
   weekLabels = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
   streakDays = this.generateStreakDays();
 
-  // ── Skills Doughnut ──────────────────────────────────────────────
   skillsData = [
     { label: 'CS Fundamentals', value: 82, color: '#6366f1' },
     { label: 'System Design', value: 55, color: '#06b6d4' },

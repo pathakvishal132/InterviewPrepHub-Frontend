@@ -19,7 +19,7 @@ export class LoginComponent {
   showConfirmPassword: boolean = false;
 
   brandStats = [
-    { val: '50K+', label: 'Engineers' },
+    { val: '1K+', label: 'Engineers' },
     { val: '10K+', label: 'Questions' },
     { val: '95%', label: 'Success' },
   ];

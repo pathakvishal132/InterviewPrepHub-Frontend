@@ -1,10 +1,9 @@
-/* ═══════════════════════════════════════════════════════════
-   USER-STEPS PAGE — Modern 3-Column Layout
-═══════════════════════════════════════════════════════════ */
+
 .steps-page {
     min-height: 100vh;
     background: var(--bg-base);
     padding: 60px 48px 80px;
+    margin-top: 40px;
     display: flex;
     flex-direction: column;
     gap: 48px;
@@ -161,6 +160,10 @@
     grid-template-columns: 28px 20px 1fr;
     align-items: start;
     gap: 0 12px;
+}
+
+.step-item:last-child {
+    grid-template-columns: 28px 1fr;
 }
 
 /* Step number bubble */

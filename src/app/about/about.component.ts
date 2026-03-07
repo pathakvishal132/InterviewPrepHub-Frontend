@@ -14,7 +14,7 @@ export class AboutComponent {
       icon: 'fa-layer-group',
       color: '#6366f1',
       iconBg: 'rgba(99,102,241,0.12)',
-      tag: '10K+ Questions',
+      tag: '1K+ Questions',
     },
     {
       title: 'Company Prep Tracks',
