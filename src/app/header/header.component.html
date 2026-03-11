@@ -31,17 +31,17 @@
     <!-- Right Actions -->
     <div class="navbar-actions">
       <!-- Profile -->
-      <a *ngIf="loginMessage.length" routerLink="/profile" class="profile-btn" title="My Profile">
+      <a *ngIf="isLoggedIn" routerLink="/profile" class="profile-btn" title="My Profile">
         <div class="profile-avatar">
           <i class="fas fa-user"></i>
         </div>
       </a>
 
       <!-- Auth buttons -->
-      <a *ngIf="!loginMessage.length" routerLink="/login" class="btn-nav-login">
+      <a *ngIf="!isLoggedIn" routerLink="/login" class="btn-nav-login">
         <i class="fas fa-sign-in-alt"></i> Login
       </a>
-      <button *ngIf="loginMessage" (click)="logout()" class="btn-nav-logout">
+      <button *ngIf="isLoggedIn" (click)="logout()" class="btn-nav-logout">
         <i class="fas fa-sign-out-alt"></i> Logout
       </button>
 
@@ -72,13 +72,13 @@
       <i class="fas fa-shield-alt"></i> Admin
     </a>
     <div class="mobile-divider"></div>
-    <a *ngIf="!loginMessage.length" routerLink="/login" class="mobile-link mobile-link--cta" (click)="closeMenu()">
+    <a *ngIf="!isLoggedIn" routerLink="/login" class="mobile-link mobile-link--cta" (click)="closeMenu()">
       <i class="fas fa-sign-in-alt"></i> Login / Sign Up
     </a>
-    <button *ngIf="loginMessage" (click)="logout(); closeMenu()" class="mobile-link mobile-link--logout">
+    <button *ngIf="isLoggedIn" (click)="logout(); closeMenu()" class="mobile-link mobile-link--logout">
       <i class="fas fa-sign-out-alt"></i> Logout
     </button>
-    <a *ngIf="loginMessage.length" routerLink="/profile" class="mobile-link" (click)="closeMenu()">
+    <a *ngIf="isLoggedIn" routerLink="/profile" class="mobile-link" (click)="closeMenu()">
       <i class="fas fa-user"></i> My Profile
     </a>
   </div>

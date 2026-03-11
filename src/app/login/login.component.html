@@ -60,19 +60,19 @@
       <!-- Form -->
       <form (ngSubmit)="onSubmit()" class="auth-form">
 
-        <!-- Username -->
-        <div class="form-group">
+        <!-- Username (Signup only) -->
+        <div class="form-group" *ngIf="!isLoginActive">
           <label class="form-label">
-            <i class="fas fa-user"></i> Username
+            <i class="fas fa-user"></i> Full Name
           </label>
           <div class="input-wrapper">
-            <input type="text" id="userName" [(ngModel)]="userName" name="userName" placeholder="Enter your username"
+            <input type="text" id="userName" [(ngModel)]="userName" name="userName" placeholder="Enter your full name"
               required class="form-input" />
           </div>
         </div>
 
-        <!-- Email (Signup only) -->
-        <div class="form-group" *ngIf="!isLoginActive">
+        <!-- Email -->
+        <div class="form-group">
           <label class="form-label">
             <i class="fas fa-envelope"></i> Email
           </label>
@@ -115,6 +115,12 @@
         <div class="error-banner" *ngIf="errorMessage">
           <i class="fas fa-exclamation-circle"></i>
           {{ errorMessage }}
+        </div>
+
+        <!-- Success -->
+        <div class="success-banner" *ngIf="successMessage">
+          <i class="fas fa-check-circle"></i>
+          {{ successMessage }}
         </div>
 
         <!-- Submit -->

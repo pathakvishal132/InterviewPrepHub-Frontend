@@ -3,7 +3,7 @@ import { Component, OnInit, OnDestroy, HostListener, Inject, PLATFORM_ID } from 
 import { isPlatformBrowser } from '@angular/common';
 import { QuestionsService } from '../services/questions.service';
 import { Location } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { VoiceRecognitionService } from '../services/voice-recognition.service';
 import { ChangeDetectorRef } from '@angular/core';
 
@@ -26,6 +26,13 @@ export class QuestionsComponent implements OnInit, OnDestroy {
   feedbackStatus: boolean = false;
   actualAnswerStatus: boolean = false;
   defaultQuestions: any;
+  
+  // Auth requirement properties
+  requiresAuth: boolean = false;
+  authMessage: string = '';
+  apiRequiresAuth: boolean = false;
+  showAuthPrompt: boolean = false;
+  showSignInMessage: boolean = false;
 
   // Navigator & progress properties
   questionKeys: string[] = [];
@@ -51,10 +58,21 @@ export class QuestionsComponent implements OnInit, OnDestroy {
     return this.answeredSet.size;
   }
 
+  get isLoggedIn(): boolean {
+    const token = localStorage.getItem('token');
+    const user = localStorage.getItem('user');
+    return !!(token && user);
+  }
+
+  get isNavigationDisabled(): boolean {
+    return this.apiRequiresAuth && this.currentIndex >= 2 && !this.isLoggedIn;
+  }
+
   constructor(
     private questionService: QuestionsService,
     private location: Location,
     private route: ActivatedRoute,
+    private router: Router,
     public voiceService: VoiceRecognitionService,
     private cdr: ChangeDetectorRef,
     @Inject(PLATFORM_ID) private platformId: Object
@@ -111,14 +129,26 @@ export class QuestionsComponent implements OnInit, OnDestroy {
     this.questionService.getQuestions(this.domain, this.subdomain)
       .subscribe(
         (data) => {
-          if (data && data.result && Object.keys(data.result).length > 0) {
+          // Store API's auth requirement but don't show prompt yet
+          this.apiRequiresAuth = data.requiresAuth || false;
+          this.authMessage = data.message || 'Sign in to access more questions!';
+          
+          if (data.questions) {
+            const questionsObj: any = {};
+            data.questions.forEach((q: any, index: number) => {
+              questionsObj[index] = q.question || q;
+            });
+            this.questions = questionsObj;
+          } else if (data.result && Object.keys(data.result).length > 0) {
             this.questions = data.result;
           } else {
             this.questions = this.defaultQuestions.result;
           }
+          
           this.questionKeys = Object.keys(this.questions);
           this.currentQuestion = this.questions[this.questionKeys[this.currentIndex]];
           this.loading = false;
+          this.checkAuthForCurrentQuestion();
           this.triggerEntrance();
         },
         (error) => {
@@ -130,6 +160,17 @@ export class QuestionsComponent implements OnInit, OnDestroy {
           this.triggerEntrance();
         }
       );
+  }
+
+  private checkAuthForCurrentQuestion(): void {
+    // Only show auth prompt after question 2 (index >= 2)
+    if (this.apiRequiresAuth && this.currentIndex >= 2) {
+      this.requiresAuth = true;
+      this.showAuthPrompt = true;
+    } else {
+      this.requiresAuth = false;
+      this.showAuthPrompt = false;
+    }
   }
 
   triggerEntrance(): void {
@@ -145,14 +186,31 @@ export class QuestionsComponent implements OnInit, OnDestroy {
     this.clearAnswerState();
     this.currentIndex = index;
     this.currentQuestion = this.questions[this.questionKeys[this.currentIndex]];
+    this.checkAuthForCurrentQuestion();
     this.triggerEntrance();
   }
 
+  handleQuestionClick(index: number): void {
+    // If trying to access question 3+ without login, show message
+    if (index >= 2 && this.apiRequiresAuth && !this.isLoggedIn) {
+      this.showSignInMessage = true;
+      return;
+    }
+    this.jumpTo(index);
+  }
+
   nextQuestion(): void {
+    // Check if trying to access question 3+ without login
+    if (this.currentIndex >= 1 && this.apiRequiresAuth && !this.isLoggedIn) {
+      this.showSignInMessage = true;
+      return;
+    }
+    
     if (this.currentIndex < this.totalQuestions - 1) {
       this.clearAnswerState();
       this.currentIndex++;
       this.currentQuestion = this.questions[this.questionKeys[this.currentIndex]];
+      this.checkAuthForCurrentQuestion();
       this.triggerEntrance();
     }
   }
@@ -162,6 +220,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
       this.clearAnswerState();
       this.currentIndex--;
       this.currentQuestion = this.questions[this.questionKeys[this.currentIndex]];
+      this.checkAuthForCurrentQuestion();
       this.triggerEntrance();
     }
   }
@@ -188,16 +247,33 @@ export class QuestionsComponent implements OnInit, OnDestroy {
   submitAnswer(): void {
     this.userAnswer = this.voiceService.text;
     if (this.userAnswer.trim()) {
+      // If on question 3+ and API requires auth, show message without calling API
+      if (this.apiRequiresAuth && this.currentIndex >= 2) {
+        this.feedback = 'Sign in to get personalized feedback for this question!';
+        this.actualAnswer = 'Sign in to see the correct answer!';
+        this.feedbackStatus = true;
+        this.actualAnswerStatus = false;
+        return;
+      }
+      
       this.loadingAnswers = true;
       this.answeredSet.add(this.currentIndex);
-      this.questionService.getFeedback(this.currentQuestion, this.userAnswer)
+      this.questionService.getFeedback(this.currentQuestion, this.userAnswer, this.domain, this.subdomain)
         .subscribe(
           (response: any) => {
-            this.feedback = this.cleanText(response.feedback);
-            this.actualAnswer = this.cleanText(response.actualAnswer);
-            this.feedbackStatus = true;
-            this.actualAnswerStatus = false;
-            this.loadingAnswers = false;
+            if (response.requiresAuth && this.currentIndex >= 2) {
+              this.feedback = response.message || 'Sign in to get personalized feedback!';
+              this.actualAnswer = 'Sign in to see the correct answer!';
+              this.feedbackStatus = true;
+              this.actualAnswerStatus = false;
+              this.loadingAnswers = false;
+            } else {
+              this.feedback = this.cleanText(response.feedback);
+              this.actualAnswer = this.cleanText(response.actualAnswer);
+              this.feedbackStatus = true;
+              this.actualAnswerStatus = false;
+              this.loadingAnswers = false;
+            }
           },
           (error) => {
             this.feedback = "Our free quota has been exhausted. Can't provide feedback now.";
@@ -211,11 +287,23 @@ export class QuestionsComponent implements OnInit, OnDestroy {
   }
 
   getFeedback(): void {
+    if (this.apiRequiresAuth && this.currentIndex >= 2) {
+      this.feedback = this.authMessage;
+      this.feedbackStatus = true;
+      this.actualAnswerStatus = false;
+      return;
+    }
     this.feedbackStatus = true;
     this.actualAnswerStatus = false;
   }
 
   getActualAnswer(): void {
+    if (this.apiRequiresAuth && this.currentIndex >= 2) {
+      this.actualAnswer = 'Sign in to see the correct answer!';
+      this.actualAnswerStatus = true;
+      this.feedbackStatus = false;
+      return;
+    }
     this.actualAnswerStatus = true;
     this.feedbackStatus = false;
   }

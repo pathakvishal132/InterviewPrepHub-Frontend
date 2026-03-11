@@ -12,10 +12,12 @@ import { ElectronicsCommunicationComponent } from './electronics-communication/e
 import { ElectricalComponent } from './electrical/electrical.component';
 import { MechanicalComponent } from './mechanical/mechanical.component';
 import { CivilComponent } from './civil/civil.component';
+import { WebDevelopmentComponent } from './web-development/web-development.component';
 // import { CompanyDetailsComponent } from './company-details/company-details.component';
 // import { QuestionsComponent } from './questions/questions.component';
 // import { ContactComponent } from './contact/contact.component';
 import { LoginComponent } from './login/login.component';
+import { VerifyEmailComponent } from './verify-email/verify-email.component';
 // import { CompanyComponent } from './company/company.component';
 import { UserStepsComponent } from './user-steps/user-steps.component';
 import { AdminComponent } from './admin/admin.component';
@@ -30,7 +32,7 @@ const routes: Routes = [
   { path: 'about', component: AboutComponent },
   { path: 'user-review', component: UserReviewComponent },
   { path: 'header', component: HeaderComponent },
-  { path: 'domain-dashboard', component: DomainDashboardComponent, },
+  { path: 'domain-dashboard', component: DomainDashboardComponent },
   { path: 'footer', component: FooterComponent },
   {
     path: 'computer-science', component: ComputerScienceComponent
@@ -51,6 +53,9 @@ const routes: Routes = [
     path: 'civil', component: CivilComponent
   },
   {
+    path: 'web-development', component: WebDevelopmentComponent
+  },
+  {
     path: 'user-steps', component: UserStepsComponent
   },
   {
@@ -60,8 +65,8 @@ const routes: Routes = [
   {
     path: 'contact', loadChildren: () => import('./contact/contact.module').then(m => m.ContactModule)
   },
-  { path: 'domain-dashboard', loadChildren: () => import('./domain/domain.module').then(m => m.DomainModule) },
   { path: 'login', component: LoginComponent },
+  { path: 'verify-email', component: VerifyEmailComponent },
   {
     path: 'company',
     loadChildren: () => import('./company/company.module').then(m => m.CompanyModule)
@@ -77,7 +82,7 @@ const routes: Routes = [
   {
     path: 'profile', component: ProfileComponent
   },
-
+  { path: '**', redirectTo: '' }
 
 ];
 

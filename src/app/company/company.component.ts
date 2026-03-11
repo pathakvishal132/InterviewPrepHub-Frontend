@@ -17,6 +17,8 @@ export class CompanyComponent implements OnInit {
   searchPerformed: boolean = false;
   receivedMessage: string = '';
   loading: boolean = true;
+  errorMessage: string = '';
+  showLoginPrompt: boolean = false;
   constructor(
     public dialog: MatDialog,
     private cs: CompanyService,
@@ -52,16 +54,17 @@ export class CompanyComponent implements OnInit {
   }
 
   getCompany(page: number): void {
-    this.loading = true; // Set loading to true before the API call
+    this.loading = true;
     this.cs.getCompany(page).subscribe(
       (data) => {
         this.companies = data.companies;
         this.totalPages = data.total_pages;
-        this.loading = false; // Set loading to false after data is received
+        this.loading = false;
       },
       (error) => {
         console.error('Error fetching companies:', error);
-        this.loading = false; // Set loading to false in case of error
+        this.loading = false;
+        this.errorMessage = 'Unable to load companies. Please try again later.';
       }
     );
   }
@@ -83,6 +86,7 @@ export class CompanyComponent implements OnInit {
         console.error("Error fetching companies:", error);
         this.companies = [];
         this.totalPages = 0;
+        this.errorMessage = 'Unable to search companies. Please try again.';
       }
     );
   }

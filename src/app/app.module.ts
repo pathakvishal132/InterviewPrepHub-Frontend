@@ -17,11 +17,13 @@ import { ElectronicsCommunicationComponent } from './electronics-communication/e
 import { MechanicalComponent } from './mechanical/mechanical.component';
 import { ElectricalComponent } from './electrical/electrical.component';
 import { CivilComponent } from './civil/civil.component';
+import { WebDevelopmentComponent } from './web-development/web-development.component';
 // import { QuestionsComponent } from './questions/questions.component';
 import { TestComponent } from './test/test.component';
 // import { ContactComponent } from './contact/contact.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoginComponent } from './login/login.component';
+import { VerifyEmailComponent } from './verify-email/verify-email.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { DialogComponentComponent } from './dialog-component/dialog-component.component';
 import { DialogComponent } from './dialog/dialog.component';
@@ -37,6 +39,7 @@ import { ResourceComponent } from './resource/resource.component';
 import { ReviewsComponent } from './reviews/reviews.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ProblemStatsComponent } from './problem-stats/problem-stats.component';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -53,10 +56,12 @@ import { ProblemStatsComponent } from './problem-stats/problem-stats.component';
     MechanicalComponent,
     ElectricalComponent,
     CivilComponent,
+    WebDevelopmentComponent,
     // QuestionsComponent,
     TestComponent,
     // ContactComponent,
     LoginComponent,
+    VerifyEmailComponent,
     DialogComponentComponent,
     DialogComponent,
     // PaginationComponent,
@@ -84,6 +89,7 @@ import { ProblemStatsComponent } from './problem-stats/problem-stats.component';
     provideClientHydration(),
     QuestionsService,
     provideAnimationsAsync(),
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

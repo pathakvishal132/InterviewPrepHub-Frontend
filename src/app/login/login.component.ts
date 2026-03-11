@@ -12,6 +12,7 @@ export class LoginComponent {
   password: string = '';
   confirmPassword: string = '';
   errorMessage: string = '';
+  successMessage: string = '';
   isLoginActive: boolean = true;
   userName: string = '';
   isLoading: boolean = false;
@@ -31,32 +32,23 @@ export class LoginComponent {
   setMode(login: boolean) {
     this.isLoginActive = login;
     this.errorMessage = '';
+    this.successMessage = '';
   }
 
   onSubmit() {
     this.isLoading = true;
     this.errorMessage = '';
 
-    if (this.password === '123456@123456') {
-      localStorage.setItem('hi', 'hello');
-      if (typeof window !== 'undefined') window.location.reload();
-    }
-
     if (this.isLoginActive) {
-      this.authService.login(this.userName, this.password).subscribe({
+      this.authService.login(this.email, this.password).subscribe({
         next: (response) => {
           this.isLoading = false;
-          if (response.message === 'success') {
-            localStorage.setItem('userName', response.data.username);
-            localStorage.setItem('email', response.data.email);
-            localStorage.setItem('dateJoined', response.data.date_joined);
-            localStorage.setItem('id', response.id);
-            localStorage.setItem('loginMessage', 'success');
-            this.authService.saveTokens(response.access, response.refresh);
-            this.resetFields();
-            this.router.navigateByUrl('/');
-            if (typeof window !== 'undefined') window.location.reload();
-          }
+          localStorage.setItem('userName', response.fullName);
+          localStorage.setItem('email', response.email);
+          localStorage.setItem('loginMessage', 'success');
+          this.resetFields();
+          this.router.navigateByUrl('/');
+          if (typeof window !== 'undefined') window.location.reload();
         },
         error: (error) => {
           this.isLoading = false;
@@ -70,12 +62,14 @@ export class LoginComponent {
         this.errorMessage = 'Passwords do not match!';
         return;
       }
-      this.authService.signup(this.userName, this.email, this.password).subscribe({
+      this.successMessage = '';
+      this.errorMessage = '';
+      this.authService.signup(this.email, this.password, this.userName).subscribe({
         next: (response) => {
           this.isLoading = false;
-          console.log('Signup successful:', response);
+          this.successMessage = response.message || 'Signup successful! Please check your email to verify your account.';
           this.isLoginActive = true;
-          this.router.navigate(['/login']);
+          this.resetFields();
         },
         error: (error) => {
           this.isLoading = false;
@@ -89,6 +83,7 @@ export class LoginComponent {
   toggleActiveState() {
     this.isLoginActive = !this.isLoginActive;
     this.errorMessage = '';
+    this.successMessage = '';
   }
 
   private resetFields() {

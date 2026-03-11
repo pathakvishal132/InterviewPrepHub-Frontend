@@ -47,10 +47,12 @@
              *ngFor="let q of questionKeys; let i = index"
              [class.active]="i === currentIndex"
              [class.answered]="answeredSet.has(i)"
-             (click)="jumpTo(i)"
-             [title]="'Q' + (i + 1)">
+             [class.locked]="i >= 2 && apiRequiresAuth && !isLoggedIn"
+             (click)="handleQuestionClick(i)"
+             [title]="i >= 2 && !isLoggedIn ? 'Sign in to access' : 'Q' + (i + 1)">
           <i class="fas fa-check q-dot-check" *ngIf="answeredSet.has(i) && i !== currentIndex"></i>
-          <span *ngIf="!answeredSet.has(i) || i === currentIndex">{{ i + 1 }}</span>
+          <i class="fas fa-lock q-dot-lock" *ngIf="i >= 2 && apiRequiresAuth && !isLoggedIn"></i>
+          <span *ngIf="!(i >= 2 && apiRequiresAuth && !isLoggedIn)">{{ i + 1 }}</span>
         </div>
       </div>
     </div>
@@ -95,6 +97,17 @@
           </div>
         </div>
         <h2 class="question-text">{{ currentQuestion || 'Loading question...' }}</h2>
+        
+        <!-- Auth Required Banner -->
+        <div class="auth-banner" *ngIf="requiresAuth && currentIndex >= 2">
+          <i class="fas fa-lock"></i>
+          <div class="auth-banner-content">
+            <strong>{{ authMessage }}</strong>
+            <p>Create an account or sign in to access all questions and track your progress!</p>
+          </div>
+          <a routerLink="/login" class="auth-banner-btn">Sign In / Sign Up</a>
+        </div>
+        
         <!-- Decorative glow blob -->
         <div class="question-glow"></div>
       </div>
@@ -135,6 +148,25 @@
             </button>
             <button class="ctrl-btn ctrl-btn--submit" (click)="submitAnswer()" [disabled]="!voiceService.text.trim()">
               <i class="fas fa-paper-plane"></i> Submit
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sign In Message Popup -->
+      <div class="auth-popup-overlay" *ngIf="showSignInMessage" (click)="showSignInMessage = false">
+        <div class="auth-popup glass-card" (click)="$event.stopPropagation()">
+          <div class="auth-popup-icon">
+            <i class="fas fa-lock"></i>
+          </div>
+          <h3>Sign In Required</h3>
+          <p>You need to sign in to access further questions and track your progress!</p>
+          <div class="auth-popup-actions">
+            <button class="auth-popup-btn auth-popup-btn--primary" routerLink="/login" (click)="showSignInMessage = false">
+              Sign In
+            </button>
+            <button class="auth-popup-btn" (click)="showSignInMessage = false">
+              Continue as Guest
             </button>
           </div>
         </div>

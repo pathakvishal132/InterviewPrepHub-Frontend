@@ -17,7 +17,7 @@
   <!-- Cards -->
   <div class="subdomain-section">
     <div class="subdomain-grid">
-      <div class="subdomain-card glass-card" *ngFor="let card of cards" (click)="navigateToQuestions(card.title, card.subfield)">
+      <div class="subdomain-card glass-card" *ngFor="let card of cards" (click)="navigateToQuestions(card.title, card.subfield, card.route)">
         <div class="subdomain-img-wrap">
           <img [src]="card.imgSrc" [alt]="card.title" class="subdomain-img" />
         </div>

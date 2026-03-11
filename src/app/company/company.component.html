@@ -1,5 +1,16 @@
 <div class="company-wrapper">
 
+  <!-- Error/Auth Message -->
+  <div class="auth-message" *ngIf="errorMessage">
+    <div class="auth-message-content">
+      <i class="fas fa-lock"></i>
+      <p>{{ errorMessage }}</p>
+      <button class="btn-primary-hero" routerLink="/login" *ngIf="showLoginPrompt">
+        <i class="fas fa-sign-in-alt"></i> Sign In
+      </button>
+    </div>
+  </div>
+
   <!-- Page Header -->
   <div class="page-hero">
     <div class="page-hero-inner">
@@ -40,7 +51,7 @@
   </div>
 
   <!-- Loading Skeleton -->
-  <div class="companies-section" *ngIf="loading">
+  <div class="companies-section" *ngIf="loading && !errorMessage">
     <div class="companies-grid">
       <div class="company-card skeleton-card" *ngFor="let i of [1,2,3,4,5,6,7,8,9,10,11,12]">
         <div class="skeleton skeleton-icon"></div>
@@ -52,7 +63,7 @@
   </div>
 
   <!-- Companies Grid -->
-  <div class="companies-section" *ngIf="!loading">
+  <div class="companies-section" *ngIf="!loading && !errorMessage">
     <div class="companies-grid">
       <div class="company-card glass-card"
            *ngFor="let company of companies"

@@ -285,6 +285,141 @@ export class QuestionsService {
       "q20": "What are the current trends and future challenges in microelectronics technology?"
     }
   };
+
+  systemDesign: any = {
+    "result": {
+      "q1": "Explain the concept of scalability in system design. What is the difference between horizontal and vertical scaling?",
+      "q2": "What is load balancing, and what are some common load balancing algorithms?",
+      "q3": "Explain the difference between caching strategies: write-through, write-back, and write-around.",
+      "q4": "What is database sharding, and what are its advantages and disadvantages?",
+      "q5": "Explain the CAP theorem. What are the trade-offs between consistency, availability, and partition tolerance?",
+      "q6": "What are microservices architecture, and how does it differ from monolithic architecture?",
+      "q7": "Explain RESTful API design principles and best practices.",
+      "q8": "What is consistent hashing, and why is it useful in distributed systems?",
+      "q9": "What is the role of message queues in system design? Name some popular message queue systems.",
+      "q10": "Explain how a CDN works and what problems it solves in terms of performance?",
+      "q11": "What are some common system design patterns? Explain the observer pattern and the factory pattern.",
+      "q12": "Explain the difference between synchronous and asynchronous communication in distributed systems.",
+      "q13": "What is a circuit breaker pattern, and why is it useful in microservices?",
+      "q14": "Explain the concept of eventual consistency and how it differs from strong consistency.",
+      "q15": "What is database indexing, and what are the different types of indexes?",
+      "q16": "Explain the concept of rate limiting and its importance in API design.",
+      "q17": "What is the difference between SQL and NoSQL databases? When would you choose one over the other?",
+      "q18": "Explain the concept of fault tolerance in distributed systems.",
+      "q19": "What is the pub/sub pattern, and where is it commonly used?",
+      "q20": "Explain how you would design a URL shortening service like bit.ly.",
+      "q21": "What is a content delivery network (CDN) and how does it improve website performance?",
+      "q22": "Explain the concept of idempotency in API design and why it matters.",
+      "q23": "What is the difference between authentication and authorization?",
+      "q24": "Explain how OAuth 2.0 works for authorization.",
+      "q25": "What is JWT (JSON Web Token), and what are its use cases?",
+      "q26": "Explain the concept of API versioning and strategies for implementing it.",
+      "q27": "What is the role of a reverse proxy in system architecture?",
+      "q28": "Explain the concept of the producer-consumer problem in distributed systems.",
+      "q29": "What is the difference between stateless and stateful services?",
+      "q30": "Explain how you would design a real-time notification system.",
+      "q31": "What is the role of service discovery in microservices architecture?",
+      "q32": "Explain the concept of backpressure in data processing systems.",
+      "q33": "What are the key considerations for designing a highly available system?",
+      "q34": "Explain the difference between optimistic and pessimistic locking.",
+      "q35": "What is the role of monitoring and alerting in system design?",
+      "q36": "Explain the concept of CQRS (Command Query Responsibility Segregation).",
+      "q37": "What is event sourcing, and what are its advantages?",
+      "q38": "Explain how you would design a search feature like Elasticsearch.",
+      "q39": "What is the difference between authentication tokens and sessions?",
+      "q40": "Explain the concept of graceful degradation in system design."
+    }
+  };
+
+  java: any = {
+    "result": {
+      "q1": "Explain the difference between JDK, JRE, and JVM in Java.",
+      "q2": "What is the difference between == and .equals() in Java?",
+      "q3": "Explain the concept of encapsulation in Java with an example.",
+      "q4": "What is inheritance in Java? How does the super keyword work?",
+      "q5": "Explain polymorphism in Java with examples of method overloading and overriding.",
+      "q6": "What is the difference between abstract class and interface in Java?",
+      "q7": "Explain the purpose of the final keyword in Java. Where can it be used?",
+      "q8": "What is the difference between String, StringBuilder, and StringBuffer?",
+      "q9": "Explain the Java Collections framework hierarchy.",
+      "q10": "What is the difference between ArrayList and LinkedList?",
+      "q11": "Explain the difference between HashMap and Hashtable.",
+      "q12": "What is the purpose of the hashCode() and equals() methods?",
+      "q13": "Explain the concept of multithreading in Java. How do you create a thread?",
+      "q14": "What is the difference between Runnable and Callable interfaces?",
+      "q15": "Explain the synchronized keyword in Java and its usage.",
+      "q16": "What is deadlock in Java? How can you prevent it?",
+      "q17": "Explain the exception handling mechanism in Java with try-catch-finally.",
+      "q18": "What is the difference between throw and throws in Java?",
+      "q19": "Explain the concept of generics in Java with an example.",
+      "q20": "What is the difference between List, Set, and Map interfaces?",
+      "q21": "Explain the JDBC API and its key components.",
+      "q22": "What is the difference between Statement, PreparedStatement, and CallableStatement?",
+      "q23": "Explain the concept of transaction management in JDBC.",
+      "q24": "What is the Java Memory Model and how does it work?",
+      "q25": "Explain garbage collection in Java and the different types of垃圾 collectors.",
+      "q26": "What is the difference between heap and stack memory in Java?",
+      "q27": "Explain the concept of reflection in Java and its use cases.",
+      "q28": "What is the difference between this and super keyword in Java?",
+      "q29": "Explain the concept of static and instance methods in Java.",
+      "q30": "What is the purpose of the volatile keyword in Java?",
+      "q31": "Explain the concept of lambda expressions in Java 8.",
+      "q32": "What is the difference between stream and collection in Java?",
+      "q33": "Explain the concept of optional class in Java 8.",
+      "q34": "What are the SOLID principles in object-oriented design?",
+      "q35": "Explain the singleton design pattern and how to implement it in Java.",
+      "q36": "What is the factory design pattern? Provide an example.",
+      "q37": "Explain the observer design pattern and its use cases.",
+      "q38": "What is the difference between REST API and SOAP API?",
+      "q39": "Explain the concept of Spring Boot auto-configuration.",
+      "q40": "What is the difference between @Component, @Service, and @Repository annotations?"
+    }
+  };
+
+  python: any = {
+    "result": {
+      "q1": "Explain the difference between lists and tuples in Python.",
+      "q2": "What is the difference between deep copy and shallow copy in Python?",
+      "q3": "Explain the concept of list comprehension in Python with an example.",
+      "q4": "What is the difference between range() and xrange() in Python?",
+      "q5": "Explain how Python's garbage collection works.",
+      "q6": "What is the difference between __str__ and __repr__ methods in Python?",
+      "q7": "Explain the concept of decorators in Python with an example.",
+      "q8": "What is the difference between @staticmethod and @classmethod in Python?",
+      "q9": "Explain generators in Python and how they differ from regular functions.",
+      "q10": "What is the purpose of the yield keyword in Python?",
+      "q11": "Explain the concept of virtual environments in Python.",
+      "q12": "What is the difference between pip and conda?",
+      "q13": "Explain the difference between append() and extend() methods in Python lists.",
+      "q14": "What is the difference between sets and frozensets in Python?",
+      "q15": "Explain the concept of dictionary comprehension in Python.",
+      "q16": "What is the difference between is and == in Python?",
+      "q17": "Explain the concept of closures in Python.",
+      "q18": "What is the difference between *args and **kwargs in Python?",
+      "q19": "Explain the concept of metaclasses in Python.",
+      "q20": "What is the purpose of the __init__.py file in Python packages?",
+      "q21": "Explain the difference between map(), filter(), and reduce() functions.",
+      "q22": "What is the difference between shallow copy and deep copy for nested objects?",
+      "q23": "Explain the concept of context managers in Python and the with statement.",
+      "q24": "What is the difference between synchronous and asynchronous programming in Python?",
+      "q25": "Explain how async/await works in Python.",
+      "q26": "What is the difference between threads and processes in Python?",
+      "q27": "Explain the Global Interpreter Lock (GIL) in Python.",
+      "q28": "What is the purpose of NumPy in Python? Explain its key features.",
+      "q29": "Explain the difference between NumPy arrays and Python lists.",
+      "q30": "What is Pandas? Explain its main data structures.",
+      "q31": "Explain the difference between loc and iloc in Pandas.",
+      "q32": "What is the difference between merge() and concat() in Pandas?",
+      "q33": "Explain the concept of groupby() in Pandas.",
+      "q34": "What is Django? Explain its architecture.",
+      "q35": "Explain the difference between Django MTV and MVC architecture.",
+      "q36": "What is Flask? How does it differ from Django?",
+      "q37": "Explain the concept of routing in Flask.",
+      "q38": "What is SQLAlchemy and how is it used in Python?",
+      "q39": "Explain the concept of ORM in Python web frameworks.",
+      "q40": "What is the difference between Django REST framework and standard Django?"
+    }
+  };
   private apiUrl = environment.apis.primary;
   private apiUrl2 = environment.apis.secondary;
 
@@ -304,34 +439,48 @@ export class QuestionsService {
     let params = new HttpParams()
       .set('domain', domain)
       .set('subdomain', subdomain);
+    
+    // Get userId from localStorage - check for token or user object
+    const token = localStorage.getItem('token');
+    const userStr = localStorage.getItem('user');
+    let userId = '';
+    
+    if (token && userStr) {
+      try {
+        const user = JSON.parse(userStr);
+        userId = user.email || '';
+      } catch (e) {}
+    }
+    
+    if (userId) {
+      params = params.set('userId', userId);
+    }
+    
     return this.http.get<any>(`${this.apiUrl2}/questions/get-question`, { params });
   }
 
-  getFeedback(question: string, answer: string): Observable<any> {
-    const currentDate = new Date();
-    const formattedDate = currentDate.toISOString();
-    const userId = localStorage.getItem("id")
-    if (userId === null) {
-      const payload = {
-        question,
-        answer,
-        // date: formattedDate,
-        userId: 9999
-      };
-      console.log(payload);
-      return this.http.post<any>(`${this.apiUrl2}/questions/feedback`, payload);
+  getFeedback(question: string, answer: string, domain?: string, subdomain?: string): Observable<any> {
+    const token = localStorage.getItem('token');
+    const userStr = localStorage.getItem('user');
+    let userId = '';
+    
+    if (token && userStr) {
+      try {
+        const user = JSON.parse(userStr);
+        userId = user.email || '';
+      } catch (e) {}
     }
-    else {
-      const payload = {
-        question,
-        answer,
-        // date: formattedDate,
-        userId
-      };
-      console.log(payload);
-      return this.http.post<any>(`${this.apiUrl2}/questions/feedback`, payload);
-    }
-
+    
+    const payload: any = {
+      question,
+      answer,
+      userId: userId
+    };
+    
+    if (domain) payload.domain = domain;
+    if (subdomain) payload.subdomain = subdomain;
+    
+    return this.http.post<any>(`${this.apiUrl2}/questions/feedback`, payload);
   }
 
   setQuestions(questions: any) {
@@ -340,34 +489,42 @@ export class QuestionsService {
   getDefaultQuestions(domain: string) {
     let questions: any;
     console.log(domain)
-    switch (domain) {
-      case 'Web Development':
-        questions = this.wb;
-        break;
-      case 'Data Science':
-        questions = this.ds;
-        break;
-      case 'Block Chain':
-        questions = this.bc;
-        break;
-      case 'Cyber Security':
-        questions = this.cs;
-        break;
-      case 'VLSI Design':
-        questions = this.vlsi;
-        break;
-      case 'Wireless Communication':
-        questions = this.wireless;
-        break;
-      case 'Optical Communication':
-        questions = this.optical;
-        break;
-      case 'Microelectronics':
-        questions = this.microelectronics;
-        break;
-      default:
-        console.error(`No questions found for the domain: ${domain}`);
-        return;
+    if (domain.startsWith('System Design')) {
+      questions = this.systemDesign;
+    } else if (domain.startsWith('Java')) {
+      questions = this.java;
+    } else if (domain.startsWith('Python')) {
+      questions = this.python;
+    } else {
+      switch (domain) {
+        case 'Web Development':
+          questions = this.wb;
+          break;
+        case 'Data Science':
+          questions = this.ds;
+          break;
+        case 'Block Chain':
+          questions = this.bc;
+          break;
+        case 'Cyber Security':
+          questions = this.cs;
+          break;
+        case 'VLSI Design':
+          questions = this.vlsi;
+          break;
+        case 'Wireless Communication':
+          questions = this.wireless;
+          break;
+        case 'Optical Communication':
+          questions = this.optical;
+          break;
+        case 'Microelectronics':
+          questions = this.microelectronics;
+          break;
+        default:
+          console.error(`No questions found for the domain: ${domain}`);
+          return;
+      }
     }
     return questions;
   }

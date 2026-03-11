@@ -1,0 +1,21 @@
+<div class="verify-container">
+  <div class="verify-card">
+    <div class="verify-icon">
+      <span *ngIf="isLoading">⏳</span>
+      <span *ngIf="isVerified && !errorMessage">✅</span>
+      <span *ngIf="errorMessage">❌</span>
+    </div>
+
+    <h2 *ngIf="isLoading">Verifying your email...</h2>
+    <h2 *ngIf="isVerified && !errorMessage">Email Verified!</h2>
+    <h2 *ngIf="errorMessage">Verification Failed</h2>
+
+    <p *ngIf="isLoading" class="message">Please wait while we verify your email address.</p>
+    <p *ngIf="message" class="message">{{ message }}</p>
+    <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+
+    <button *ngIf="!isLoading" (click)="goToLogin()" class="login-btn">
+      Go to Login
+    </button>
+  </div>
+</div>

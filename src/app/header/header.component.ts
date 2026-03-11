@@ -1,5 +1,7 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
+import { AuthResponse } from '../services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -8,32 +10,33 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
   receivedMessage: string = '';
-  loginMessage: string = '';
+  isLoggedIn: boolean = false;
+  currentUser: AuthResponse | null = null;
   isScrolled = false;
   menuOpen = false;
 
-  constructor(private router: Router) {
+  constructor(
+    private router: Router,
+    private authService: AuthService
+  ) {
+    this.checkAuthStatus();
+  }
+
+  ngOnInit(): void {
+    this.checkAuthStatus();
+  }
+
+  checkAuthStatus(): void {
     if (typeof window !== 'undefined' && localStorage) {
       const storedData = localStorage.getItem('hi');
       if (storedData === 'hello') {
         this.receivedMessage = storedData;
-      } else if (storedData === 'close' || !storedData) {
-        this.receivedMessage = '';
-        const loginData = localStorage.getItem('loginMessage');
-        if (loginData === 'success') {
-          this.loginMessage = loginData;
-        } else if (!loginData) {
-          this.loginMessage = '';
-        }
-        this.refreshCurrentRoute();
       }
-    } else {
-      this.receivedMessage = '';
-      console.warn('localStorage is not available.');
+      
+      this.isLoggedIn = this.authService.isAuthenticated();
+      this.currentUser = this.authService.getCurrentUser();
     }
   }
-
-  ngOnInit(): void { }
 
   @HostListener('window:scroll', [])
   onWindowScroll() {
@@ -48,13 +51,13 @@ export class HeaderComponent implements OnInit {
     this.menuOpen = false;
   }
 
-  private refreshCurrentRoute(): void {
-    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-      this.router.navigate([this.router.url]);
-    });
-  }
-
   logout(): void {
+    this.authService.logout();
+    this.isLoggedIn = false;
+    this.currentUser = null;
+    this.receivedMessage = '';
+    this.menuOpen = false;
+
     if (typeof window !== 'undefined' && localStorage) {
       localStorage.removeItem('hi');
       localStorage.removeItem('loginMessage');
@@ -62,12 +65,8 @@ export class HeaderComponent implements OnInit {
       localStorage.removeItem('userName');
       localStorage.removeItem('email');
       localStorage.removeItem('dateJoined');
-
-      this.receivedMessage = '';
-      this.loginMessage = '';
-      this.menuOpen = false;
-
-      this.router.navigate(['/login']);
     }
+
+    this.router.navigate(['/login']);
   }
 }

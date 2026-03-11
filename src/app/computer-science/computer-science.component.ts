@@ -142,15 +142,13 @@ export class ComputerScienceComponent {
     }
   }
 
-
-
-
   cards = [
     {
       title: 'Web Development',
       imgSrc: 'assets/computer-science/webdev/WEBDEV1.png',
       field: 'Computer Science',
       subfield: 'Web Development',
+      route: '/web-development'
     },
     {
       title: 'Data Science',
@@ -171,11 +169,16 @@ export class ComputerScienceComponent {
       subfield: 'Cyber Security',
     }
   ];
+
   constructor(private location: Location, private router: Router, private qs: QuestionsService) { }
   goBack(): void {
     this.location.back();
   }
-  navigateToQuestions(domain: string, subdomain: string) {
-    this.router.navigate(['/questions'], { queryParams: { domain: domain, subdomain: subdomain } });
+  navigateToQuestions(domain: string, subdomain: string, route?: string) {
+    if (route) {
+      this.router.navigate([route]);
+    } else {
+      this.router.navigate(['/questions'], { queryParams: { domain: domain, subdomain: subdomain } });
+    }
   }
 }

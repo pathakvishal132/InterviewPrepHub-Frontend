@@ -1,0 +1,141 @@
+<div class="subdomain-wrapper">
+
+  <!-- Hero -->
+  <div class="page-hero">
+    <div class="hero-orb hero-orb-1"></div>
+    <div class="hero-orb hero-orb-2"></div>
+    
+    <div class="page-hero-inner">
+      <div class="back-btn" (click)="goBack()">
+        <i class="fas fa-arrow-left"></i> Back to Domains
+      </div>
+      <div class="page-hero-badge"><i class="fas fa-code"></i> Web Development</div>
+      <h1 class="page-hero-title">Select Your <span class="gradient-text">Subdomain</span></h1>
+      <p class="page-hero-sub">Choose a specific area to practice curated interview questions with AI-powered feedback.</p>
+    </div>
+  </div>
+
+  <!-- Cards -->
+  <div class="subdomain-section">
+    <div class="subdomain-grid">
+      
+      <!-- DSA Dropdown Card -->
+      <div class="subdomain-card" [class.active]="expandedDSA">
+        <div class="subdomain-img-wrap dsa-card-header">
+          <i class="fas fa-code dsa-icon icon-wrapper"></i>
+        </div>
+        <div class="subdomain-card-body" (click)="toggleDSA()">
+          <h3 class="subdomain-title">Data Structures & Algorithms</h3>
+          <p class="subdomain-meta">
+            <i class="fas fa-question-circle"></i> 500+ curated questions
+          </p>
+          <div class="subdomain-chip" [class.expanded]="expandedDSA">
+            <i class="fas fa-chevron-down"></i>
+            {{ expandedDSA ? 'Click to collapse' : 'Click to expand topics' }}
+          </div>
+        </div>
+        <div class="subdomain-arrow" (click)="toggleDSA()">
+          <span>{{ expandedDSA ? 'Showing Topics' : 'View Topics' }}</span>
+          <i class="fas" [class.fa-chevron-down]="!expandedDSA" [class.fa-chevron-up]="expandedDSA"></i>
+        </div>
+        <!-- DSA Topics Dropdown -->
+        <div class="dsa-dropdown" *ngIf="expandedDSA">
+          <div class="dsa-topic" *ngFor="let topic of dsaTopics; let i = index" (click)="navigateToDSATopic(topic); $event.stopPropagation()">
+            <i class="fas fa-angle-right"></i>
+            {{ topic }}
+            <span class="topic-count">Q{{ (i + 1) * 5 }}+</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- System Design Dropdown Card -->
+      <div class="subdomain-card" [class.active]="expandedSystemDesign">
+        <div class="subdomain-img-wrap system-card-header">
+          <i class="fas fa-sitemap system-icon icon-wrapper"></i>
+        </div>
+        <div class="subdomain-card-body" (click)="toggleSystemDesign()">
+          <h3 class="subdomain-title">System Design</h3>
+          <p class="subdomain-meta">
+            <i class="fas fa-question-circle"></i> 40 curated questions
+          </p>
+          <div class="subdomain-chip" [class.expanded]="expandedSystemDesign">
+            <i class="fas fa-chevron-down"></i>
+            {{ expandedSystemDesign ? 'Click to collapse' : 'Click to expand topics' }}
+          </div>
+        </div>
+        <div class="subdomain-arrow" (click)="toggleSystemDesign()">
+          <span>{{ expandedSystemDesign ? 'Showing Topics' : 'View Topics' }}</span>
+          <i class="fas" [class.fa-chevron-down]="!expandedSystemDesign" [class.fa-chevron-up]="expandedSystemDesign"></i>
+        </div>
+        <!-- System Design Topics Dropdown -->
+        <div class="dsa-dropdown" *ngIf="expandedSystemDesign">
+          <div class="dsa-topic" *ngFor="let topic of systemDesignTopics; let i = index" (click)="navigateToSystemDesignTopic(topic); $event.stopPropagation()">
+            <i class="fas fa-angle-right"></i>
+            {{ topic }}
+            <span class="topic-count">Q{{ (i + 1) * 3 }}+</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Java Dropdown Card -->
+      <div class="subdomain-card" [class.active]="expandedJava">
+        <div class="subdomain-img-wrap java-card-header">
+          <i class="fab fa-java java-icon icon-wrapper"></i>
+        </div>
+        <div class="subdomain-card-body" (click)="toggleJava()">
+          <h3 class="subdomain-title">Java</h3>
+          <p class="subdomain-meta">
+            <i class="fas fa-question-circle"></i> 40 curated questions
+          </p>
+          <div class="subdomain-chip" [class.expanded]="expandedJava">
+            <i class="fas fa-chevron-down"></i>
+            {{ expandedJava ? 'Click to collapse' : 'Click to expand topics' }}
+          </div>
+        </div>
+        <div class="subdomain-arrow" (click)="toggleJava()">
+          <span>{{ expandedJava ? 'Showing Topics' : 'View Topics' }}</span>
+          <i class="fas" [class.fa-chevron-down]="!expandedJava" [class.fa-chevron-up]="expandedJava"></i>
+        </div>
+        <!-- Java Topics Dropdown -->
+        <div class="dsa-dropdown" *ngIf="expandedJava">
+          <div class="dsa-topic" *ngFor="let topic of javaTopics; let i = index" (click)="navigateToJavaTopic(topic); $event.stopPropagation()">
+            <i class="fas fa-angle-right"></i>
+            {{ topic }}
+            <span class="topic-count">Q{{ (i + 1) * 3 }}+</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Python Dropdown Card -->
+      <div class="subdomain-card" [class.active]="expandedPython">
+        <div class="subdomain-img-wrap python-card-header">
+          <i class="fab fa-python python-icon icon-wrapper"></i>
+        </div>
+        <div class="subdomain-card-body" (click)="togglePython()">
+          <h3 class="subdomain-title">Python</h3>
+          <p class="subdomain-meta">
+            <i class="fas fa-question-circle"></i> 40 curated questions
+          </p>
+          <div class="subdomain-chip" [class.expanded]="expandedPython">
+            <i class="fas fa-chevron-down"></i>
+            {{ expandedPython ? 'Click to collapse' : 'Click to expand topics' }}
+          </div>
+        </div>
+        <div class="subdomain-arrow" (click)="togglePython()">
+          <span>{{ expandedPython ? 'Showing Topics' : 'View Topics' }}</span>
+          <i class="fas" [class.fa-chevron-down]="!expandedPython" [class.fa-chevron-up]="expandedPython"></i>
+        </div>
+        <!-- Python Topics Dropdown -->
+        <div class="dsa-dropdown" *ngIf="expandedPython">
+          <div class="dsa-topic" *ngFor="let topic of pythonTopics; let i = index" (click)="navigateToPythonTopic(topic); $event.stopPropagation()">
+            <i class="fas fa-angle-right"></i>
+            {{ topic }}
+            <span class="topic-count">Q{{ (i + 1) * 3 }}+</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>

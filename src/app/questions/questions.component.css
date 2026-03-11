@@ -248,6 +248,129 @@
     color: #34d399;
 }
 
+.q-dot.disabled {
+    opacity: 0.4;
+    cursor: not-allowed !important;
+    background: rgba(239, 68, 68, 0.1);
+    border-color: rgba(239, 68, 68, 0.2);
+}
+
+.q-dot.disabled:hover {
+    transform: none;
+    background: rgba(239, 68, 68, 0.1);
+    border-color: rgba(239, 68, 68, 0.2);
+    color: var(--text-muted);
+}
+
+.q-dot.locked {
+    opacity: 0.6;
+    cursor: pointer !important;
+    background: rgba(239, 68, 68, 0.08);
+    border-color: rgba(239, 68, 68, 0.2);
+}
+
+.q-dot.locked:hover {
+    background: rgba(239, 68, 68, 0.15);
+    border-color: rgba(239, 68, 68, 0.4);
+}
+
+.q-dot-lock {
+    font-size: 0.65rem;
+    color: #f59e0b;
+}
+
+/* Auth Popup */
+.auth-popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    backdrop-filter: blur(4px);
+}
+
+.auth-popup {
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 40px;
+    max-width: 400px;
+    text-align: center;
+    animation: authPopupSlide 0.3s ease;
+}
+
+@keyframes authPopupSlide {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.auth-popup-icon {
+    width: 64px;
+    height: 64px;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    font-size: 1.5rem;
+    color: #fff;
+}
+
+.auth-popup h3 {
+    font-size: 1.25rem;
+    color: var(--text-primary);
+    margin-bottom: 12px;
+}
+
+.auth-popup p {
+    color: var(--text-muted);
+    margin-bottom: 24px;
+    line-height: 1.6;
+}
+
+.auth-popup-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.auth-popup-btn {
+    padding: 12px 24px;
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text-secondary);
+}
+
+.auth-popup-btn:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.auth-popup-btn--primary {
+    background: linear-gradient(135deg, #6366f1, #4f46e5);
+    border: none;
+    color: #fff;
+}
+
+.auth-popup-btn--primary:hover {
+    box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4);
+}
+
 .q-dot.active.answered {
     background: linear-gradient(135deg, #10b981, #059669);
     border-color: transparent;
@@ -930,4 +1053,70 @@ kbd {
         flex: 1;
         justify-content: center;
     }
+}
+
+/* ──────────────────────────────────────────
+   AUTH BANNER
+────────────────────────────────────────── */
+.auth-banner {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(139, 92, 246, 0.15));
+    border: 1px solid rgba(99, 102, 241, 0.3);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin: 20px 0;
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.auth-banner > i {
+    font-size: 28px;
+    color: #6366f1;
+    flex-shrink: 0;
+}
+
+.auth-banner-content {
+    flex: 1;
+}
+
+.auth-banner-content strong {
+    display: block;
+    color: #1e293b;
+    font-size: 15px;
+    margin-bottom: 4px;
+}
+
+.auth-banner-content p {
+    color: #64748b;
+    font-size: 13px;
+    margin: 0;
+}
+
+.auth-banner-btn {
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    white-space: nowrap;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.auth-banner-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
 }

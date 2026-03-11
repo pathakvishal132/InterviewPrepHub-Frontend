@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpHeaders, HttpBackend } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
@@ -9,10 +9,14 @@ import { environment } from '../../environments/environment';
 export class CompanyService {
   private apiUrl = environment.apis.primary;
   private apiUrl2 = environment.apis.secondary;
-  constructor(private http: HttpClient) { }
+  private httpNoAuth: HttpClient;
+
+  constructor(private http: HttpClient, handler: HttpBackend) {
+    this.httpNoAuth = new HttpClient(handler);
+  }
 
   getReviews(companyId: number, page: number): Observable<any> {
-    return this.http.get<any>(
+    return this.httpNoAuth.get<any>(
       `${this.apiUrl2}/company/reviews?company_id=${companyId}&page=${page}`
     );
   }
@@ -29,29 +33,29 @@ export class CompanyService {
       companyPayroll: review.company_payroll
     };
 
-    return this.http.post(`${this.apiUrl2}/company/reviews`, payload);
+    return this.httpNoAuth.post(`${this.apiUrl2}/company/reviews`, payload);
   }
 
 
   getCompany(page: number): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl2}/company?page=${page}`);
+    return this.httpNoAuth.get<any>(`${this.apiUrl2}/company?page=${page}`);
   }
   deleteCompany(id: number): Observable<any> {
     return this.http.delete<any>(`${this.apiUrl2}/companies/${id}/`);
   }
   getOtherDetails(companyId: string): Observable<any> {
     const url = `${this.apiUrl2}/company/get-other-details/${companyId}`;
-    return this.http.get<any>(url);
+    return this.httpNoAuth.get<any>(url);
   }
   getCompanyQuestion(companyId: any, page: number) {
-    return this.http.get<any>(`${this.apiUrl2}/company/questions/${companyId}?page=${page}`);
+    return this.httpNoAuth.get<any>(`${this.apiUrl2}/company/questions/${companyId}?page=${page}`);
   }
   deleteCompanyQuestion(companyId: any) {
     return this.http.delete<any>(`${this.apiUrl}/company/${companyId}/`);
   }
 
   search_company(word: string, page: number) {
-    return this.http.get<any>(`${this.apiUrl2}/company?searchText=${word}&page=${page}`);
+    return this.httpNoAuth.get<any>(`${this.apiUrl2}/company?searchText=${word}&page=${page}`);
   }
 
   search_question(id: number, word: string, page: number) {
@@ -75,7 +79,7 @@ export class CompanyService {
       params = params.set('searchText', filters.searchText);
     }
 
-    return this.http.post<any>(url, null, { params }); // body null
+    return this.httpNoAuth.post<any>(url, null, { params });
   }
 
 }

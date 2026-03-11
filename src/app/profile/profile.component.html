@@ -19,7 +19,8 @@
       <h1 class="profile-name">{{ userName || 'Anonymous User' }}</h1>
       <div class="profile-meta">
         <span class="profile-meta-chip"><i class="fas fa-envelope"></i> {{ email || 'Not set' }}</span>
-        <span class="profile-meta-chip"><i class="fas fa-calendar-alt"></i> Joined {{ dateJoined | date: 'MMM yyyy' }}</span>
+        <span class="profile-meta-chip"><i class="fas fa-calendar-alt"></i> Joined
+          {{ dateJoined | date: 'MMM yyyy' }}</span>
       </div>
     </div>
 
@@ -30,10 +31,42 @@
         <i class="fas fa-cloud-upload-alt"></i>
         <span>{{ selectedFile ? selectedFile.name : 'Upload Photo' }}</span>
       </div>
-      <button class="upload-save-btn" type="submit" [disabled]="!selectedFile">
+      <button class="upload-save-btn" type="submit" [disabled]="true">
         <i class="fas fa-save"></i> Save
       </button>
     </form>
+  </div>
+
+  <!-- Stats Row -->
+  <div class="stats-row">
+    <div class="stat-card glass-card">
+      <div class="stat-icon stat-icon--purple"><i class="fas fa-paper-plane"></i></div>
+      <div class="stat-content">
+        <span class="stat-value">{{ totalSubmissions }}</span>
+        <span class="stat-label">Total Submissions</span>
+      </div>
+    </div>
+    <div class="stat-card glass-card">
+      <div class="stat-icon stat-icon--green"><i class="fas fa-fire"></i></div>
+      <div class="stat-content">
+        <span class="stat-value">{{ getStreak() }}</span>
+        <span class="stat-label">Day Streak</span>
+      </div>
+    </div>
+    <div class="stat-card glass-card">
+      <div class="stat-icon stat-icon--blue"><i class="fas fa-calendar-check"></i></div>
+      <div class="stat-content">
+        <span class="stat-value">{{ getActiveDays() }}</span>
+        <span class="stat-label">Active Days</span>
+      </div>
+    </div>
+    <div class="stat-card glass-card">
+      <div class="stat-icon stat-icon--orange"><i class="fas fa-layer-group"></i></div>
+      <div class="stat-content">
+        <span class="stat-value">{{ totalTopics }}</span>
+        <span class="stat-label">Topics Attempted</span>
+      </div>
+    </div>
   </div>
 
   <!-- Main Content Grid -->
@@ -44,52 +77,74 @@
       <div class="section-header">
         <div class="section-header-icon"><i class="fas fa-chart-line"></i></div>
         <div>
-          <h2 class="section-title">Progress Overview</h2>
-          <p class="section-sub">Daily submission activity</p>
+          <h2 class="section-title">Activity Overview</h2>
+          <p class="section-sub">Your daily practice progress</p>
+        </div>
+        <div class="chart-filter">
+          <button class="filter-btn" [class.active]="chartFilter === '7'" (click)="setChartFilter('7')">7 Days</button>
+          <button class="filter-btn" [class.active]="chartFilter === '14'" (click)="setChartFilter('14')">14
+            Days</button>
+          <button class="filter-btn" [class.active]="chartFilter === '30'" (click)="setChartFilter('30')">30
+            Days</button>
         </div>
       </div>
-      <div class="chart-wrap">
+      <div class="chart-container">
         <canvas id="progressChart"></canvas>
       </div>
     </div>
 
-    <!-- Right column: achievements + recommendations -->
+    <!-- Right column -->
     <div class="profile-aside">
 
-      <!-- Achievements -->
+      <!-- Domain Breakdown -->
       <div class="profile-section glass-card">
         <div class="section-header">
-          <div class="section-header-icon section-header-icon--amber"><i class="fas fa-trophy"></i></div>
+          <div class="section-header-icon section-header-icon--purple"><i class="fas fa-layer-group"></i></div>
           <div>
-            <h2 class="section-title">Achievements</h2>
-            <p class="section-sub">{{ user.achievements.length }} unlocked</p>
+            <h2 class="section-title">Domain Breakdown</h2>
+            <p class="section-sub">Problems by category</p>
           </div>
         </div>
-        <div class="achievement-list">
-          <div class="achievement-item" *ngFor="let a of user.achievements; let i = index">
-            <div class="achievement-dot" [style]="'animation-delay: ' + (i * 0.08) + 's'"></div>
-            <span>{{ a }}</span>
-          </div>
+        <div class="domain-chart-wrap">
+          <canvas id="domainChart"></canvas>
         </div>
-        <div class="empty-state" *ngIf="!user.achievements.length">
-          <i class="fas fa-lock"></i> No achievements yet
+        <div class="domain-legend">
+          <div class="legend-item" *ngFor="let domain of domainProgress">
+            <span class="legend-color" [style.background]="domain.color"></span>
+            <span class="legend-label">{{ domain.name }}</span>
+            <span class="legend-value">{{ domain.value }}</span>
+          </div>
+          <div class="empty-state" *ngIf="!domainProgress.length">
+            <i class="fas fa-chart-pie"></i> No topics attempted yet
+          </div>
         </div>
       </div>
 
-      <!-- Recommendations -->
+      <!-- Topics List -->
       <div class="profile-section glass-card">
         <div class="section-header">
-          <div class="section-header-icon section-header-icon--cyan"><i class="fas fa-compass"></i></div>
+          <div class="section-header-icon section-header-icon--amber"><i class="fas fa-list-ul"></i></div>
           <div>
-            <h2 class="section-title">Recommended Paths</h2>
-            <p class="section-sub">Curated for you</p>
+            <h2 class="section-title">Topics Progress</h2>
+            <p class="section-sub">{{ topicData.length }} domains explored</p>
           </div>
         </div>
-        <div class="rec-list">
-          <div class="rec-item" *ngFor="let r of user.recommendations">
-            <i class="fas fa-arrow-right rec-arrow"></i>
-            <span>{{ r }}</span>
+        <div class="topic-list">
+          <div class="topic-domain" *ngFor="let domain of topicData">
+            <div class="topic-domain-header">
+              <span class="topic-domain-name">{{ domain.domain }}</span>
+              <span class="topic-domain-stats">{{ domain.totalAttempts }} questions</span>
+            </div>
+            <div class="topic-subdomains">
+              <div class="topic-subdomain-item" *ngFor="let topic of domain.topics">
+                <span class="topic-name">{{ topic.subdomain }}</span>
+                <span class="topic-stats">{{ topic.totalSubmissions }} submissions</span>
+              </div>
+            </div>
           </div>
+        </div>
+        <div class="empty-state" *ngIf="!topicData.length">
+          <i class="fas fa-graduation-cap"></i> Start practicing to see your progress
         </div>
       </div>
 
