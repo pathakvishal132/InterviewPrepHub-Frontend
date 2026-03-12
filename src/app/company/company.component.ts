@@ -39,6 +39,8 @@ export class CompanyComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    const savedPage = localStorage.getItem('companyPage');
+    this.currentPage = savedPage ? parseInt(savedPage, 10) : 1;
     this.getCompany(this.currentPage);
   }
 
@@ -92,6 +94,7 @@ export class CompanyComponent implements OnInit {
   }
   onPageChanged(page: number): void {
     this.currentPage = page;
+    localStorage.setItem('companyPage', page.toString());
     if (this.searchPerformed) {
       this.search_company(this.searchTerm, this.currentPage);
     } else {
