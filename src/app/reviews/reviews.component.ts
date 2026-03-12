@@ -20,6 +20,9 @@ export class ReviewsComponent implements OnInit {
   totalPages: number = 1;
   companyId: number | null = null;
   companyName: string | null = "";
+  loading: boolean = true;
+  errorMessage: string = '';
+  submittingReview: boolean = false;
   newReview: any = {
     company_id: null,
     company_name: '',
@@ -49,10 +52,13 @@ export class ReviewsComponent implements OnInit {
   }
 
   loadReviews(page: number): void {
+    this.loading = true;
+    this.errorMessage = '';
     if (this.companyId) {
       this.cs.getReviews(this.companyId, page).subscribe(
         (data: any) => {
-          if (data && data.reviews) {
+          this.loading = false;
+          if (data && data.reviews && data.reviews.length > 0) {
             this.reviews = data.reviews;
             this.totalPages = data.total_pages;
             this.currentPage = data.current_page;
@@ -60,7 +66,11 @@ export class ReviewsComponent implements OnInit {
             this.reviews = [];
           }
         },
-        (error) => { console.error('Error fetching reviews', error); }
+        (error) => { 
+          this.loading = false;
+          this.errorMessage = 'Failed to load reviews. Please try again later.';
+          console.error('Error fetching reviews', error); 
+        }
       );
     }
   }
@@ -87,10 +97,13 @@ export class ReviewsComponent implements OnInit {
   }
 
   submitReview(): void {
+    this.submittingReview = true;
+    this.errorMessage = '';
     this.newReview.company_id = this.companyId;
     this.newReview.company_name = this.companyName;
     this.cs.addReview(this.newReview).subscribe(
       (response) => {
+        this.submittingReview = false;
         this.loadReviews(this.currentPage);
         this.showReviewForm = false;
         const drawer = document.querySelector('.review-drawer') as HTMLElement;
@@ -107,7 +120,11 @@ export class ReviewsComponent implements OnInit {
           company_payroll: ''
         };
       },
-      (error) => { console.error('Error adding review', error); }
+      (error) => { 
+        this.submittingReview = false;
+        this.errorMessage = 'Failed to submit review. Please try again.';
+        console.error('Error adding review', error); 
+      }
     );
   }
 

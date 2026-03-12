@@ -1,4 +1,8 @@
 <div class="main">
+  <!-- Success/Error Messages -->
+  <div *ngIf="successMessage" class="alert alert-success">{{ successMessage }}</div>
+  <div *ngIf="errorMessage" class="alert alert-error">{{ errorMessage }}</div>
+
   <form (ngSubmit)="submitQuestion()" #companyForm="ngForm">
     <div>
       <label for="level">Level:</label>
@@ -46,21 +50,35 @@
         placeholder="e.g., tcs,accenture,wipro">
     </div>
 
-    <button type="submit">Submit</button>
+    <button type="submit" [disabled]="loadingSubmit">
+      {{ loadingSubmit ? 'Submitting...' : 'Submit' }}
+    </button>
   </form>
   <div>
     <button (click)="close()">close</button>
   </div>
   <div class="message-container">
     <h2>Messages</h2>
-    <div *ngIf="messages.length === 0" class="no-messages">
+    
+    <!-- Loading State -->
+    <div *ngIf="loadingMessages" class="loading-state">
+      <div class="spinner"></div>
+      <p>Loading messages...</p>
+    </div>
+
+    <!-- Empty State -->
+    <div *ngIf="messages.length === 0 && !loadingMessages" class="no-messages">
       <p>No messages found.</p>
     </div>
+    
+    <!-- Messages List -->
     <div *ngFor="let message of messages" class="message-card">
       <p><strong>Name:</strong> {{ message.name }}</p>
       <p><strong>Email:</strong> {{ message.email }}</p>
       <p><strong>Message:</strong> {{ message.message }}</p>
-      <button (click)="deleteMessage(message.id)" class="delete-button">Delete</button>
+      <button (click)="deleteMessage(message.id)" class="delete-button" [disabled]="loadingDelete">
+        {{ loadingDelete ? 'Deleting...' : 'Delete' }}
+      </button>
     </div>
     <div class="s">
       <app-pagination [currentPage]="currentPage" [totalPages]="totalPages" (pageChanged)="onPageChanged($event)">

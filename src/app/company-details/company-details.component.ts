@@ -68,25 +68,26 @@ export class CompanyDetailsComponent implements OnInit {
     this.cs.getCompanyQuestion(id, page).subscribe(
       (response: any) => {
         this.totalPages = response.total_pages;
-        if (response.questions.length > 0) {
-          this.selectedMinExperience = response.questions[0].min_experience;
-          this.selectedMaxExperience = response.questions[0].max_experience;
-          this.selectedRole = response.questions[0].role;
-          this.selectedLevel = response.questions[0].level;
-          this.description = response.questions[0].description;
-          this.loading = false;
-
-        }
         this.questions = response.questions.map((question: any) => {
           return {
             ...question,
             question: question.question.split('.').join('.<br/>')
           };
         });
+        
+        if (response.questions.length > 0) {
+          this.selectedMinExperience = response.questions[0].min_experience;
+          this.selectedMaxExperience = response.questions[0].max_experience;
+          this.selectedRole = response.questions[0].role;
+          this.selectedLevel = response.questions[0].level;
+          this.description = response.questions[0].description;
+        }
+        this.loading = false;
       },
       (error) => {
         console.error('Error fetching questions:', error);
         this.loading = false;
+        this.questions = [];
       }
     );
   }

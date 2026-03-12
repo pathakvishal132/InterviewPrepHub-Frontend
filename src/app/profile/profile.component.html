@@ -15,12 +15,43 @@
     </div>
 
     <!-- Info -->
-    <div class="profile-info">
+    <div class="profile-info" *ngIf="!isEditing">
       <h1 class="profile-name">{{ userName || 'Anonymous User' }}</h1>
       <div class="profile-meta">
         <span class="profile-meta-chip"><i class="fas fa-envelope"></i> {{ email || 'Not set' }}</span>
         <span class="profile-meta-chip"><i class="fas fa-calendar-alt"></i> Joined
           {{ dateJoined | date: 'MMM yyyy' }}</span>
+      </div>
+      <div class="profile-actions">
+        <button class="action-btn edit-btn" (click)="startEdit()">
+          <i class="fas fa-edit"></i> Edit Profile
+        </button>
+        <button class="action-btn logout-btn" (click)="logout()">
+          <i class="fas fa-sign-out-alt"></i> Logout
+        </button>
+      </div>
+    </div>
+
+    <!-- Edit Form -->
+    <div class="profile-info edit-mode" *ngIf="isEditing">
+      <h2 class="edit-title">Edit Profile</h2>
+      <div class="edit-form">
+        <div class="form-group">
+          <label><i class="fas fa-user"></i> Name</label>
+          <input type="text" [(ngModel)]="editName" placeholder="Enter your name" />
+        </div>
+        <div class="form-group">
+          <label><i class="fas fa-envelope"></i> Email</label>
+          <input type="email" [(ngModel)]="editEmail" placeholder="Enter your email" />
+        </div>
+        <div class="edit-actions">
+          <button class="action-btn save-btn" (click)="saveProfile()">
+            <i class="fas fa-check"></i> Save
+          </button>
+          <button class="action-btn cancel-btn" (click)="cancelEdit()">
+            <i class="fas fa-times"></i> Cancel
+          </button>
+        </div>
       </div>
     </div>
 
@@ -31,7 +62,7 @@
         <i class="fas fa-cloud-upload-alt"></i>
         <span>{{ selectedFile ? selectedFile.name : 'Upload Photo' }}</span>
       </div>
-      <button class="upload-save-btn" type="submit" [disabled]="true">
+      <button class="upload-save-btn" type="submit" [disabled]="!selectedFile">
         <i class="fas fa-save"></i> Save
       </button>
     </form>
@@ -89,7 +120,11 @@
         </div>
       </div>
       <div class="chart-container">
-        <canvas id="progressChart"></canvas>
+        <div class="chart-loading" *ngIf="loadingSubmissionData">
+          <div class="spinner"></div>
+          <p>Loading activity...</p>
+        </div>
+        <canvas id="progressChart" *ngIf="!loadingSubmissionData"></canvas>
       </div>
     </div>
 
@@ -106,7 +141,10 @@
           </div>
         </div>
         <div class="domain-chart-wrap">
-          <canvas id="domainChart"></canvas>
+          <div class="chart-loading" *ngIf="loadingTopicProgress">
+            <div class="spinner"></div>
+          </div>
+          <canvas id="domainChart" *ngIf="!loadingTopicProgress"></canvas>
         </div>
         <div class="domain-legend">
           <div class="legend-item" *ngFor="let domain of domainProgress">

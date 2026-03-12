@@ -20,6 +20,8 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
   activeTestimonial = 0;
   private testimonialTimer: any;
 
+  apiStatus: 'checking' | 'online' | 'offline' = 'checking';
+
   testimonials = [
     {
       quote:
@@ -217,8 +219,14 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit(): void {
     this.questionService.ping().subscribe({
-      next: (res) => console.log('Ping success:', res),
-      error: (err) => console.error('Ping failed:', err),
+      next: (res) => {
+        this.apiStatus = 'online';
+        console.log('API connected:', res);
+      },
+      error: (err) => {
+        this.apiStatus = 'offline';
+        console.error('API connection failed:', err);
+      },
     });
 
     if (isPlatformBrowser(this.platformId)) {

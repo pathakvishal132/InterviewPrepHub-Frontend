@@ -1,6 +1,8 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ImageService } from '../services/image.service';
 import { ProfileService } from '../services/profile.service';
+import { AuthService } from '../services/auth.service';
 import { Chart, ChartConfiguration } from 'chart.js/auto';
 
 @Component({
@@ -22,6 +24,15 @@ export class ProfileComponent implements OnInit, AfterViewInit {
   dateJoined: string = "";
   chartFilter: string = '7';
   isLoggedIn: boolean = false;
+  
+  isEditing: boolean = false;
+  editName: string = "";
+  editEmail: string = "";
+
+  loadingTopicProgress: boolean = false;
+  loadingImage: boolean = false;
+  loadingSubmissionData: boolean = false;
+  errorMessage: string = '';
 
   problemData: { date: string, problemsSolved: number }[] = [];
   
@@ -71,18 +82,58 @@ export class ProfileComponent implements OnInit, AfterViewInit {
     }
   }
 
-  constructor(private imageService: ImageService, private ps: ProfileService) { }
+  constructor(private imageService: ImageService, private ps: ProfileService, private router: Router, private authService: AuthService) { }
+
+  startEdit() {
+    this.editName = this.userName;
+    this.editEmail = this.email;
+    this.isEditing = true;
+  }
+
+  cancelEdit() {
+    this.isEditing = false;
+  }
+
+  saveProfile() {
+    if (this.editName) {
+      localStorage.setItem('userName', this.editName);
+      this.userName = this.editName;
+    }
+    if (this.editEmail) {
+      localStorage.setItem('email', this.editEmail);
+      this.email = this.editEmail;
+    }
+    this.isEditing = false;
+  }
+
+  logout(): void {
+    this.authService.logout();
+    if (typeof window !== 'undefined' && localStorage) {
+      localStorage.removeItem('hi');
+      localStorage.removeItem('loginMessage');
+      localStorage.removeItem('id');
+      localStorage.removeItem('userName');
+      localStorage.removeItem('email');
+      localStorage.removeItem('dateJoined');
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+    }
+    this.isLoggedIn = false;
+    this.router.navigate(['/login']);
+  }
 
   fetchTopicProgress() {
     if (!this.userId) return;
     
+    this.loadingTopicProgress = true;
+    this.errorMessage = '';
     this.ps.getUserTopicProgress(this.userId).subscribe({
       next: (response) => {
+        this.loadingTopicProgress = false;
         this.topicData = response.domains || [];
         this.totalSubmissions = response.totalSubmissions || 0;
         this.totalTopics = response.totalTopics || 0;
         
-        // Transform data for domain chart
         this.domainProgress = this.topicData.map((domain: any, index: number) => ({
           name: domain.domain,
           value: domain.totalAttempts || 0,
@@ -94,6 +145,8 @@ export class ProfileComponent implements OnInit, AfterViewInit {
         }, 100);
       },
       error: (error) => {
+        this.loadingTopicProgress = false;
+        this.errorMessage = 'Failed to load topic progress';
         console.error('Error fetching topic progress:', error);
       }
     });
@@ -274,6 +327,8 @@ export class ProfileComponent implements OnInit, AfterViewInit {
     }
   }
 
+  loadingUpload: boolean = false;
+
   onSubmit(): void {
     if (!this.userId) {
       console.error('User ID is not available. Please log in.');
@@ -281,20 +336,24 @@ export class ProfileComponent implements OnInit, AfterViewInit {
     }
 
     if (this.selectedFile) {
+      this.loadingUpload = true;
       const name = this.name || 'default_name';
       const imgId = this.userId;
       if (localStorage.getItem("loginMessage") === "success") {
         this.imageService.uploadImage(this.selectedFile, name, imgId).subscribe(
           (response) => {
+            this.loadingUpload = false;
             this.getImage(this.userId!);
             this.selectedFile = null;
             console.log('Upload successful:', response);
           },
           (error) => {
+            this.loadingUpload = false;
             console.error('Upload failed:', error);
           }
         );
       } else {
+        this.loadingUpload = false;
         console.warn('No file selected.');
       }
     }
@@ -306,12 +365,14 @@ export class ProfileComponent implements OnInit, AfterViewInit {
       return;
     }
 
+    this.loadingImage = true;
     this.imageService.getImage(imageId).subscribe(
       (response) => {
+        this.loadingImage = false;
         this.imageBase64 = response.image_base64;
-        console.log('Image retrieved successfully');
       },
       (error) => {
+        this.loadingImage = false;
         console.error('Error fetching image:', error);
       }
     );
@@ -321,8 +382,10 @@ export class ProfileComponent implements OnInit, AfterViewInit {
     if (!this.userId) {
       return;
     }
+    this.loadingSubmissionData = true;
     this.ps.getUserSubmissionData(this.userId).subscribe({
       next: (response) => {
+        this.loadingSubmissionData = false;
         this.problemData = response.dates.map((date: string, index: number) => ({
           date: date,
           problemsSolved: response.submission_counts[index]
@@ -332,6 +395,7 @@ export class ProfileComponent implements OnInit, AfterViewInit {
         }, 100);
       },
       error: (error) => {
+        this.loadingSubmissionData = false;
         console.error('Error fetching user submission data:', error);
       },
     });

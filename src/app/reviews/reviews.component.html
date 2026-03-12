@@ -21,8 +21,24 @@
   <!-- Review Cards Grid -->
   <div class="reviews-body">
 
+    <!-- Loading State -->
+    <div class="reviews-loading" *ngIf="loading">
+      <div class="loading-spinner"></div>
+      <p>Loading reviews...</p>
+    </div>
+
+    <!-- Error State -->
+    <div class="reviews-error" *ngIf="errorMessage && !loading">
+      <i class="fas fa-exclamation-circle"></i>
+      <h3>Something went wrong</h3>
+      <p>{{ errorMessage }}</p>
+      <button class="add-review-btn-sm" (click)="loadReviews(currentPage)">
+        <i class="fas fa-redo"></i> Try Again
+      </button>
+    </div>
+
     <!-- Empty State -->
-    <div class="reviews-empty" *ngIf="!reviews.length">
+    <div class="reviews-empty" *ngIf="!reviews.length && !loading && !errorMessage">
       <i class="fas fa-comment-slash"></i>
       <h3>No reviews yet</h3>
       <p>Be the first to share your interview experience!</p>
@@ -116,8 +132,9 @@
         </div>
       </div>
 
-      <button type="submit" class="drawer-submit">
-        <i class="fas fa-paper-plane"></i> Submit Review
+      <button type="submit" class="drawer-submit" [disabled]="submittingReview">
+        <i class="fas" [class.fa-paper-plane]="!submittingReview" [class.fa-spinner]="submittingReview" [class.fa-spin]="submittingReview"></i>
+        {{ submittingReview ? 'Submitting...' : 'Submit Review' }}
       </button>
     </form>
   </div>

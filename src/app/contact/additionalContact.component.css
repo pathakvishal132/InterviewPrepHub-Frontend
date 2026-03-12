@@ -20,6 +20,12 @@
     animation: fadeInUp 0.3s ease;
 }
 
+.success-toast.error {
+    background: rgba(239, 68, 68, 0.1);
+    border-color: rgba(239, 68, 68, 0.2);
+    color: #f87171;
+}
+
 .success-toast i {
     font-size: 1rem;
 }

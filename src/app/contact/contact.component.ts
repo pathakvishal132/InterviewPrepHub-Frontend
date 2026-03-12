@@ -10,6 +10,8 @@ import { AdminService } from '../services/admin.service';
 export class ContactComponent implements OnInit {
   contactForm: FormGroup;
   successMessage: string = '';
+  isLoading: boolean = false;
+  isError: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -26,14 +28,19 @@ export class ContactComponent implements OnInit {
 
   onSubmit(): void {
     if (this.contactForm.valid) {
+      this.isLoading = true;
+      this.isError = false;
+      this.successMessage = '';
       const formData = this.contactForm.value;
       this.as.submitUserMessage(formData).subscribe(
         response => {
+          this.isLoading = false;
           this.successMessage = 'Message sent successfully!';
           this.contactForm.reset();
         },
         error => {
-          console.error('There was an error sending the message!', error);
+          this.isLoading = false;
+          this.isError = true;
           this.successMessage = 'There was an error sending your message. Please try again.';
         }
       );

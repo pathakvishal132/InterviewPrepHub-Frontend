@@ -136,13 +136,10 @@
       </div>
 
       <!-- Empty -->
-      <div class="empty-state" *ngIf="!questions.length">
+      <div class="empty-state" *ngIf="!loading && !questions.length">
         <div class="empty-icon"><i class="fas fa-inbox"></i></div>
-        <h3>No questions found</h3>
-        <p>Try adjusting your filters or search term.</p>
-        <button class="btn-primary-hero" (click)="clearFilter()">
-          <i class="fas fa-refresh"></i> Reset Filters
-        </button>
+        <h3>This company doesn't have any questions yet</h3>
+        <p>Check back later or try another company.</p>
       </div>
     </div>
 
