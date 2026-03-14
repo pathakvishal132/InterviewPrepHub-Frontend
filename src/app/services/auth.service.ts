@@ -21,7 +21,9 @@ export interface VerifyResponse {
   providedIn: 'root',
 })
 export class AuthService {
-  private readonly API_URL = 'http://localhost:8080/api/auth';
+  // private apiUrl = environment.apis.primary;
+  private apiUrl2 = environment.apis.secondary;
+  private readonly API_URL = `${this.apiUrl2}/auth`;
 
   private currentUserSubject = new BehaviorSubject<AuthResponse | null>(null);
   public currentUser$ = this.currentUserSubject.asObservable();
