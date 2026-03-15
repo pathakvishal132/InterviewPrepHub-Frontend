@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 
@@ -8,41 +8,9 @@ import { environment } from '../../environments/environment';
 })
 export class ImageService {
 
-  private apiUrl = environment.apis.primary;
   private apiUrl2 = environment.apis.secondary;
-  private authToken: string | null = null;
 
-  constructor(private http: HttpClient) {
-    this.loadAuthToken();
-  }
-
-  /**
-   * Load auth token from localStorage
-   */
-  private loadAuthToken(): void {
-    this.authToken = localStorage.getItem('authToken');
-  }
-
-  setAuthToken(token: string): void {
-    this.authToken = token;
-    localStorage.setItem('authToken', token);
-  }
-
-  getAuthToken(): string | null {
-    return this.authToken;
-  }
-
-  clearAuthToken(): void {
-    this.authToken = null;
-    localStorage.removeItem('authToken');
-  }
-
-  private getAuthHeaders(): HttpHeaders {
-    let headers = new HttpHeaders({
-      'Authorization': `Bearer ${this.authToken}`
-    });
-    return headers;
-  }
+  constructor(private http: HttpClient) {}
 
   uploadImage(image: File, name: string, id: string | null): Observable<any> {
     const formData = new FormData();
@@ -52,15 +20,13 @@ export class ImageService {
       formData.append('id', id.toString());
     }
 
-    return this.http.post(`${this.apiUrl2}/upload-image/`, formData, {
-      headers: this.getAuthHeaders()
-    });
+    // No auth header needed — endpoint is public
+    return this.http.post(`${this.apiUrl2}/upload-image/`, formData);
   }
 
   getImage(imageId: string): Observable<any> {
-    return this.http.get(`${this.apiUrl2}/get-image/${imageId}/`, {
-      headers: this.getAuthHeaders()
-    });
+    // No auth header needed — endpoint is public
+    return this.http.get(`${this.apiUrl2}/get-image/${imageId}/`);
   }
 
 }

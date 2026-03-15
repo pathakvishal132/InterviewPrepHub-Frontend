@@ -125,7 +125,7 @@
 
 /* Subdomain Grid */
 .subdomain-section {
-    max-width: 1100px;
+    max-width: 1200px;
     margin: 48px auto 0;
     padding: 0 32px;
 }
@@ -134,6 +134,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 24px;
+    align-items: start;
 }
 
 /* Subdomain Card */
