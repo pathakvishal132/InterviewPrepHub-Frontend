@@ -21,19 +21,15 @@
         <i class="fas fa-building"></i> Company Prep
       </div>
       <h1 class="page-hero-title">Choose Your <span class="gradient-text">Company</span></h1>
-      <p class="page-hero-sub">Select a company to browse their real interview questions, filter by role & experience, and start preparing strategically.</p>
+      <p class="page-hero-sub">Select a company to browse their real interview questions, filter by role & experience,
+        and start preparing strategically.</p>
 
       <!-- Search Bar -->
       <div class="search-wrapper">
         <div class="search-inner">
           <i class="fas fa-search search-icon"></i>
-          <input
-            type="text"
-            class="search-input"
-            placeholder="Search company... (press Enter)"
-            [(ngModel)]="searchTerm"
-            (keyup.enter)="onSearch()"
-          />
+          <input type="text" class="search-input" placeholder="Search company... (press Enter)" [(ngModel)]="searchTerm"
+            (keyup.enter)="onSearch()" />
           <button class="search-btn" (click)="onSearch()">Search</button>
         </div>
       </div>
@@ -52,6 +48,10 @@
 
   <!-- Loading Skeleton -->
   <div class="companies-section" *ngIf="loading && !errorMessage">
+    <div class="loading-coldstart-banner">
+      <i class="fas fa-clock"></i>
+      <span>First-time load may take ~20 seconds as we use free cloud resources.</span>
+    </div>
     <div class="companies-grid">
       <div class="company-card skeleton-card" *ngFor="let i of [1,2,3,4,5,6,7,8,9,10,11,12]">
         <div class="skeleton skeleton-icon"></div>
@@ -65,9 +65,7 @@
   <!-- Companies Grid -->
   <div class="companies-section" *ngIf="!loading && !errorMessage">
     <div class="companies-grid">
-      <div class="company-card glass-card"
-           *ngFor="let company of companies"
-           (click)="null">
+      <div class="company-card glass-card" *ngFor="let company of companies" (click)="null">
         <!-- Card Header -->
         <div class="company-card-header">
           <div class="company-initial" [style.background]="getCompanyColor(company.name)">
@@ -107,10 +105,7 @@
     </div>
 
     <!-- Pagination -->
-    <app-pagination
-      [currentPage]="currentPage"
-      [totalPages]="totalPages"
-      (pageChanged)="onPageChanged($event)">
+    <app-pagination [currentPage]="currentPage" [totalPages]="totalPages" (pageChanged)="onPageChanged($event)">
     </app-pagination>
   </div>
 

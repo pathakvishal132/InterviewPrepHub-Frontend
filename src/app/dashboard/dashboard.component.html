@@ -10,6 +10,12 @@
       <span class="particle"></span>
     </div>
 
+    <!-- Cold Start Notice -->
+    <div class="cold-start-banner" *ngIf="apiStatus === 'checking'">
+      <i class="fas fa-clock"></i>
+      <span>First-time load may take ~20 seconds as we use free cloud resources to keep the service accessible.</span>
+    </div>
+
     <div class="hero-inner">
       <div class="hero-badge animate-fade-up">
         <span class="badge-dot"></span>

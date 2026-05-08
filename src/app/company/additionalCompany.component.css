@@ -112,6 +112,26 @@
     color: var(--primary-light);
 }
 
+/* Cold Start Banner */
+.loading-coldstart-banner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px 20px;
+    margin-bottom: 24px;
+    background: rgba(245, 158, 11, 0.1);
+    border: 1px solid rgba(245, 158, 11, 0.2);
+    border-radius: var(--radius-md);
+    color: #fbbf24;
+    font-size: 0.85rem;
+    animation: fadeInUp 0.4s ease;
+}
+
+.loading-coldstart-banner i {
+    font-size: 0.9rem;
+}
+
 /* Skeleton */
 .skeleton-card {
     padding: 24px;

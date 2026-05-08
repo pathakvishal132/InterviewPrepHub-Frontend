@@ -473,6 +473,19 @@
     color: var(--primary-light);
 }
 
+.loading-coldstart,
+.ai-loading-coldstart {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    opacity: 0.75;
+    margin-top: -8px;
+}
+
+.ai-loading-coldstart {
+    margin-top: 6px;
+    font-size: 0.75rem;
+}
+
 .loading-dots {
     display: flex;
     gap: 8px;
@@ -799,6 +812,26 @@ kbd {
 .ai-loading-sub {
     font-size: 0.8rem;
     color: var(--text-muted);
+}
+
+/* Cold Start Notice */
+.cold-start-banner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px 20px;
+    background: rgba(245, 158, 11, 0.1);
+    border: 1px solid rgba(245, 158, 11, 0.2);
+    border-radius: var(--radius-md);
+    color: #fbbf24;
+    font-size: 0.85rem;
+    margin-bottom: 20px;
+    animation: fadeInUp 0.4s ease;
+}
+
+.cold-start-banner i {
+    font-size: 0.9rem;
 }
 
 /* Result Panels */

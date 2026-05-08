@@ -80,6 +80,25 @@
   margin-bottom: 64px;
 }
 
+/* Cold Start Banner */
+.cold-start-banner {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 24px;
+  margin-bottom: 32px;
+  background: rgba(245, 158, 11, 0.08);
+  border: 1px solid rgba(245, 158, 11, 0.2);
+  border-radius: 50px;
+  color: #fbbf24;
+  font-size: 0.82rem;
+  animation: fadeInUp 0.5s ease;
+}
+
+.cold-start-banner i {
+  font-size: 0.85rem;
+}
+
 .btn-primary-hero {
   display: inline-flex;
   align-items: center;
