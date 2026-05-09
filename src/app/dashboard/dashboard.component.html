@@ -11,10 +11,10 @@
     </div>
 
     <!-- Cold Start Notice -->
-    <div class="cold-start-banner" *ngIf="apiStatus === 'checking'">
+    <!-- <div class="cold-start-banner" *ngIf="apiStatus === 'checking'">
       <i class="fas fa-clock"></i>
       <span>First-time load may take ~20 seconds as we use free cloud resources to keep the service accessible.</span>
-    </div>
+    </div> -->
 
     <div class="hero-inner">
       <div class="hero-badge animate-fade-up">
@@ -73,9 +73,6 @@
     <div class="orb orb-3"></div>
   </section>
 
-  <!-- ═══════════════════════════════════════════════════════════ -->
-  <!-- STATS ROW -->
-  <!-- ═══════════════════════════════════════════════════════════ -->
   <section class="stats-section">
     <div class="stats-grid">
       <div class="stat-card glass-card animate-fade-up" *ngFor="let stat of stats; let i = index"
