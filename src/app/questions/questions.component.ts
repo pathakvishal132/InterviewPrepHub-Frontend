@@ -128,34 +128,41 @@ export class QuestionsComponent implements OnInit, OnDestroy {
 
   loadQuestions(): void {
     this.loading = true;
+    this.apiErrorMessage = '';
     this.defaultQuestions = this.questionService.getDefaultQuestions(this.subdomain);
+
+    const safetyTimer = setTimeout(() => {
+      if (this.loading) {
+        this.loading = false;
+        this.apiErrorMessage = this.isLoggedIn
+          ? 'Our free quota has been exhausted. Please try again later.'
+          : 'You need to login first to access questions.';
+        this.cdr.detectChanges();
+      }
+    }, 25000);
+
     this.questionService.getQuestions(this.domain, this.subdomain)
-      .subscribe(
-        (data) => {
-          this.apiErrorMessage = '';
-          // Store API's auth requirement but don't show prompt yet
+      .subscribe({
+        next: (data) => {
+          clearTimeout(safetyTimer);
           this.apiRequiresAuth = data.requiresAuth || false;
           this.authMessage = data.message || 'Sign in to access more questions!';
-          
-          if (data.questions) {
-            const questionsObj: any = {};
-            data.questions.forEach((q: any, index: number) => {
-              questionsObj[index] = q.question || q;
-            });
-            this.questions = questionsObj;
-          } else if (data.result && Object.keys(data.result).length > 0) {
-            this.questions = data.result;
-          } else if (this.defaultQuestions?.result) {
-            this.questions = this.defaultQuestions.result;
-          }
-          
+
+          this.questions = data.questions
+            ? Object.fromEntries(data.questions.map((q: any, i: number) => [i, q.question || q]))
+            : data.result && Object.keys(data.result).length > 0
+              ? data.result
+              : this.defaultQuestions?.result || {};
+
           this.questionKeys = Object.keys(this.questions);
-          this.currentQuestion = this.questions[this.questionKeys[this.currentIndex]];
+          this.currentQuestion = this.questions[this.questionKeys[this.currentIndex]] || '';
           this.loading = false;
           this.checkAuthForCurrentQuestion();
           this.triggerEntrance();
+          this.cdr.detectChanges();
         },
-        (error) => {
+        error: (error) => {
+          clearTimeout(safetyTimer);
           console.error('Error fetching questions:', error);
           this.loading = false;
           this.apiErrorMessage = this.isLoggedIn
@@ -167,8 +174,9 @@ export class QuestionsComponent implements OnInit, OnDestroy {
             this.currentQuestion = this.questions[this.questionKeys[this.currentIndex]];
             this.triggerEntrance();
           }
+          this.cdr.detectChanges();
         }
-      );
+      });
   }
 
   private checkAuthForCurrentQuestion(): void {
