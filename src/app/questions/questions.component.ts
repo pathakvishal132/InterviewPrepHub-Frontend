@@ -132,6 +132,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
     this.questionService.getQuestions(this.domain, this.subdomain)
       .subscribe(
         (data) => {
+          this.apiErrorMessage = '';
           // Store API's auth requirement but don't show prompt yet
           this.apiRequiresAuth = data.requiresAuth || false;
           this.authMessage = data.message || 'Sign in to access more questions!';
@@ -144,7 +145,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
             this.questions = questionsObj;
           } else if (data.result && Object.keys(data.result).length > 0) {
             this.questions = data.result;
-          } else {
+          } else if (this.defaultQuestions?.result) {
             this.questions = this.defaultQuestions.result;
           }
           
@@ -156,14 +157,16 @@ export class QuestionsComponent implements OnInit, OnDestroy {
         },
         (error) => {
           console.error('Error fetching questions:', error);
+          this.loading = false;
           this.apiErrorMessage = this.isLoggedIn
             ? 'Our free quota has been exhausted. Please try again later.'
             : 'You need to login first to access questions.';
-          this.questions = this.defaultQuestions.result;
-          this.questionKeys = Object.keys(this.questions);
-          this.currentQuestion = this.questions[this.questionKeys[this.currentIndex]];
-          this.loading = false;
-          this.triggerEntrance();
+          if (this.defaultQuestions?.result) {
+            this.questions = this.defaultQuestions.result;
+            this.questionKeys = Object.keys(this.questions);
+            this.currentQuestion = this.questions[this.questionKeys[this.currentIndex]];
+            this.triggerEntrance();
+          }
         }
       );
   }

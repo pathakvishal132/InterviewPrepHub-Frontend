@@ -81,8 +81,27 @@
       </div>
     </ng-container>
 
-    <!-- Question View -->
-    <div class="question-view" *ngIf="!loading" [class.entrance]="questionEntrance">
+    <!-- API Error State (no fallback questions available) -->
+    <ng-container *ngIf="!loading && apiErrorMessage && totalQuestions === 0">
+      <div class="error-screen">
+        <div class="error-screen-icon">
+          <i class="fas" [class.fa-sign-in-alt]="!isLoggedIn" [class.fa-exclamation-triangle]="isLoggedIn"></i>
+        </div>
+        <h2 class="error-screen-title">{{ apiErrorMessage }}</h2>
+        <p class="error-screen-sub" *ngIf="!isLoggedIn">
+          Sign in to get access to personalized questions and track your progress.
+        </p>
+        <p class="error-screen-sub" *ngIf="isLoggedIn">
+          We are using free cloud resources which have a limited quota. Please try again later.
+        </p>
+        <a *ngIf="!isLoggedIn" routerLink="/login" class="error-screen-btn">Sign In / Sign Up</a>
+        <button *ngIf="isLoggedIn" class="error-screen-btn error-screen-btn--outline" (click)="goBack()">Go Back</button>
+      </div>
+    </ng-container>
+
+    <!-- Question View (with or without error banner for fallback) -->
+    <ng-container *ngIf="!loading && totalQuestions > 0">
+      <div class="question-view" [class.entrance]="questionEntrance">
 
       <!-- Question Card -->
       <div class="question-card glass-card">
@@ -240,8 +259,8 @@
         </div>
       </div>
 
-
     </div>
+    </ng-container>
 
   </main>
 
