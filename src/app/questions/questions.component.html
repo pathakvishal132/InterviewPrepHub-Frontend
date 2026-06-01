@@ -109,6 +109,21 @@
           <a routerLink="/login" class="auth-banner-btn">Sign In / Sign Up</a>
         </div>
         
+        <!-- API Error Banner -->
+        <div class="api-error-banner" *ngIf="apiErrorMessage">
+          <i class="fas" [class.fa-sign-in-alt]="!isLoggedIn" [class.fa-exclamation-triangle]="isLoggedIn"></i>
+          <div class="api-error-content">
+            <strong>{{ apiErrorMessage }}</strong>
+            <ng-container *ngIf="!isLoggedIn">
+              <p>Sign in to get access to personalized questions and track your progress.</p>
+            </ng-container>
+            <ng-container *ngIf="isLoggedIn">
+              <p>We are using free cloud resources which have a limited quota. Please try again later.</p>
+            </ng-container>
+          </div>
+          <a *ngIf="!isLoggedIn" routerLink="/login" class="api-error-btn">Sign In / Sign Up</a>
+        </div>
+        
         <!-- Decorative glow blob -->
         <div class="question-glow"></div>
       </div>

@@ -34,6 +34,9 @@ export class QuestionsComponent implements OnInit, OnDestroy {
   showAuthPrompt: boolean = false;
   showSignInMessage: boolean = false;
 
+  // API error message
+  apiErrorMessage: string = '';
+
   // Navigator & progress properties
   questionKeys: string[] = [];
   answeredSet: Set<number> = new Set<number>();
@@ -153,6 +156,9 @@ export class QuestionsComponent implements OnInit, OnDestroy {
         },
         (error) => {
           console.error('Error fetching questions:', error);
+          this.apiErrorMessage = this.isLoggedIn
+            ? 'Our free quota has been exhausted. Please try again later.'
+            : 'You need to login first to access questions.';
           this.questions = this.defaultQuestions.result;
           this.questionKeys = Object.keys(this.questions);
           this.currentQuestion = this.questions[this.questionKeys[this.currentIndex]];
