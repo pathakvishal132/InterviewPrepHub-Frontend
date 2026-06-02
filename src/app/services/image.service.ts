@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpBackend } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 
@@ -9,8 +9,11 @@ import { environment } from '../../environments/environment';
 export class ImageService {
 
   private apiUrl2 = environment.apis.secondary;
+  private httpNoAuth: HttpClient;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, handler: HttpBackend) {
+    this.httpNoAuth = new HttpClient(handler);
+  }
 
   uploadImage(image: File, name: string, id: string | null): Observable<any> {
     const formData = new FormData();
@@ -21,12 +24,12 @@ export class ImageService {
     }
 
     // No auth header needed — endpoint is public
-    return this.http.post(`${this.apiUrl2}/upload-image/`, formData);
+    return this.httpNoAuth.post(`${this.apiUrl2}/upload-image/`, formData);
   }
 
   getImage(imageId: string): Observable<any> {
     // No auth header needed — endpoint is public
-    return this.http.get(`${this.apiUrl2}/get-image/${imageId}/`);
+    return this.httpNoAuth.get(`${this.apiUrl2}/get-image/${imageId}/`);
   }
 
 }

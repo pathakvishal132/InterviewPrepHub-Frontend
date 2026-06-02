@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { CompanyService } from '../services/company.service';
@@ -40,7 +41,8 @@ export class CompanyDetailsComponent implements OnInit {
     private http: HttpClient,
     private cs: CompanyService,
     private route: ActivatedRoute,
-    private location: Location
+    private location: Location,
+    @Inject(PLATFORM_ID) private platformId: Object
   ) {
     if (typeof window !== 'undefined' && localStorage) {
       const storedData = localStorage.getItem('hi');
@@ -57,6 +59,7 @@ export class CompanyDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (!isPlatformBrowser(this.platformId)) return;
     this.companyId = this.route.snapshot.paramMap.get('id');
     this.fetchQuestions(this.companyId, this.currentPage);
     this.getFilterValue();

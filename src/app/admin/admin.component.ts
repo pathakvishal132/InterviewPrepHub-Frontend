@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { Router } from '@angular/router';
 import { AdminService } from '../services/admin.service';
 
@@ -28,9 +29,10 @@ export class AdminComponent implements OnInit {
   errorMessage: string = '';
   successMessage: string = '';
 
-  constructor(private adminService: AdminService, private router: Router) { }
+  constructor(private adminService: AdminService, private router: Router, @Inject(PLATFORM_ID) private platformId: Object) { }
 
   ngOnInit(): void {
+    if (!isPlatformBrowser(this.platformId)) return;
     this.loadMessages(this.currentPage);
   }
 

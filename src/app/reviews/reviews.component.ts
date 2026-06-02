@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -38,10 +39,12 @@ export class ReviewsComponent implements OnInit {
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private cs: CompanyService,
-    private location: Location
+    private location: Location,
+    @Inject(PLATFORM_ID) private platformId: Object
   ) { }
 
   ngOnInit() {
+    if (!isPlatformBrowser(this.platformId)) return;
     this.route.paramMap.subscribe(params => {
       const id = params.get('id');
       const name = params.get('companyName');

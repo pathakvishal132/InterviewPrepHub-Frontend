@@ -218,18 +218,18 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.questionService.ping().subscribe({
-      next: (res) => {
-        this.apiStatus = 'online';
-        console.log('API connected:', res);
-      },
-      error: (err) => {
-        this.apiStatus = 'offline';
-        console.error('API connection failed:', err);
-      },
-    });
-
     if (isPlatformBrowser(this.platformId)) {
+      this.questionService.ping().subscribe({
+        next: (res) => {
+          this.apiStatus = 'online';
+          console.log('API connected:', res);
+        },
+        error: (err) => {
+          this.apiStatus = 'offline';
+          console.error('API connection failed:', err);
+        },
+      });
+
       this.startCounters();
       this.startTestimonialAutoplay();
     }

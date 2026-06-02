@@ -1,4 +1,5 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { Router } from '@angular/router';
 import { ImageService } from '../services/image.service';
 import { ProfileService } from '../services/profile.service';
@@ -42,6 +43,7 @@ export class ProfileComponent implements OnInit, AfterViewInit {
   totalTopics: number = 0;
 
   ngOnInit() {
+    if (!isPlatformBrowser(this.platformId)) return;
     this.checkLoginStatus();
     if (this.isLoggedIn) {
       this.fetchUserData();
@@ -82,7 +84,7 @@ export class ProfileComponent implements OnInit, AfterViewInit {
     }
   }
 
-  constructor(private imageService: ImageService, private ps: ProfileService, private router: Router, private authService: AuthService) { }
+  constructor(private imageService: ImageService, private ps: ProfileService, private router: Router, private authService: AuthService, @Inject(PLATFORM_ID) private platformId: Object) { }
 
   startEdit() {
     this.editName = this.userName;

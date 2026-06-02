@@ -6,6 +6,7 @@ import { Location } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { VoiceRecognitionService } from '../services/voice-recognition.service';
 import { ChangeDetectorRef } from '@angular/core';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-questions',
@@ -47,6 +48,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
   speakingTarget: 'feedback' | 'answer' | '' = '';
 
   private isBrowser: boolean;
+  private paramsSub?: Subscription;
 
   get totalQuestions(): number {
     return this.questionKeys.length;
@@ -81,14 +83,18 @@ export class QuestionsComponent implements OnInit, OnDestroy {
     @Inject(PLATFORM_ID) private platformId: Object
   ) {
     this.isBrowser = isPlatformBrowser(this.platformId);
-    this.route.queryParams.subscribe(params => {
-      this.domain = params['domain'];
-      this.subdomain = params['subdomain'];
-    });
+    const qp = this.route.snapshot.queryParams;
+    this.domain = qp['domain'] || '';
+    this.subdomain = qp['subdomain'] || '';
   }
 
   ngOnInit(): void {
-    this.start();
+    if (!this.isBrowser) return;
+    this.paramsSub = this.route.queryParams.subscribe(params => {
+      this.domain = params['domain'];
+      this.subdomain = params['subdomain'];
+      this.loadQuestions();
+    });
   }
 
   @HostListener('document:keydown', ['$event'])
@@ -412,6 +418,7 @@ export class QuestionsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.paramsSub?.unsubscribe();
     this.stopListening();
     this.stopSpeaking();
     this.voiceService.text = '';

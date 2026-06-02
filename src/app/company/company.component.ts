@@ -1,9 +1,9 @@
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser, Location } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../dialog/dialog.component';
 import { CompanyService } from '../services/company.service';
-import { Location } from '@angular/common';
 @Component({
   selector: 'app-company',
   templateUrl: './company.component.html',
@@ -22,7 +22,8 @@ export class CompanyComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     private cs: CompanyService,
-    private location: Location
+    private location: Location,
+    @Inject(PLATFORM_ID) private platformId: Object
   ) {
     if (typeof window !== 'undefined' && localStorage) {
       const storedData = localStorage.getItem('hi');
@@ -39,6 +40,7 @@ export class CompanyComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (!isPlatformBrowser(this.platformId)) return;
     const savedPage = localStorage.getItem('companyPage');
     this.currentPage = savedPage ? parseInt(savedPage, 10) : 1;
     this.getCompany(this.currentPage);
