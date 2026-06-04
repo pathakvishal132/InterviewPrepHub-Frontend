@@ -20,10 +20,12 @@ export class ProfileComponent implements OnInit, AfterViewInit {
   imageBase64: string | null = null;
   chart: Chart | null = null;
   domainChart: Chart | null = null;
+  codingChart: Chart | null = null;
   userName: string = "";
   email: string = "";
   dateJoined: string = "";
   chartFilter: string = '7';
+  codingChartFilter: string = '30';
   isLoggedIn: boolean = false;
   
   isEditing: boolean = false;
@@ -33,9 +35,12 @@ export class ProfileComponent implements OnInit, AfterViewInit {
   loadingTopicProgress: boolean = false;
   loadingImage: boolean = false;
   loadingSubmissionData: boolean = false;
+  loadingCodingData: boolean = false;
   errorMessage: string = '';
 
   problemData: { date: string, problemsSolved: number }[] = [];
+  codingSubmissionData: { date: string, count: number }[] = [];
+  totalCodingSubmissions: number = 0;
   
   topicData: any[] = [];
   domainProgress: any[] = [];
@@ -73,6 +78,7 @@ export class ProfileComponent implements OnInit, AfterViewInit {
     this.getImage(this.userId);
     this.fetchUserSubmissionData();
     this.fetchTopicProgress();
+    this.fetchCodingSubmissionStats();
   }
 
   ngAfterViewInit() {
@@ -80,6 +86,7 @@ export class ProfileComponent implements OnInit, AfterViewInit {
       setTimeout(() => {
         this.initializeProgressGraph();
         this.initializeDomainChart();
+        this.initializeCodingChart();
       }, 500);
     }
   }
@@ -296,6 +303,110 @@ export class ProfileComponent implements OnInit, AfterViewInit {
             bodyColor: '#94a3b8',
             padding: 12
           }
+        }
+      }
+    });
+  }
+
+  setCodingChartFilter(filter: string) {
+    this.codingChartFilter = filter;
+    this.fetchCodingSubmissionStats();
+  }
+
+  fetchCodingSubmissionStats(): void {
+    if (!this.userId) return;
+    this.loadingCodingData = true;
+    this.ps.getCodingSubmissionStats(parseInt(this.codingChartFilter)).subscribe({
+      next: (response) => {
+        this.loadingCodingData = false;
+        this.codingSubmissionData = response.dates.map((date: string, index: number) => ({
+          date,
+          count: response.submission_counts[index]
+        }));
+        this.totalCodingSubmissions = response.submission_counts.reduce((a, b) => a + b, 0);
+        setTimeout(() => this.initializeCodingChart(), 100);
+      },
+      error: (err) => {
+        this.loadingCodingData = false;
+        console.error('Error fetching coding submission stats:', err);
+      }
+    });
+  }
+
+  initializeCodingChart() {
+    if (this.codingChart) {
+      this.codingChart.destroy();
+    }
+
+    const ctx = document.getElementById('codingChart') as HTMLCanvasElement;
+    if (!ctx) return;
+
+    this.codingChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: this.codingSubmissionData.map(d => {
+          const parts = d.date.split('-');
+          return parts[1] + '/' + parts[2];
+        }),
+        datasets: [{
+          label: 'Coding Submissions',
+          data: this.codingSubmissionData.map(d => d.count),
+          backgroundColor: (context: any) => {
+            const chart = context.chart;
+            const { ctx, chartArea } = chart;
+            if (!chartArea) return 'rgba(6, 182, 212, 0.6)';
+            const gradient = ctx.createLinearGradient(0, chartArea.bottom, 0, chartArea.top);
+            gradient.addColorStop(0, 'rgba(6, 182, 212, 0.1)');
+            gradient.addColorStop(1, 'rgba(6, 182, 212, 0.7)');
+            return gradient;
+          },
+          borderColor: '#22d3ee',
+          borderWidth: 1,
+          borderRadius: 4,
+          barPercentage: 0.6,
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            backgroundColor: 'rgba(15, 16, 34, 0.95)',
+            borderColor: 'rgba(6, 182, 212, 0.3)',
+            borderWidth: 1,
+            titleColor: '#fff',
+            bodyColor: '#94a3b8',
+            padding: 12,
+            displayColors: false,
+            callbacks: {
+              label: (context) => `${context.parsed.y} coding submissions`
+            }
+          }
+        },
+        scales: {
+          x: {
+            grid: { color: 'rgba(255,255,255,0.03)' },
+            ticks: {
+              color: '#64748b',
+              font: { family: 'Inter', size: 10 },
+              maxTicksLimit: 15
+            },
+            border: { display: false }
+          },
+          y: {
+            grid: { color: 'rgba(255,255,255,0.03)' },
+            ticks: {
+              color: '#64748b',
+              font: { family: 'Inter', size: 11 }
+            },
+            border: { display: false },
+            beginAtZero: true
+          }
+        },
+        interaction: {
+          intersect: false,
+          mode: 'index'
         }
       }
     });

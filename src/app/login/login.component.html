@@ -89,10 +89,33 @@
           </label>
           <div class="input-wrapper">
             <input [type]="showPassword ? 'text' : 'password'" id="password" [(ngModel)]="password" name="password"
-              placeholder="Enter your password" required class="form-input" />
+              placeholder="Enter your password" required class="form-input" (input)="checkPassword()" />
             <button type="button" class="eye-toggle" (click)="showPassword = !showPassword">
               <i class="fas" [class.fa-eye]="!showPassword" [class.fa-eye-slash]="showPassword"></i>
             </button>
+          </div>
+          <!-- Password Rules -->
+          <div class="password-rules" *ngIf="!isLoginActive && password.length > 0">
+            <div class="rule" [class.rule-met]="passwordRules.minLength">
+              <i class="fas" [class.fa-check-circle]="passwordRules.minLength" [class.fa-circle]="!passwordRules.minLength"></i>
+              At least 8 characters
+            </div>
+            <div class="rule" [class.rule-met]="passwordRules.hasUpper">
+              <i class="fas" [class.fa-check-circle]="passwordRules.hasUpper" [class.fa-circle]="!passwordRules.hasUpper"></i>
+              One uppercase letter
+            </div>
+            <div class="rule" [class.rule-met]="passwordRules.hasLower">
+              <i class="fas" [class.fa-check-circle]="passwordRules.hasLower" [class.fa-circle]="!passwordRules.hasLower"></i>
+              One lowercase letter
+            </div>
+            <div class="rule" [class.rule-met]="passwordRules.hasDigit">
+              <i class="fas" [class.fa-check-circle]="passwordRules.hasDigit" [class.fa-circle]="!passwordRules.hasDigit"></i>
+              One digit
+            </div>
+            <div class="rule" [class.rule-met]="passwordRules.hasSpecial">
+              <i class="fas" [class.fa-check-circle]="passwordRules.hasSpecial" [class.fa-circle]="!passwordRules.hasSpecial"></i>
+              One special character (e.g. !&#64;$%*)
+            </div>
           </div>
         </div>
 
@@ -104,11 +127,14 @@
           <div class="input-wrapper">
             <input [type]="showConfirmPassword ? 'text' : 'password'" id="confirm-password"
               [(ngModel)]="confirmPassword" name="confirmPassword" placeholder="Repeat your password" required
-              class="form-input" />
+              class="form-input" (input)="checkPassword()" />
             <button type="button" class="eye-toggle" (click)="showConfirmPassword = !showConfirmPassword">
               <i class="fas" [class.fa-eye]="!showConfirmPassword" [class.fa-eye-slash]="showConfirmPassword"></i>
             </button>
           </div>
+          <span class="password-mismatch" *ngIf="confirmPassword && !passwordsMatch">
+            <i class="fas fa-exclamation-circle"></i> Passwords do not match
+          </span>
         </div>
 
         <!-- Error -->
@@ -124,7 +150,8 @@
         </div>
 
         <!-- Submit -->
-        <button type="submit" class="submit-btn" [class.loading]="isLoading">
+        <button type="submit" class="submit-btn" [class.loading]="isLoading"
+          [disabled]="!isLoginActive && (!passwordValid || !passwordsMatch)">
           <span *ngIf="!isLoading">
             <i class="fas" [class.fa-sign-in-alt]="isLoginActive" [class.fa-rocket]="!isLoginActive"></i>
             {{ isLoginActive ? 'Sign In' : 'Create Account' }}

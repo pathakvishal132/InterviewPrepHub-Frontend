@@ -19,6 +19,14 @@ export class LoginComponent {
   showPassword: boolean = false;
   showConfirmPassword: boolean = false;
 
+  passwordRules = {
+    minLength: false,
+    hasUpper: false,
+    hasLower: false,
+    hasDigit: false,
+    hasSpecial: false,
+  };
+
   brandStats = [
     { val: '1K+', label: 'Engineers' },
     { val: '10K+', label: 'Questions' },
@@ -28,6 +36,25 @@ export class LoginComponent {
   @Output() messageSent = new EventEmitter<string>();
 
   constructor(private authService: AuthService, private router: Router) { }
+
+  get passwordsMatch(): boolean {
+    return !this.confirmPassword || this.password === this.confirmPassword;
+  }
+
+  get passwordValid(): boolean {
+    return this.passwordRules.minLength && this.passwordRules.hasUpper
+        && this.passwordRules.hasLower && this.passwordRules.hasDigit
+        && this.passwordRules.hasSpecial;
+  }
+
+  checkPassword(): void {
+    const p = this.password;
+    this.passwordRules.minLength = p.length >= 8;
+    this.passwordRules.hasUpper = /[A-Z]/.test(p);
+    this.passwordRules.hasLower = /[a-z]/.test(p);
+    this.passwordRules.hasDigit = /\d/.test(p);
+    this.passwordRules.hasSpecial = /[@$!%*?&_#^()\[\]{}|;:,.<>?\/~`+\-=]/.test(p);
+  }
 
   setMode(login: boolean) {
     this.isLoginActive = login;
@@ -60,6 +87,11 @@ export class LoginComponent {
       if (this.password !== this.confirmPassword) {
         this.isLoading = false;
         this.errorMessage = 'Passwords do not match!';
+        return;
+      }
+      if (!this.passwordValid) {
+        this.isLoading = false;
+        this.errorMessage = 'Password does not meet all requirements.';
         return;
       }
       this.successMessage = '';

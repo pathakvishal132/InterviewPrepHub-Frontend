@@ -189,4 +189,27 @@
     </div>
   </div>
 
+  <!-- Coding Submissions Chart -->
+  <div class="profile-section glass-card profile-section--full">
+    <div class="section-header">
+      <div class="section-header-icon section-header-icon--cyan"><i class="fas fa-code"></i></div>
+      <div>
+        <h2 class="section-title">Coding Submissions</h2>
+        <p class="section-sub">{{ totalCodingSubmissions }} total coding submissions</p>
+      </div>
+      <div class="chart-filter">
+        <button class="filter-btn" [class.active]="codingChartFilter === '7'" (click)="setCodingChartFilter('7')">7 Days</button>
+        <button class="filter-btn" [class.active]="codingChartFilter === '14'" (click)="setCodingChartFilter('14')">14 Days</button>
+        <button class="filter-btn" [class.active]="codingChartFilter === '30'" (click)="setCodingChartFilter('30')">30 Days</button>
+      </div>
+    </div>
+    <div class="chart-container">
+      <div class="chart-loading" *ngIf="loadingCodingData">
+        <div class="spinner"></div>
+        <p>Loading coding activity...</p>
+      </div>
+      <canvas id="codingChart" *ngIf="!loadingCodingData"></canvas>
+    </div>
+  </div>
+
 </div>

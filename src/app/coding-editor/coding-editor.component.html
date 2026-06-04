@@ -1,0 +1,229 @@
+<div class="editor-wrapper">
+
+  <!-- Loading -->
+  <div *ngIf="loading" class="loading-screen">
+    <div class="loading-ring"></div>
+    <p>Loading coding challenge...</p>
+  </div>
+
+  <!-- Error -->
+  <div *ngIf="error" class="error-screen">
+    <i class="fas fa-exclamation-triangle"></i>
+    <p>{{ error }}</p>
+    <button class="btn-ghost" (click)="goBack()">Go Back</button>
+  </div>
+
+  <!-- Main Layout -->
+  <div class="editor-layout" *ngIf="!loading && !error && question">
+
+    <!-- Left Panel: Problem Description -->
+    <div class="problem-panel">
+      <div class="problem-header">
+        <div class="problem-title-row">
+          <h2 class="problem-title">{{ question.title }}</h2>
+          <span class="problem-difficulty" [ngClass]="getDifficultyClass(question.difficulty)">
+            {{ question.difficulty }}
+          </span>
+        </div>
+        <button class="back-btn-text" (click)="goBack()">
+          <i class="fas fa-arrow-left"></i> Back to list
+        </button>
+      </div>
+
+      <div class="problem-description" [innerHTML]="question.description"></div>
+
+      <!-- Test Cases (sample only) -->
+      <div class="sample-tests" *ngIf="question.test_cases?.length">
+        <h3 class="sample-title"><i class="fas fa-vial"></i> Sample Test Cases</h3>
+        <div class="sample-list">
+          <div class="sample-item" *ngFor="let tc of question.test_cases; let i = index">
+            <div class="sample-label">Example {{ i + 1 }}</div>
+            <div class="sample-io">
+              <div class="sample-input">
+                <span class="io-label">Input:</span>
+                <pre>{{ tc.input_data }}</pre>
+              </div>
+              <div class="sample-output">
+                <span class="io-label">Output:</span>
+                <pre>{{ tc.expected_output }}</pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Panel: Code Editor -->
+    <div class="editor-panel">
+      <!-- Toolbar -->
+      <div class="editor-toolbar">
+        <div class="lang-selector">
+          <i class="fas fa-code"></i>
+          <select [(ngModel)]="selectedLanguage" (change)="onLanguageChange()">
+            <option *ngFor="let lang of languages" [value]="lang">{{ lang | uppercase }}</option>
+          </select>
+        </div>
+        <div class="toolbar-actions" *ngIf="isLoggedIn">
+          <button class="run-btn" (click)="runCode()" [disabled]="running || submitting">
+            <i class="fas fa-play"></i>
+            <span *ngIf="!running">Run</span>
+            <span *ngIf="running">Running...</span>
+          </button>
+          <button class="submit-btn" (click)="submitCode()" [disabled]="running || submitting">
+            <i class="fas fa-check-circle"></i>
+            <span *ngIf="!submitting">Submit</span>
+            <span *ngIf="submitting">Submitting...</span>
+          </button>
+        </div>
+        <div class="toolbar-actions login-prompt" *ngIf="!isLoggedIn">
+          <span class="login-to-code">
+            <i class="fas fa-lock"></i>
+            <a (click)="goToLogin()">Log in</a> to run and submit code
+          </span>
+        </div>
+      </div>
+
+      <!-- Code Area -->
+      <div class="code-area">
+        <app-monaco-editor
+          [code]="code"
+          [language]="selectedLanguage"
+          (codeChange)="code = $event"
+        ></app-monaco-editor>
+      </div>
+
+      <!-- Results Panel -->
+      <div class="results-panel" *ngIf="showResults">
+        <div class="results-tabs">
+          <button
+            class="result-tab"
+            [class.active]="resultTab === 'run'"
+            (click)="resultTab = 'run'"
+          >
+            <i class="fas fa-play"></i> Run Result
+          </button>
+          <button
+            class="result-tab"
+            [class.active]="resultTab === 'submit'"
+            (click)="resultTab = 'submit'"
+          >
+            <i class="fas fa-check-circle"></i> Submit Result
+          </button>
+        </div>
+
+        <div class="result-content">
+          <!-- Run Result -->
+          <div *ngIf="resultTab === 'run'">
+            <div *ngIf="running" class="result-pending">
+              <div class="loading-ring"></div>
+              <span>Running your code...</span>
+            </div>
+            <div *ngIf="!running && runResult" class="result-detail">
+              <div class="result-status" [ngClass]="{
+                'status-pass': runResult.status === 'PASS',
+                'status-fail': runResult.status === 'FAIL',
+                'status-error': runResult.status === 'ERROR' || runResult.status === 'RATE_LIMITED',
+                'status-running': runResult.status === 'RUNNING'
+              }">
+                <i class="fas" [ngClass]="{
+                  'fa-check-circle': runResult.status === 'PASS',
+                  'fa-times-circle': runResult.status === 'FAIL',
+                  'fa-exclamation-circle': runResult.status === 'ERROR' || runResult.status === 'RATE_LIMITED'
+                }"></i>
+                <span>{{ runResult.status === 'PASS' ? 'All Sample Tests Passed' : runResult.status === 'FAIL' ? 'Some Tests Failed' : runResult.error_message || runResult.status }}</span>
+              </div>
+              <div class="result-summary" *ngIf="runResult.test_cases_passed !== undefined">
+                <span [class.text-green]="runResult.test_cases_passed > 0">{{ runResult.test_cases_passed }}</span> / {{ runResult.total_test_cases }} sample test cases passed
+                <span class="exec-time" *ngIf="runResult.execution_time_ms">({{ runResult.execution_time_ms }}ms)</span>
+              </div>
+              <div class="result-testcases" *ngIf="runResult.test_case_results?.length">
+                <div
+                  class="result-tc"
+                  *ngFor="let tc of runResult.test_case_results; let i = index"
+                  [class.tc-pass]="tc.passed"
+                  [class.tc-fail]="!tc.passed"
+                >
+                  <div class="tc-header">
+                    <i class="fas" [ngClass]="tc.passed ? 'fa-check-circle' : 'fa-times-circle'"></i>
+                    <span>Test {{ i + 1 }}</span>
+                    <span class="tc-hidden" *ngIf="tc.is_hidden">(Hidden)</span>
+                  </div>
+                  <div class="tc-detail" *ngIf="!tc.is_hidden">
+                    <div *ngIf="!tc.passed" class="tc-compare">
+                      <div class="tc-expected">
+                        <span class="tc-label">Expected:</span>
+                        <pre>{{ tc.expected_output }}</pre>
+                      </div>
+                      <div class="tc-actual">
+                        <span class="tc-label">Actual:</span>
+                        <pre>{{ tc.actual_output || '(empty)' }}</pre>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Submit Result -->
+          <div *ngIf="resultTab === 'submit'">
+            <div *ngIf="submitting" class="result-pending">
+              <div class="loading-ring"></div>
+              <span>Running all test cases...</span>
+            </div>
+            <div *ngIf="!submitting && submitResult" class="result-detail">
+              <div class="result-status" [ngClass]="{
+                'status-pass': allTestsPassed(submitResult),
+                'status-fail': !allTestsPassed(submitResult) && submitResult.status !== 'ERROR',
+                'status-error': submitResult.status === 'ERROR' || submitResult.status === 'RATE_LIMITED'
+              }">
+                <i class="fas" [ngClass]="{
+                  'fa-check-circle': allTestsPassed(submitResult),
+                  'fa-times-circle': !allTestsPassed(submitResult) && submitResult.status !== 'ERROR',
+                  'fa-exclamation-circle': submitResult.status === 'ERROR' || submitResult.status === 'RATE_LIMITED'
+                }"></i>
+                <span>{{
+                  allTestsPassed(submitResult) ? 'Accepted' :
+                  submitResult.status === 'ERROR' ? (submitResult.error_message || 'Error') :
+                  submitResult.status === 'RATE_LIMITED' ? (submitResult.error_message || 'Rate Limited') :
+                  'Wrong Answer'
+                }}</span>
+              </div>
+              <div class="result-summary">
+                <span [class.text-green]="submitResult.test_cases_passed > 0">{{ submitResult.test_cases_passed || 0 }}</span> / {{ submitResult.total_test_cases || 0 }} test cases passed
+                <span class="exec-time" *ngIf="submitResult.execution_time_ms">({{ submitResult.execution_time_ms }}ms)</span>
+              </div>
+              <div class="result-testcases" *ngIf="submitResult.test_case_results?.length">
+                <div
+                  class="result-tc"
+                  *ngFor="let tc of submitResult.test_case_results; let i = index"
+                  [class.tc-pass]="tc.passed"
+                  [class.tc-fail]="!tc.passed"
+                >
+                  <div class="tc-header">
+                    <i class="fas" [ngClass]="tc.passed ? 'fa-check-circle' : 'fa-times-circle'"></i>
+                    <span>Test {{ i + 1 }}</span>
+                    <span class="tc-hidden" *ngIf="tc.is_hidden">(Hidden)</span>
+                  </div>
+                  <div class="tc-detail" *ngIf="!tc.is_hidden && !tc.passed">
+                    <div class="tc-compare">
+                      <div class="tc-expected">
+                        <span class="tc-label">Expected:</span>
+                        <pre>{{ tc.expected_output }}</pre>
+                      </div>
+                      <div class="tc-actual">
+                        <span class="tc-label">Actual:</span>
+                        <pre>{{ tc.actual_output || '(empty)' }}</pre>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

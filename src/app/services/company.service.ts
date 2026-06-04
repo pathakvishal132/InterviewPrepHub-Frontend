@@ -82,4 +82,46 @@ export class CompanyService {
     return this.httpNoAuth.post<any>(url, null, { params });
   }
 
+  // ── Coding Questions API ──
+
+  getCodingQuestions(companyId: number, page: number = 1): Observable<any> {
+    return this.httpNoAuth.get<any>(
+      `${this.apiUrl2}/coding/company/${companyId}?page=${page}`
+    );
+  }
+
+  getCodingQuestionDetail(questionId: number): Observable<any> {
+    return this.httpNoAuth.get<any>(
+      `${this.apiUrl2}/coding/question/${questionId}`
+    );
+  }
+
+  runCode(questionId: number, language: string, code: string): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl2}/coding/run`, {
+      question_id: questionId,
+      language: language,
+      code: code
+    });
+  }
+
+  submitCode(questionId: number, language: string, code: string): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl2}/coding/submit`, {
+      question_id: questionId,
+      language: language,
+      code: code
+    });
+  }
+
+  createCodingQuestion(data: any): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl2}/coding/question`, data);
+  }
+
+  getAllCompaniesSimple(): Observable<any> {
+    return this.httpNoAuth.get<any>(`${this.apiUrl2}/company/list-all`);
+  }
+
+  deleteCodingQuestion(questionId: number): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl2}/coding/question/${questionId}`);
+  }
+
 }

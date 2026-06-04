@@ -1,0 +1,193 @@
+<div class="coding-wrapper">
+
+  <!-- Page Header -->
+  <div class="page-hero">
+    <div class="page-hero-inner">
+      <div class="back-btn" (click)="goBack()">
+        <i class="fas fa-arrow-left"></i> Back
+      </div>
+      <div class="page-hero-badge"><i class="fas fa-code"></i> Coding Challenges</div>
+      <h1 class="page-hero-title">Practice <span class="gradient-text">Coding</span></h1>
+      <p class="page-hero-sub">Solve company-specific coding problems. Write code, run tests, and improve your skills.</p>
+
+      <!-- Admin Add Button -->
+      <div class="hero-actions" *ngIf="isAdmin">
+        <button class="admin-add-btn" (click)="toggleAddForm()">
+          <i class="fas" [ngClass]="showAddForm ? 'fa-times' : 'fa-plus-circle'"></i>
+          {{ showAddForm ? 'Close Form' : 'Add Coding Question' }}
+        </button>
+      </div>
+    </div>
+    <div class="hero-orb hero-orb-1"></div>
+    <div class="hero-orb hero-orb-2"></div>
+  </div>
+
+  <div class="coding-inner">
+
+    <!-- Admin: Add Question Form -->
+    <div class="admin-form-section glass-card" *ngIf="showAddForm">
+      <h3 class="admin-form-title"><i class="fas fa-pen-fancy"></i> Create New Coding Question</h3>
+
+      <div class="admin-form-grid">
+        <div class="field-group">
+          <label class="field-label"><i class="fas fa-heading"></i> Title</label>
+          <input class="field-input" type="text" [(ngModel)]="addForm.title" placeholder="e.g. Two Sum" />
+        </div>
+
+        <div class="field-group">
+          <label class="field-label"><i class="fas fa-signal"></i> Difficulty</label>
+          <select class="field-input" [(ngModel)]="addForm.difficulty">
+            <option value="EASY">Easy</option>
+            <option value="MEDIUM">Medium</option>
+            <option value="HARD">Hard</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label"><i class="fas fa-align-left"></i> Description</label>
+        <textarea class="field-textarea" rows="5" [(ngModel)]="addForm.description"
+          placeholder="Describe the problem..."></textarea>
+      </div>
+
+      <!-- Companies -->
+      <div class="field-group">
+        <label class="field-label"><i class="fas fa-building"></i> Assign to Companies</label>
+        <div class="company-checkboxes">
+          <label class="company-checkbox" *ngFor="let c of allCompanies">
+            <input type="checkbox" [checked]="addForm.companyIds.includes(c.id)"
+              (change)="onCompanyToggle(c.id)" />
+            <span>{{ c.name }}</span>
+          </label>
+          <span class="text-muted" *ngIf="!allCompanies.length">No companies loaded</span>
+        </div>
+      </div>
+
+      <!-- Starter Code -->
+      <details class="starter-code-details" open>
+        <summary class="starter-code-summary"><i class="fas fa-code"></i> Starter Code Templates</summary>
+        <div class="starter-code-grid">
+          <div class="field-group">
+            <label class="field-label">Java</label>
+            <textarea class="field-textarea code-textarea-sm" rows="6" [(ngModel)]="addForm.starterCodeJava"></textarea>
+          </div>
+          <div class="field-group">
+            <label class="field-label">Python</label>
+            <textarea class="field-textarea code-textarea-sm" rows="6" [(ngModel)]="addForm.starterCodePython"></textarea>
+          </div>
+          <div class="field-group">
+            <label class="field-label">C++</label>
+            <textarea class="field-textarea code-textarea-sm" rows="6" [(ngModel)]="addForm.starterCodeCpp"></textarea>
+          </div>
+          <div class="field-group">
+            <label class="field-label">JavaScript</label>
+            <textarea class="field-textarea code-textarea-sm" rows="6" [(ngModel)]="addForm.starterCodeJavascript"></textarea>
+          </div>
+        </div>
+      </details>
+
+      <!-- Test Cases -->
+      <div class="field-group">
+        <div class="test-cases-header">
+          <label class="field-label"><i class="fas fa-vial"></i> Test Cases</label>
+          <button class="add-tc-btn" (click)="addTestCase()"><i class="fas fa-plus"></i> Add Test Case</button>
+        </div>
+        <div class="test-cases-list" *ngIf="addForm.testCases.length">
+          <div class="test-case-item" *ngFor="let tc of addForm.testCases; let i = index">
+            <div class="tc-header-row">
+              <span class="tc-index">#{{ i + 1 }}</span>
+              <label class="tc-hidden-label">
+                <input type="checkbox" [(ngModel)]="tc.isHidden" />
+                Hidden
+              </label>
+              <button class="tc-remove-btn" (click)="removeTestCase(i)"><i class="fas fa-trash"></i></button>
+            </div>
+            <div class="tc-fields">
+              <div class="field-group">
+                <label class="field-label-sm">Input</label>
+                <textarea class="field-textarea tc-input" rows="2" [(ngModel)]="tc.inputData"
+                  placeholder="Test input"></textarea>
+              </div>
+              <div class="field-group">
+                <label class="field-label-sm">Expected Output</label>
+                <textarea class="field-textarea tc-input" rows="2" [(ngModel)]="tc.expectedOutput"
+                  placeholder="Expected output"></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="text-muted" *ngIf="!addForm.testCases.length">No test cases added yet.</p>
+      </div>
+
+      <!-- Save -->
+      <div class="admin-form-actions">
+        <span class="save-message" [class.success]="saveMessage.includes('successfully')">{{ saveMessage }}</span>
+        <button class="save-btn" (click)="saveCodingQuestion()" [disabled]="saving">
+          <i class="fas fa-save"></i> {{ saving ? 'Saving...' : 'Save Question' }}
+        </button>
+      </div>
+    </div>
+
+    <!-- Loading -->
+    <div *ngIf="loading" class="loading-overlay">
+      <div class="loading-card glass-card">
+        <div class="loading-ring"></div>
+        <p class="loading-text">Loading coding questions...</p>
+      </div>
+    </div>
+
+    <!-- Error -->
+    <div *ngIf="error" class="empty-state">
+      <div class="empty-icon"><i class="fas fa-exclamation-triangle"></i></div>
+      <h3>{{ error }}</h3>
+    </div>
+
+    <!-- Questions List -->
+    <div class="questions-list" *ngIf="!loading && !error">
+      <div
+        class="question-card glass-card"
+        *ngFor="let q of questions; let i = index"
+        (click)="openQuestion(q.id)"
+      >
+        <div class="q-left">
+          <div class="q-number">#{{ i + 1 }}</div>
+          <div class="q-info">
+            <h3 class="q-title">{{ q.title }}</h3>
+            <div class="q-meta">
+              <span class="q-difficulty" [ngClass]="getDifficultyClass(q.difficulty)">
+                <i class="fas fa-signal"></i> {{ q.difficulty }}
+              </span>
+              <span class="q-company" *ngIf="q.companies?.length">
+                <i class="fas fa-building"></i> {{ q.companies.join(', ') }}
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="q-right">
+          <button class="delete-btn" *ngIf="isAdmin" (click)="deleteQuestion($event, q.id)" title="Delete question">
+            <i class="fas fa-trash"></i>
+          </button>
+          <button class="solve-btn">
+            Solve <i class="fas fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Empty state -->
+      <div class="empty-state" *ngIf="!questions.length">
+        <div class="empty-icon"><i class="fas fa-inbox"></i></div>
+        <h3>No coding questions available</h3>
+        <p>Check back later for new coding challenges.</p>
+      </div>
+    </div>
+
+    <!-- Pagination -->
+    <app-pagination
+      *ngIf="!loading && totalPages > 1"
+      [currentPage]="currentPage"
+      [totalPages]="totalPages"
+      (pageChanged)="onPageChanged($event)">
+    </app-pagination>
+
+  </div>
+</div>

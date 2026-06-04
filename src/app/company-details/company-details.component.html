@@ -9,6 +9,11 @@
       <div class="page-hero-badge"><i class="fas fa-list-ul"></i> Interview Questions</div>
       <h1 class="page-hero-title">Company <span class="gradient-text">Questions</span></h1>
       <p class="page-hero-sub">Filter by level, role, and experience to find the most relevant questions for your target position.</p>
+      <div class="hero-actions">
+        <a [routerLink]="['/company/coding', companyId]" class="coding-nav-btn">
+          <i class="fas fa-code"></i> Practice Coding Questions
+        </a>
+      </div>
     </div>
     <div class="hero-orb hero-orb-1"></div>
     <div class="hero-orb hero-orb-2"></div>

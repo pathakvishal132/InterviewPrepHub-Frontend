@@ -85,7 +85,10 @@
         <!-- Actions -->
         <div class="company-actions">
           <a [routerLink]="['/company/details', company.id]" class="action-link action-link--primary">
-            <i class="fas fa-list-ul"></i> View Questions
+            <i class="fas fa-list-ul"></i> Questions
+          </a>
+          <a [routerLink]="['/company/coding', company.id]" class="action-link action-link--code">
+            <i class="fas fa-code"></i> Coding
           </a>
           <a [routerLink]="['/company-review', company.id, company.name]" class="action-link action-link--ghost">
             <i class="fas fa-star"></i> Reviews

@@ -19,4 +19,9 @@ export class ProfileService {
     const params = new HttpParams().set('userId', userId);
     return this.http.get<any>(`${this.apiUrl2}/questions/topics`, { params });
   }
+
+  getCodingSubmissionStats(days: number = 30): Observable<{ dates: string[]; submission_counts: number[] }> {
+    const params = new HttpParams().set('days', days.toString());
+    return this.http.get<{ dates: string[]; submission_counts: number[] }>(`${this.apiUrl2}/coding/submissions/stats`, { params });
+  }
 }

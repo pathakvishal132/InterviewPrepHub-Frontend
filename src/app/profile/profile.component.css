@@ -448,6 +448,10 @@
   grid-column: 1;
 }
 
+.profile-section--full {
+  grid-column: 1 / -1;
+}
+
 .profile-aside {
   display: flex;
   flex-direction: column;

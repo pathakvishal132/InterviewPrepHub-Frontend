@@ -479,6 +479,35 @@
     margin-bottom: 24px;
 }
 
+/* Hero Actions */
+.hero-actions {
+    margin-top: 20px;
+}
+
+.coding-nav-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    background: rgba(6, 182, 212, 0.1);
+    border: 1px solid rgba(6, 182, 212, 0.25);
+    border-radius: var(--radius-md);
+    color: #22d3ee;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: var(--transition);
+    cursor: pointer;
+}
+
+.coding-nav-btn:hover {
+    background: rgba(6, 182, 212, 0.18);
+    border-color: rgba(6, 182, 212, 0.4);
+    color: #67e8f9;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(6, 182, 212, 0.2);
+}
+
 /* Shared CTA button */
 .btn-primary-hero {
     display: inline-flex;

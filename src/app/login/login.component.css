@@ -340,6 +340,52 @@
   color: var(--primary-light);
 }
 
+/* Password Rules */
+.password-rules {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.rule {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.rule i {
+  font-size: 0.6rem;
+  color: var(--text-muted);
+  width: 12px;
+}
+
+.rule.rule-met {
+  color: #22c55e;
+}
+
+.rule.rule-met i {
+  color: #22c55e;
+}
+
+.password-mismatch {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  color: #ef4444;
+  font-weight: 500;
+  margin-top: 6px;
+}
+
+.password-mismatch i {
+  font-size: 0.7rem;
+}
+
 /* Error */
 .error-banner {
   display: flex;
@@ -388,12 +434,18 @@
   margin-top: 4px;
 }
 
-.submit-btn:hover {
+.submit-btn:hover:not(:disabled) {
   transform: translateY(-2px);
   box-shadow: 0 12px 36px rgba(99, 102, 241, 0.45);
 }
 
-.submit-btn:active {
+.submit-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.submit-btn:active:not(:disabled) {
   transform: translateY(0);
 }
 
