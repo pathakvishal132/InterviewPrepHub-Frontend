@@ -130,22 +130,22 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
   // ── Recent Activity ──────────────────────────────────────────────
   recentActivity = [
     {
+      title: 'Solved Two Sum — Java Coding Challenge',
+      tag: 'Coding',
+      tagBg: 'rgba(6,182,212,0.15)',
+      tagColor: '#06b6d4',
+      time: '2 hours ago',
+      icon: 'fa-code',
+      color: '#06b6d4',
+    },
+    {
       title: 'Completed DSA Quiz — Arrays & Hashing',
       tag: 'Quiz',
       tagBg: 'rgba(99,102,241,0.15)',
       tagColor: '#6366f1',
-      time: '2 hours ago',
+      time: '3 hours ago',
       icon: 'fa-check-circle',
       color: '#6366f1',
-    },
-    {
-      title: 'Mock Interview: System Design Round',
-      tag: 'Mock',
-      tagBg: 'rgba(6,182,212,0.15)',
-      tagColor: '#06b6d4',
-      time: '5 hours ago',
-      icon: 'fa-video',
-      color: '#06b6d4',
     },
     {
       title: 'Reviewed 20 DBMS Questions',
@@ -178,8 +178,8 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
 
   // ── Quick Actions ────────────────────────────────────────────────
   quickActions = [
+    { label: 'Coding Challenges', icon: 'fa-code', color: '#22d3ee', iconBg: 'rgba(6,182,212,0.15)', route: 'company' },
     { label: 'Start Mock Interview', icon: 'fa-play', color: '#6366f1', iconBg: 'rgba(99,102,241,0.15)', route: 'interview-dashboard' },
-    { label: 'Resume Practice', icon: 'fa-redo', color: '#06b6d4', iconBg: 'rgba(6,182,212,0.15)', route: 'domain-dashboard' },
     { label: 'Company Prep', icon: 'fa-building', color: '#10b981', iconBg: 'rgba(16,185,129,0.15)', route: 'company' },
     { label: 'Browse Topics', icon: 'fa-th-large', color: '#f59e0b', iconBg: 'rgba(245,158,11,0.15)', route: 'domain-dashboard' },
     { label: 'View Leaderboard', icon: 'fa-crown', color: '#ef4444', iconBg: 'rgba(239,68,68,0.15)', route: 'user-steps' },
@@ -196,15 +196,15 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
       iconBg: 'rgba(99,102,241,0.15)',
     },
     {
-      title: 'Practice & Learn',
-      desc: 'Tackle curated company and domain-specific questions with detailed explanations. Track what you know and what you need to revise.',
-      icon: 'fa-dumbbell',
-      color: '#06b6d4',
+      title: 'Solve Coding Problems',
+      desc: 'Practice company-specific coding challenges with a built-in editor. Run and submit code in Java, Python, JavaScript, and C++.',
+      icon: 'fa-code',
+      color: '#22d3ee',
       iconBg: 'rgba(6,182,212,0.15)',
     },
     {
       title: 'Track & Conquer',
-      desc: 'Monitor your progress with real-time analytics, streaks, and mock interview scores. Know exactly where you stand.',
+      desc: 'Monitor your progress with real-time analytics, streaks, coding submission stats, and mock interview scores. Know exactly where you stand.',
       icon: 'fa-chart-line',
       color: '#10b981',
       iconBg: 'rgba(16,185,129,0.15)',

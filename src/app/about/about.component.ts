@@ -18,7 +18,7 @@ export class AboutComponent {
     },
     {
       title: 'Company Prep Tracks',
-      desc: 'Targeted preparation for top companies like Google, Microsoft, Amazon, Qualcomm, and more.',
+      desc: 'Targeted preparation for top companies with domain questions, coding challenges, and interview tips.',
       icon: 'fa-building',
       color: '#06b6d4',
       iconBg: 'rgba(6,182,212,0.12)',
@@ -41,12 +41,12 @@ export class AboutComponent {
       tag: 'AI-Powered',
     },
     {
-      title: 'Discussion Forum',
-      desc: 'Connect with peers, share strategies, and learn from community discussions.',
-      icon: 'fa-comments',
-      color: '#8b5cf6',
-      iconBg: 'rgba(139,92,246,0.12)',
-      tag: 'Community',
+      title: 'Coding Challenges',
+      desc: 'Solve company-specific coding problems with a built-in editor. Run, test, and submit code in Java, Python, C++, and JavaScript.',
+      icon: 'fa-code',
+      color: '#22d3ee',
+      iconBg: 'rgba(6,182,212,0.12)',
+      tag: 'Multi-Language',
     },
     {
       title: 'Resource Library',
