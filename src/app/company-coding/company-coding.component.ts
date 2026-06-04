@@ -21,6 +21,7 @@ export class CompanyCodingComponent implements OnInit {
   isAdmin: boolean = false;
   showAddForm: boolean = false;
   allCompanies: any[] = [];
+  selectAll: boolean = false;
   addForm = {
     title: '',
     description: '',
@@ -142,6 +143,17 @@ export class CompanyCodingComponent implements OnInit {
       this.addForm.companyIds.splice(idx, 1);
     } else {
       this.addForm.companyIds.push(companyId);
+    }
+    this.selectAll = this.allCompanies.length > 0 &&
+      this.addForm.companyIds.length === this.allCompanies.length;
+  }
+
+  toggleSelectAll(): void {
+    this.selectAll = !this.selectAll;
+    if (this.selectAll) {
+      this.addForm.companyIds = this.allCompanies.map(c => c.id);
+    } else {
+      this.addForm.companyIds = [];
     }
   }
 

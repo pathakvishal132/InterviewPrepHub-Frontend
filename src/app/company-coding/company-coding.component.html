@@ -54,6 +54,10 @@
       <div class="field-group">
         <label class="field-label"><i class="fas fa-building"></i> Assign to Companies</label>
         <div class="company-checkboxes">
+          <label class="company-checkbox company-checkbox-all" *ngIf="allCompanies.length">
+            <input type="checkbox" [checked]="selectAll" (change)="toggleSelectAll()" />
+            <span><strong>{{ selectAll ? 'Deselect All' : 'Select All' }}</strong></span>
+          </label>
           <label class="company-checkbox" *ngFor="let c of allCompanies">
             <input type="checkbox" [checked]="addForm.companyIds.includes(c.id)"
               (change)="onCompanyToggle(c.id)" />

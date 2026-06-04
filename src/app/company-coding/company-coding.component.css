@@ -453,6 +453,17 @@
     transition: var(--transition);
 }
 
+.company-checkbox-all {
+    background: rgba(99,102,241,0.08);
+    border-color: rgba(99,102,241,0.3);
+    font-weight: 600;
+}
+
+.company-checkbox-all:hover {
+    background: rgba(99,102,241,0.15);
+    border-color: rgba(99,102,241,0.5);
+}
+
 .company-checkbox:hover {
     background: rgba(99,102,241,0.06);
     border-color: rgba(99,102,241,0.2);
