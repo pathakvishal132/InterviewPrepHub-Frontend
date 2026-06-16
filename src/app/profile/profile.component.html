@@ -1,102 +1,105 @@
 <div class="profile-page">
 
+  <!-- Ambient Background -->
+  <div class="profile-bg">
+    <div class="profile-orb profile-orb-1"></div>
+    <div class="profile-orb profile-orb-2"></div>
+    <div class="profile-orb profile-orb-3"></div>
+  </div>
+
   <!-- Top Profile Header -->
-  <div class="profile-header glass-card">
-    <!-- Avatar -->
-    <div class="profile-avatar-wrap">
-      <img *ngIf="imageBase64" class="profile-avatar" [src]="'data:image/png;base64,' + imageBase64" alt="Profile" />
-      <div class="profile-avatar-placeholder" *ngIf="!imageBase64">
-        {{ (userName || 'U').charAt(0).toUpperCase() }}
-      </div>
-      <!-- Upload trigger -->
-      <label class="avatar-upload-overlay" for="fileInputHidden" title="Change photo">
-        <i class="fas fa-camera"></i>
-      </label>
-    </div>
-
-    <!-- Info -->
-    <div class="profile-info" *ngIf="!isEditing">
-      <h1 class="profile-name">{{ userName || 'Anonymous User' }}</h1>
-      <div class="profile-meta">
-        <span class="profile-meta-chip"><i class="fas fa-envelope"></i> {{ email || 'Not set' }}</span>
-        <span class="profile-meta-chip"><i class="fas fa-calendar-alt"></i> Joined
-          {{ dateJoined | date: 'MMM yyyy' }}</span>
-      </div>
-      <div class="profile-actions">
-        <button class="action-btn edit-btn" (click)="startEdit()">
-          <i class="fas fa-edit"></i> Edit Profile
-        </button>
-        <button class="action-btn logout-btn" (click)="logout()">
-          <i class="fas fa-sign-out-alt"></i> Logout
-        </button>
-      </div>
-    </div>
-
-    <!-- Edit Form -->
-    <div class="profile-info edit-mode" *ngIf="isEditing">
-      <h2 class="edit-title">Edit Profile</h2>
-      <div class="edit-form">
-        <div class="form-group">
-          <label><i class="fas fa-user"></i> Name</label>
-          <input type="text" [(ngModel)]="editName" placeholder="Enter your name" />
+  <div class="profile-header">
+    <div class="profile-header-bg"></div>
+    <div class="profile-header-content">
+      <!-- Avatar -->
+      <div class="profile-avatar-wrap">
+        <div class="avatar-ring"></div>
+        <img *ngIf="imageBase64" class="profile-avatar" [src]="'data:image/png;base64,' + imageBase64" alt="Profile" />
+        <div class="profile-avatar-placeholder" *ngIf="!imageBase64">
+          {{ (userName || 'U').charAt(0).toUpperCase() }}
         </div>
-        <div class="form-group">
-          <label><i class="fas fa-envelope"></i> Email</label>
-          <input type="email" [(ngModel)]="editEmail" placeholder="Enter your email" />
+        <!-- Upload trigger -->
+        <label class="avatar-upload-overlay" for="fileInputHidden" title="Change photo">
+          <i class="fas fa-camera"></i>
+          <span>Change</span>
+        </label>
+        <div class="avatar-status-dot"></div>
+      </div>
+
+      <!-- Info -->
+      <div class="profile-info" *ngIf="!isEditing">
+        <h1 class="profile-name">{{ userName || 'Anonymous User' }}</h1>
+        <div class="profile-meta">
+          <span class="profile-meta-chip">
+            <i class="fas fa-envelope"></i> {{ email || 'Not set' }}
+          </span>
+          <span class="profile-meta-chip">
+            <i class="fas fa-calendar-alt"></i> Joined {{ dateJoined | date: 'MMM yyyy' }}
+          </span>
         </div>
-        <div class="edit-actions">
-          <button class="action-btn save-btn" (click)="saveProfile()">
-            <i class="fas fa-check"></i> Save
+        <div class="profile-actions">
+          <button class="action-btn edit-btn" (click)="startEdit()">
+            <i class="fas fa-edit"></i> Edit Profile
           </button>
-          <button class="action-btn cancel-btn" (click)="cancelEdit()">
-            <i class="fas fa-times"></i> Cancel
+          <button class="action-btn logout-btn" (click)="logout()">
+            <i class="fas fa-sign-out-alt"></i> Logout
           </button>
         </div>
       </div>
-    </div>
 
-    <!-- Upload Form -->
-    <form (submit)="onSubmit()" class="upload-form">
-      <input type="file" id="fileInputHidden" #fileInput (change)="onFileSelected($event)" hidden />
-      <div class="upload-zone" (click)="fileInput.click()">
-        <i class="fas fa-cloud-upload-alt"></i>
-        <span>{{ selectedFile ? selectedFile.name : 'Upload Photo' }}</span>
+      <!-- Edit Form -->
+      <div class="profile-info edit-mode" *ngIf="isEditing">
+        <h2 class="edit-title"><i class="fas fa-pen-fancy"></i> Edit Profile</h2>
+        <div class="edit-form">
+          <div class="form-group">
+            <label><i class="fas fa-user"></i> Name</label>
+            <input type="text" [(ngModel)]="editName" placeholder="Enter your name" />
+          </div>
+          <div class="form-group">
+            <label><i class="fas fa-envelope"></i> Email</label>
+            <input type="email" [(ngModel)]="editEmail" placeholder="Enter your email" />
+          </div>
+          <div class="edit-actions">
+            <button class="action-btn save-btn" (click)="saveProfile()">
+              <i class="fas fa-check"></i> Save Changes
+            </button>
+            <button class="action-btn cancel-btn" (click)="cancelEdit()">
+              <i class="fas fa-times"></i> Cancel
+            </button>
+          </div>
+        </div>
       </div>
-      <button class="upload-save-btn" type="submit" [disabled]="true">
-        <i class="fas fa-save"></i> Save
-      </button>
-    </form>
+
+      <!-- Upload Form -->
+      <form (submit)="onSubmit()" class="upload-form">
+        <input type="file" id="fileInputHidden" #fileInput (change)="onFileSelected($event)" hidden />
+        <div class="upload-zone" (click)="fileInput.click()">
+          <i class="fas fa-cloud-upload-alt"></i>
+          <span>{{ selectedFile ? selectedFile.name : 'Upload Photo' }}</span>
+        </div>
+        <button class="upload-save-btn" type="submit" [disabled]="true">
+          <i class="fas fa-save"></i> Save
+        </button>
+      </form>
+    </div>
   </div>
 
   <!-- Stats Row -->
   <div class="stats-row">
-    <div class="stat-card glass-card">
-      <div class="stat-icon stat-icon--purple"><i class="fas fa-paper-plane"></i></div>
-      <div class="stat-content">
-        <span class="stat-value">{{ totalSubmissions }}</span>
-        <span class="stat-label">Total Submissions</span>
+    <div class="stat-card" *ngFor="let stat of [
+      { icon: 'fa-paper-plane', value: totalSubmissions, label: 'Total Submissions', theme: 'purple' },
+      { icon: 'fa-fire', value: getStreak(), label: 'Day Streak', theme: 'green' },
+      { icon: 'fa-calendar-check', value: getActiveDays(), label: 'Active Days', theme: 'blue' },
+      { icon: 'fa-layer-group', value: totalTopics, label: 'Topics Attempted', theme: 'orange' }
+    ]">
+      <div class="stat-icon" [ngClass]="'stat-icon--' + stat.theme">
+        <i class="fas" [ngClass]="stat.icon"></i>
       </div>
-    </div>
-    <div class="stat-card glass-card">
-      <div class="stat-icon stat-icon--green"><i class="fas fa-fire"></i></div>
       <div class="stat-content">
-        <span class="stat-value">{{ getStreak() }}</span>
-        <span class="stat-label">Day Streak</span>
+        <span class="stat-value">{{ stat.value }}</span>
+        <span class="stat-label">{{ stat.label }}</span>
       </div>
-    </div>
-    <div class="stat-card glass-card">
-      <div class="stat-icon stat-icon--blue"><i class="fas fa-calendar-check"></i></div>
-      <div class="stat-content">
-        <span class="stat-value">{{ getActiveDays() }}</span>
-        <span class="stat-label">Active Days</span>
-      </div>
-    </div>
-    <div class="stat-card glass-card">
-      <div class="stat-icon stat-icon--orange"><i class="fas fa-layer-group"></i></div>
-      <div class="stat-content">
-        <span class="stat-value">{{ totalTopics }}</span>
-        <span class="stat-label">Topics Attempted</span>
-      </div>
+      <div class="stat-glow" [ngClass]="'stat-glow--' + stat.theme"></div>
     </div>
   </div>
 
@@ -104,19 +107,17 @@
   <div class="profile-grid">
 
     <!-- Progress Chart -->
-    <div class="profile-section glass-card profile-section--chart">
+    <div class="profile-section profile-section--chart">
       <div class="section-header">
         <div class="section-header-icon"><i class="fas fa-chart-line"></i></div>
-        <div>
+        <div class="section-header-text">
           <h2 class="section-title">Activity Overview</h2>
           <p class="section-sub">Your daily practice progress</p>
         </div>
         <div class="chart-filter">
-          <button class="filter-btn" [class.active]="chartFilter === '7'" (click)="setChartFilter('7')">7 Days</button>
-          <button class="filter-btn" [class.active]="chartFilter === '14'" (click)="setChartFilter('14')">14
-            Days</button>
-          <button class="filter-btn" [class.active]="chartFilter === '30'" (click)="setChartFilter('30')">30
-            Days</button>
+          <button class="filter-btn" [class.active]="chartFilter === '7'" (click)="setChartFilter('7')">7D</button>
+          <button class="filter-btn" [class.active]="chartFilter === '14'" (click)="setChartFilter('14')">14D</button>
+          <button class="filter-btn" [class.active]="chartFilter === '30'" (click)="setChartFilter('30')">30D</button>
         </div>
       </div>
       <div class="chart-container">
@@ -132,10 +133,10 @@
     <div class="profile-aside">
 
       <!-- Domain Breakdown -->
-      <div class="profile-section glass-card">
+      <div class="profile-section">
         <div class="section-header">
           <div class="section-header-icon section-header-icon--purple"><i class="fas fa-layer-group"></i></div>
-          <div>
+          <div class="section-header-text">
             <h2 class="section-title">Domain Breakdown</h2>
             <p class="section-sub">Problems by category</p>
           </div>
@@ -159,10 +160,10 @@
       </div>
 
       <!-- Topics List -->
-      <div class="profile-section glass-card">
+      <div class="profile-section">
         <div class="section-header">
           <div class="section-header-icon section-header-icon--amber"><i class="fas fa-list-ul"></i></div>
-          <div>
+          <div class="section-header-text">
             <h2 class="section-title">Topics Progress</h2>
             <p class="section-sub">{{ topicData.length }} domains explored</p>
           </div>
@@ -175,7 +176,10 @@
             </div>
             <div class="topic-subdomains">
               <div class="topic-subdomain-item" *ngFor="let topic of domain.topics">
-                <span class="topic-name">{{ topic.subdomain }}</span>
+                <div class="topic-subdomain-info">
+                  <span class="topic-subdomain-dot"></span>
+                  <span class="topic-name">{{ topic.subdomain }}</span>
+                </div>
                 <span class="topic-stats">{{ topic.totalSubmissions }} submissions</span>
               </div>
             </div>
@@ -190,17 +194,17 @@
   </div>
 
   <!-- Coding Submissions Chart -->
-  <div class="profile-section glass-card profile-section--full">
+  <div class="profile-section profile-section--full">
     <div class="section-header">
       <div class="section-header-icon section-header-icon--cyan"><i class="fas fa-code"></i></div>
-      <div>
+      <div class="section-header-text">
         <h2 class="section-title">Coding Submissions</h2>
         <p class="section-sub">{{ totalCodingSubmissions }} total coding submissions</p>
       </div>
       <div class="chart-filter">
-        <button class="filter-btn" [class.active]="codingChartFilter === '7'" (click)="setCodingChartFilter('7')">7 Days</button>
-        <button class="filter-btn" [class.active]="codingChartFilter === '14'" (click)="setCodingChartFilter('14')">14 Days</button>
-        <button class="filter-btn" [class.active]="codingChartFilter === '30'" (click)="setCodingChartFilter('30')">30 Days</button>
+        <button class="filter-btn" [class.active]="codingChartFilter === '7'" (click)="setCodingChartFilter('7')">7D</button>
+        <button class="filter-btn" [class.active]="codingChartFilter === '14'" (click)="setCodingChartFilter('14')">14D</button>
+        <button class="filter-btn" [class.active]="codingChartFilter === '30'" (click)="setCodingChartFilter('30')">30D</button>
       </div>
     </div>
     <div class="chart-container">

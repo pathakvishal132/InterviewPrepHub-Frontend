@@ -20,6 +20,7 @@ export class CompanyCodingComponent implements OnInit {
   // Admin state
   isAdmin: boolean = false;
   showAddForm: boolean = false;
+  editingQuestionId: number | null = null;
   allCompanies: any[] = [];
   selectAll: boolean = false;
   addForm = {
@@ -102,12 +103,19 @@ export class CompanyCodingComponent implements OnInit {
     return 'diff-hard';
   }
 
+  getCountByDifficulty(difficulty: string): number {
+    return this.questions.filter(q => (q.difficulty || '').toUpperCase() === difficulty.toUpperCase()).length;
+  }
+
   // ── Admin: Add Question Form ──
 
   toggleAddForm(): void {
     this.showAddForm = !this.showAddForm;
     this.saveMessage = '';
-    if (!this.showAddForm) this.resetAddForm();
+    if (!this.showAddForm) {
+      this.resetAddForm();
+      this.editingQuestionId = null;
+    }
   }
 
   resetAddForm(): void {
@@ -122,6 +130,7 @@ export class CompanyCodingComponent implements OnInit {
       starterCodeJavascript: 'class Solution {\n    solve(input) {\n        // Write your code here\n        return "";\n    }\n}',
       testCases: []
     };
+    this.editingQuestionId = null;
   }
 
   addTestCase(): void {
@@ -173,6 +182,39 @@ export class CompanyCodingComponent implements OnInit {
     });
   }
 
+  startEdit(event: Event, questionId: number): void {
+    event.stopPropagation();
+    this.saving = true;
+    this.saveMessage = '';
+    this.cs.getCodingQuestionDetail(questionId).subscribe({
+      next: (q) => {
+        this.editingQuestionId = questionId;
+        this.addForm = {
+          title: q.title || '',
+          description: q.description || '',
+          difficulty: q.difficulty || 'MEDIUM',
+          companyIds: q.company_ids || [],
+          starterCodeJava: q.starter_code_java || '',
+          starterCodePython: q.starter_code_python || '',
+          starterCodeCpp: q.starter_code_cpp || '',
+          starterCodeJavascript: q.starter_code_javascript || '',
+          testCases: (q.test_cases || []).map((tc: any, i: number) => ({
+            inputData: tc.input_data || '',
+            expectedOutput: tc.expected_output || '',
+            isHidden: tc.is_hidden || false,
+            orderIndex: i
+          }))
+        };
+        this.showAddForm = true;
+        this.saving = false;
+      },
+      error: (err) => {
+        this.saveMessage = err.error?.detail || 'Failed to load question details.';
+        this.saving = false;
+      }
+    });
+  }
+
   saveCodingQuestion(): void {
     if (!this.addForm.title.trim() || !this.addForm.description.trim()) {
       this.saveMessage = 'Title and description are required.';
@@ -198,16 +240,22 @@ export class CompanyCodingComponent implements OnInit {
       }))
     };
 
-    this.cs.createCodingQuestion(payload).subscribe({
+    const request = this.editingQuestionId
+      ? this.cs.updateCodingQuestion(this.editingQuestionId, payload)
+      : this.cs.createCodingQuestion(payload);
+
+    request.subscribe({
       next: (res) => {
-        this.saveMessage = 'Question created successfully!';
+        this.saveMessage = this.editingQuestionId
+          ? 'Question updated successfully!'
+          : 'Question created successfully!';
         this.saving = false;
         this.resetAddForm();
         this.showAddForm = false;
         this.fetchQuestions(1);
       },
       error: (err) => {
-        this.saveMessage = err.error?.detail || 'Failed to create question.';
+        this.saveMessage = err.error?.detail || `Failed to ${this.editingQuestionId ? 'update' : 'create'} question.`;
         this.saving = false;
       }
     });

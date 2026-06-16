@@ -26,7 +26,7 @@
 
     <!-- Admin: Add Question Form -->
     <div class="admin-form-section glass-card" *ngIf="showAddForm">
-      <h3 class="admin-form-title"><i class="fas fa-pen-fancy"></i> Create New Coding Question</h3>
+      <h3 class="admin-form-title"><i class="fas fa-pen-fancy"></i> {{ editingQuestionId ? 'Edit' : 'Create New' }} Coding Question</h3>
 
       <div class="admin-form-grid">
         <div class="field-group">
@@ -146,33 +146,61 @@
       <h3>{{ error }}</h3>
     </div>
 
+    <!-- Stats Summary Bar -->
+    <div class="stats-bar" *ngIf="!loading && !error && questions.length">
+      <div class="stats-bar-item">
+        <i class="fas fa-list-ol"></i>
+        <span>{{ questions.length }} Questions</span>
+      </div>
+      <div class="stats-bar-item stats-bar-item--easy">
+        <span class="stats-dot stats-dot--easy"></span>
+        <span>Easy: {{ getCountByDifficulty('EASY') }}</span>
+      </div>
+      <div class="stats-bar-item stats-bar-item--medium">
+        <span class="stats-dot stats-dot--medium"></span>
+        <span>Medium: {{ getCountByDifficulty('MEDIUM') }}</span>
+      </div>
+      <div class="stats-bar-item stats-bar-item--hard">
+        <span class="stats-dot stats-dot--hard"></span>
+        <span>Hard: {{ getCountByDifficulty('HARD') }}</span>
+      </div>
+    </div>
+
     <!-- Questions List -->
     <div class="questions-list" *ngIf="!loading && !error">
       <div
         class="question-card glass-card"
         *ngFor="let q of questions; let i = index"
+        [style.animation-delay]="(i * 60) + 'ms'"
         (click)="openQuestion(q.id)"
       >
         <div class="q-left">
-          <div class="q-number">#{{ i + 1 }}</div>
+          <div class="q-number-wrap">
+            <div class="q-number">#{{ i + 1 }}</div>
+            <div class="q-diff-indicator" [ngClass]="getDifficultyClass(q.difficulty)"></div>
+          </div>
           <div class="q-info">
             <h3 class="q-title">{{ q.title }}</h3>
             <div class="q-meta">
               <span class="q-difficulty" [ngClass]="getDifficultyClass(q.difficulty)">
                 <i class="fas fa-signal"></i> {{ q.difficulty }}
               </span>
-              <span class="q-company" *ngIf="q.companies?.length">
-                <i class="fas fa-building"></i> {{ q.companies.join(', ') }}
+              <span class="q-tc-count" *ngIf="q.test_case_count">
+                <i class="fas fa-vial"></i> {{ q.test_case_count }} tests
               </span>
             </div>
           </div>
         </div>
         <div class="q-right">
+          <button class="edit-btn" *ngIf="isAdmin" (click)="startEdit($event, q.id)" title="Edit question">
+            <i class="fas fa-pen"></i>
+          </button>
           <button class="delete-btn" *ngIf="isAdmin" (click)="deleteQuestion($event, q.id)" title="Delete question">
             <i class="fas fa-trash"></i>
           </button>
           <button class="solve-btn">
-            Solve <i class="fas fa-arrow-right"></i>
+            <span>Solve</span>
+            <i class="fas fa-arrow-right"></i>
           </button>
         </div>
       </div>

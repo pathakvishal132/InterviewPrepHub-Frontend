@@ -120,6 +120,10 @@ export class CompanyService {
     return this.httpNoAuth.get<any>(`${this.apiUrl2}/company/list-all`);
   }
 
+  updateCodingQuestion(questionId: number, data: any): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl2}/coding/question/${questionId}`, data);
+  }
+
   deleteCodingQuestion(questionId: number): Observable<any> {
     return this.http.delete<any>(`${this.apiUrl2}/coding/question/${questionId}`);
   }

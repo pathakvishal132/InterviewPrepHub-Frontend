@@ -40,6 +40,8 @@ import { ReviewsComponent } from './reviews/reviews.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ProblemStatsComponent } from './problem-stats/problem-stats.component';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { NetworkBgComponent } from './network-bg/network-bg.component';
+import { ScrollRevealDirective } from './directives/scroll-reveal.directive';
 
 @NgModule({
   declarations: [
@@ -72,6 +74,8 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
     ReviewsComponent,
     ProfileComponent,
     ProblemStatsComponent,
+    NetworkBgComponent,
+    ScrollRevealDirective,
     // CompanyDetailsComponent,
     // CompanyComponent,
 

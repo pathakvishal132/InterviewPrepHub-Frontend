@@ -12,24 +12,34 @@
     <!-- Desktop Nav -->
     <nav class="navbar-links">
       <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="nav-link">
-        <i class="fas fa-home"></i> Home
+        <span class="nav-link-dot"></span>
+        <span>Home</span>
       </a>
       <a routerLink="/interview-dashboard" routerLinkActive="active" class="nav-link">
-        <i class="fas fa-chart-line"></i> Prep
+        <span class="nav-link-dot"></span>
+        <span>Prep</span>
       </a>
       <a routerLink="/user-steps" routerLinkActive="active" class="nav-link">
-        <i class="fas fa-map"></i> Guide
+        <span class="nav-link-dot"></span>
+        <span>Guide</span>
       </a>
       <a routerLink="/about" routerLinkActive="active" class="nav-link">
-        <i class="fas fa-info-circle"></i> About
+        <span class="nav-link-dot"></span>
+        <span>About</span>
       </a>
       <a *ngIf="receivedMessage.length" routerLink="/admin" routerLinkActive="active" class="nav-link nav-link--admin">
-        <i class="fas fa-shield-alt"></i> Admin
+        <span class="nav-link-dot"></span>
+        <span>Admin</span>
       </a>
     </nav>
 
     <!-- Right Actions -->
     <div class="navbar-actions">
+      <!-- Theme toggle placeholder -->
+      <button class="theme-toggle-btn" title="Toggle theme" aria-label="Toggle theme">
+        <i class="fas fa-moon"></i>
+      </button>
+
       <!-- Profile -->
       <a *ngIf="isLoggedIn" routerLink="/profile" class="profile-btn" title="My Profile">
         <div class="profile-avatar">
@@ -39,10 +49,14 @@
 
       <!-- Auth buttons -->
       <a *ngIf="!isLoggedIn" routerLink="/login" class="btn-nav-login">
-        <i class="fas fa-sign-in-alt"></i> Login
+        <span class="btn-text">Login</span>
+        <span class="btn-orbit">
+          <span class="orbit-dot"></span>
+        </span>
       </a>
       <button *ngIf="isLoggedIn" (click)="logout()" class="btn-nav-logout">
-        <i class="fas fa-sign-out-alt"></i> Logout
+        <i class="fas fa-sign-out-alt"></i>
+        <span>Logout</span>
       </button>
 
       <!-- Hamburger -->
@@ -56,30 +70,53 @@
 
   <!-- Mobile Menu -->
   <div class="mobile-menu" [class.open]="menuOpen">
-    <a routerLink="/" class="mobile-link" (click)="closeMenu()">
-      <i class="fas fa-home"></i> Home
-    </a>
-    <a routerLink="/interview-dashboard" class="mobile-link" (click)="closeMenu()">
-      <i class="fas fa-chart-line"></i> Prep
-    </a>
-    <a routerLink="/user-steps" class="mobile-link" (click)="closeMenu()">
-      <i class="fas fa-map"></i> Guide
-    </a>
-    <a routerLink="/about" class="mobile-link" (click)="closeMenu()">
-      <i class="fas fa-info-circle"></i> About
-    </a>
-    <a *ngIf="receivedMessage.length" routerLink="/admin" class="mobile-link" (click)="closeMenu()">
-      <i class="fas fa-shield-alt"></i> Admin
-    </a>
-    <div class="mobile-divider"></div>
-    <a *ngIf="!isLoggedIn" routerLink="/login" class="mobile-link mobile-link--cta" (click)="closeMenu()">
-      <i class="fas fa-sign-in-alt"></i> Login / Sign Up
-    </a>
-    <button *ngIf="isLoggedIn" (click)="logout(); closeMenu()" class="mobile-link mobile-link--logout">
-      <i class="fas fa-sign-out-alt"></i> Logout
-    </button>
-    <a *ngIf="isLoggedIn" routerLink="/profile" class="mobile-link" (click)="closeMenu()">
-      <i class="fas fa-user"></i> My Profile
-    </a>
+    <div class="mobile-menu-header">
+      <div class="mobile-logo">
+        <i class="fas fa-brain"></i>
+        <span>InterviewPrep<span class="logo-accent">Hub</span></span>
+      </div>
+      <button class="mobile-close" (click)="closeMenu()" aria-label="Close menu">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="mobile-menu-body">
+      <a routerLink="/" class="mobile-link" (click)="closeMenu()" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+        <i class="fas fa-home"></i>
+        <span>Home</span>
+      </a>
+      <a routerLink="/interview-dashboard" class="mobile-link" (click)="closeMenu()" routerLinkActive="active">
+        <i class="fas fa-chart-line"></i>
+        <span>Prep</span>
+      </a>
+      <a routerLink="/user-steps" class="mobile-link" (click)="closeMenu()" routerLinkActive="active">
+        <i class="fas fa-map"></i>
+        <span>Guide</span>
+      </a>
+      <a routerLink="/about" class="mobile-link" (click)="closeMenu()" routerLinkActive="active">
+        <i class="fas fa-info-circle"></i>
+        <span>About</span>
+      </a>
+      <a *ngIf="receivedMessage.length" routerLink="/admin" class="mobile-link" (click)="closeMenu()" routerLinkActive="active">
+        <i class="fas fa-shield-alt"></i>
+        <span>Admin</span>
+      </a>
+    </div>
+    <div class="mobile-menu-footer">
+      <a *ngIf="!isLoggedIn" routerLink="/login" class="mobile-cta" (click)="closeMenu()">
+        <i class="fas fa-sign-in-alt"></i>
+        <span>Login / Sign Up</span>
+      </a>
+      <button *ngIf="isLoggedIn" (click)="logout(); closeMenu()" class="mobile-logout">
+        <i class="fas fa-sign-out-alt"></i>
+        <span>Logout</span>
+      </button>
+      <a *ngIf="isLoggedIn" routerLink="/profile" class="mobile-link" (click)="closeMenu()">
+        <i class="fas fa-user"></i>
+        <span>My Profile</span>
+      </a>
+    </div>
   </div>
+
+  <!-- Mobile overlay -->
+  <div class="mobile-overlay" [class.open]="menuOpen" (click)="closeMenu()"></div>
 </header>
