@@ -670,3 +670,185 @@
         font-size: 0.78rem;
     }
 }
+
+/* ══════════════════════════════════════
+   INJECTED PROBLEM DESCRIPTION STYLING
+   ══════════════════════════════════════ */
+.problem-description ::ng-deep h1 {
+    font-size: 1.4rem;
+    font-weight: 800;
+    margin-top: 0;
+    margin-bottom: 16px;
+    color: var(--text-primary);
+}
+
+.problem-description ::ng-deep h2 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-top: 28px;
+    margin-bottom: 14px;
+    color: var(--text-primary);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 8px;
+}
+
+.problem-description ::ng-deep h3 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-top: 18px;
+    margin-bottom: 10px;
+    color: var(--text-secondary);
+}
+
+.problem-description ::ng-deep p {
+    margin-bottom: 14px;
+    color: var(--text-secondary);
+    line-height: 1.75;
+}
+
+.problem-description ::ng-deep code {
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    font-size: 0.82rem;
+    background: rgba(255, 255, 255, 0.05);
+    color: #fbbf24;
+    padding: 2px 6px;
+    border-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.problem-description ::ng-deep pre {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 14px 18px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border);
+    margin: 16px 0;
+    overflow-x: auto;
+}
+
+.problem-description ::ng-deep pre code {
+    background: transparent;
+    padding: 0;
+    border-radius: 0;
+    border: none;
+    color: var(--text-primary);
+    font-size: 0.8rem;
+    line-height: 1.5;
+}
+
+.problem-description ::ng-deep ul,
+.problem-description ::ng-deep ol {
+    margin-bottom: 16px;
+    padding-left: 20px;
+}
+
+.problem-description ::ng-deep li {
+    margin-bottom: 8px;
+    color: var(--text-secondary);
+    line-height: 1.65;
+}
+
+.problem-description ::ng-deep .problem-meta {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 22px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.problem-description ::ng-deep .difficulty {
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 50px;
+    display: inline-flex;
+    text-transform: capitalize;
+}
+
+.problem-description ::ng-deep .difficulty.easy {
+    background: rgba(16, 185, 129, 0.12);
+    color: #34d399;
+    border: 1px solid rgba(16, 185, 129, 0.25);
+}
+
+.problem-description ::ng-deep .difficulty.medium {
+    background: rgba(245, 158, 11, 0.12);
+    color: #fbbf24;
+    border: 1px solid rgba(245, 158, 11, 0.25);
+}
+
+.problem-description ::ng-deep .difficulty.hard {
+    background: rgba(239, 68, 68, 0.12);
+    color: #f87171;
+    border: 1px solid rgba(239, 68, 68, 0.25);
+}
+
+.problem-description ::ng-deep .topics,
+.problem-description ::ng-deep .companies {
+    font-size: 0.72rem;
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+    padding: 4px 12px;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.problem-description ::ng-deep .topics:hover,
+.problem-description ::ng-deep .companies:hover {
+    background: rgba(99, 102, 241, 0.08);
+    color: var(--primary-light);
+    border-color: rgba(99, 102, 241, 0.2);
+}
+
+.problem-description ::ng-deep .example {
+    background: rgba(255, 255, 255, 0.01);
+    border-left: 3px solid var(--primary);
+    padding: 12px 18px;
+    border-radius: 0 8px 8px 0;
+    margin: 18px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.01);
+    border-right: 1px solid rgba(255, 255, 255, 0.01);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.01);
+}
+
+/* ══════════════════════════════════════
+   CONSOLE ERROR TERMINAL STYLING
+   ══════════════════════════════════════ */
+.error-console {
+    margin-top: 14px;
+    background: #090a12;
+    border: 1px solid rgba(239, 68, 68, 0.25);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: inset 0 2px 8px rgba(0,0,0,0.8);
+}
+
+.console-title {
+    background: rgba(239, 68, 68, 0.06);
+    color: #f87171;
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 8px 16px;
+    border-bottom: 1px solid rgba(239, 68, 68, 0.15);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.console-pre {
+    margin: 0;
+    padding: 16px;
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    font-size: 0.8rem;
+    color: #f87171;
+    line-height: 1.6;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    word-break: break-all;
+    max-height: 220px;
+    overflow-y: auto;
+}
+

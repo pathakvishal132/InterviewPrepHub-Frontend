@@ -130,8 +130,15 @@
                   'fa-times-circle': runResult.status === 'FAIL',
                   'fa-exclamation-circle': runResult.status === 'ERROR' || runResult.status === 'RATE_LIMITED'
                 }"></i>
-                <span>{{ runResult.status === 'PASS' ? 'All Sample Tests Passed' : runResult.status === 'FAIL' ? 'Some Tests Failed' : runResult.error_message || runResult.status }}</span>
+                <span>{{ runResult.status === 'PASS' ? 'All Sample Tests Passed' : runResult.status === 'FAIL' ? 'Some Tests Failed' : 'Compilation / Execution Error' }}</span>
               </div>
+
+              <!-- Console Output (e.g. compile/execution errors) -->
+              <div class="error-console" *ngIf="runResult.error_message">
+                <div class="console-title"><i class="fas fa-terminal"></i> Console Output</div>
+                <pre class="console-pre">{{ runResult.error_message }}</pre>
+              </div>
+
               <div class="result-summary" *ngIf="runResult.test_cases_passed !== undefined">
                 <span [class.text-green]="runResult.test_cases_passed > 0">{{ runResult.test_cases_passed }}</span> / {{ runResult.total_test_cases }} sample test cases passed
                 <span class="exec-time" *ngIf="runResult.execution_time_ms">({{ runResult.execution_time_ms }}ms)</span>
@@ -184,11 +191,18 @@
                 }"></i>
                 <span>{{
                   allTestsPassed(submitResult) ? 'Accepted' :
-                  submitResult.status === 'ERROR' ? (submitResult.error_message || 'Error') :
+                  submitResult.status === 'ERROR' ? 'Compilation / Execution Error' :
                   submitResult.status === 'RATE_LIMITED' ? (submitResult.error_message || 'Rate Limited') :
                   'Wrong Answer'
                 }}</span>
               </div>
+
+              <!-- Console Output (e.g. compile/execution errors) -->
+              <div class="error-console" *ngIf="submitResult.error_message">
+                <div class="console-title"><i class="fas fa-terminal"></i> Console Output</div>
+                <pre class="console-pre">{{ submitResult.error_message }}</pre>
+              </div>
+
               <div class="result-summary">
                 <span [class.text-green]="submitResult.test_cases_passed > 0">{{ submitResult.test_cases_passed || 0 }}</span> / {{ submitResult.total_test_cases || 0 }} test cases passed
                 <span class="exec-time" *ngIf="submitResult.execution_time_ms">({{ submitResult.execution_time_ms }}ms)</span>

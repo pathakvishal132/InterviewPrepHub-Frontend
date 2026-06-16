@@ -69,8 +69,19 @@ export class CodingEditorComponent implements OnInit {
 
   setStarterCode(): void {
     if (!this.question) return;
-    const key = 'starter_code_' + this.selectedLanguage;
-    const code = (this.question as any)[key];
+    
+    let code = '';
+    const lang = this.selectedLanguage;
+    if (lang === 'java') {
+      code = this.question.starter_code_java || this.question.starterCodeJava;
+    } else if (lang === 'python') {
+      code = this.question.starter_code_python || this.question.starterCodePython;
+    } else if (lang === 'cpp') {
+      code = this.question.starter_code_cpp || this.question.starterCodeCpp;
+    } else if (lang === 'javascript' || lang === 'js') {
+      code = this.question.starter_code_javascript || this.question.starterCodeJavascript;
+    }
+    
     this.code = code || '// Write your code here\n';
   }
 
